@@ -1,3 +1,3 @@
 # Radio
 
-An application to listen to radio stations provided by https://radio.garden/.
+An application to listen to radio stations provided by http://radio.garden/.
