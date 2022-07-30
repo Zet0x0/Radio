@@ -1,0 +1,22 @@
+<RCC>
+    <qresource prefix="/disabled">
+        <file alias="unmuteIcon">unmuteIcon-disabled.svg</file>
+        <file alias="muteIcon">muteIcon-disabled.svg</file>
+    </qresource>
+    <qresource prefix="/hovered">
+        <file alias="unmuteIcon">unmuteIcon-hovered.svg</file>
+        <file alias="muteIcon">muteIcon-hovered.svg</file>
+        <file alias="playIcon">playIcon-hovered.svg</file>
+        <file alias="stopIcon">stopIcon-hovered.svg</file>
+    </qresource>
+    <qresource prefix="/normal">
+        <file alias="applicationIcon">applicationIcon.svg</file>
+        <file alias="unmuteIcon">unmuteIcon-normal.svg</file>
+        <file alias="muteIcon">muteIcon-normal.svg</file>
+        <file alias="playIcon">playIcon-normal.svg</file>
+        <file alias="stopIcon">stopIcon-normal.svg</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>OCR-A.ttf</file>
+    </qresource>
+</RCC>
