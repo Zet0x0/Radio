@@ -93,6 +93,8 @@ private:
 
     void closeEvent(QCloseEvent *);
 
+    void showEvent(QShowEvent *);
+
 public:
     Radio();
 

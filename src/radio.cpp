@@ -353,6 +353,7 @@ Radio::Radio()
     connect(m_searchLine, &QLineEdit::returnPressed, m_searchButton, &QPushButton::click);
 
     m_accessManager->setRedirectPolicy(QNetworkRequest::UserVerifiedRedirectPolicy);
+    m_searchResultsListView->setVerticalScrollMode(QListView::ScrollPerPixel);
     m_nowPlayingLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
     m_searchResultsListView->setModel(m_searchResultsListViewModel);
     m_searchLine->setPlaceholderText("Search for a station");
@@ -400,6 +401,11 @@ void Radio::closeEvent(QCloseEvent *)
 VolumeSlider *Radio::volumeSlider()
 {
     return m_volumeSlider;
+}
+
+void Radio::showEvent(QShowEvent *)
+{
+    m_searchLine->setFocus();
 }
 
 QAudioOutput *Radio::audioOutput()
