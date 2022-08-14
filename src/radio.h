@@ -94,7 +94,6 @@ private:
     QUrl m_currentSourceResolved;
 
     void closeEvent(QCloseEvent *);
-
     void showEvent(QShowEvent *);
 
 public:
@@ -107,6 +106,8 @@ public:
     QAudioOutput *audioOutput();
     QMediaPlayer *mediaPlayer();
     const QUrl currentSource();
+
+    void restartPlayback();
 
 private:
     VolumeSlider *m_volumeSlider = new VolumeSlider(this);

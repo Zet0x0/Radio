@@ -85,12 +85,11 @@ Radio::PlayStopButton::PlayStopButton(Radio *radio) : m_radio(radio)
             {
                 if (m_isPlaying)
                 {
-                    m_radio->mediaPlayer()->setSource(QUrl());
+                    m_radio->mediaPlayer()->stop();
                 }
                 else
                 {
-                    m_radio->mediaPlayer()->setSource(m_radio->currentSource());
-                    m_radio->mediaPlayer()->play();
+                    m_radio->restartPlayback();
                 }
             });
 
@@ -225,67 +224,56 @@ Radio::Radio()
             {
                 switch (status)
                 {
-                    case 1:
+                    case QMediaPlayer::LoadingMedia:
                     {
                         setWindowTitle("Radio - Loading...");
 
                         break;
                     }
-                    case 2:
+                    case QMediaPlayer::LoadedMedia:
                     {
                         setWindowTitle("Radio - Loaded");
 
                         break;
                     }
-                    case 3:
+                    case QMediaPlayer::StalledMedia:
                     {
                         setWindowTitle("Radio - Stalled");
                         m_timesInterrupted++;
 
-                        QTimer::singleShot(
-                            2000, this,
-                            [this]
-                            {
-                                if (m_mediaPlayer->mediaStatus() == QMediaPlayer::StalledMedia)
-                                {
-                                    setWindowTitle("Radio - Restarting...");
-
-                                    m_mediaPlayer->setSource(m_currentSourceResolved);
-                                    m_mediaPlayer->play();
-                                }
-                            });
-
                         if (m_timesInterrupted > 4)
                         {
-                            setWindowTitle("Radio - Restarting...");
-
-                            m_mediaPlayer->setSource(m_currentSourceResolved);
-                            m_playStopButton->setDisabled(true);
                             m_timesInterrupted = 0;
-
-                            QTimer::singleShot(2000, this,
+                            restartPlayback();
+                        }
+                        else
+                        {
+                            QTimer::singleShot(500, this,
                                                [this]
                                                {
-                                                   m_playStopButton->setDisabled(false);
-                                                   m_mediaPlayer->play();
+                                                   if (m_mediaPlayer->mediaStatus() ==
+                                                       QMediaPlayer::StalledMedia)
+                                                   {
+                                                       restartPlayback();
+                                                   }
                                                });
                         }
 
                         break;
                     }
-                    case 4:
+                    case QMediaPlayer::BufferingMedia:
                     {
                         setWindowTitle("Radio - Buffering...");
 
                         break;
                     }
-                    case 5:
+                    case QMediaPlayer::BufferedMedia:
                     {
                         setWindowTitle("Radio - Buffered");
 
                         break;
                     }
-                    case 7:
+                    case QMediaPlayer::InvalidMedia:
                     {
                         setWindowTitle("Radio - Invalid Media");
 
@@ -317,12 +305,11 @@ Radio::Radio()
                                 QString("<a href=\"%0\">%1 [%2]</a>")
                                     .arg(url.url(), stationData["title"].toString(),
                                          stationData["subTitle"].toString()));
-                            m_currentSourceOriginal = stationData["url"].toString();
-                            m_playStopButton->setDisabled(false);
-                            m_currentSourceResolved = url;
-                            m_mediaPlayer->setSource(url);
 
-                            m_mediaPlayer->play();
+                            m_currentSourceOriginal = stationData["url"].toString();
+                            m_currentSourceResolved = url;
+
+                            restartPlayback();
                         });
                 connect(reply, &QNetworkReply::errorOccurred, this,
                         [this, reply]
@@ -404,6 +391,7 @@ MuteUnmuteButton *Radio::muteUnmuteButton()
 }
 
 void Radio::closeEvent(QCloseEvent *)
+
 {
     if (!m_playStopButton->isPlaying())
     {
@@ -434,4 +422,19 @@ QMediaPlayer *Radio::mediaPlayer()
 const QUrl Radio::currentSource()
 {
     return m_currentSourceResolved;
+}
+
+void Radio::restartPlayback()
+{
+    m_playStopButton->setDisabled(true);
+    m_mediaPlayer->setSource(QUrl());
+
+    QTimer::singleShot(10, this,
+                       [this]
+                       {
+                           m_mediaPlayer->setSource(m_currentSourceResolved);
+                           m_mediaPlayer->play();
+
+                           m_playStopButton->setDisabled(false);
+                       });
 }
