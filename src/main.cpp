@@ -94,7 +94,7 @@ int main(int argc, char **argv)
         "QMenu::item { margin: 1;}"
         "QListView { padding: 1; }");
 
-    QSystemTrayIcon *systemTray = new QSystemTrayIcon(app.windowIcon());
+    QSystemTrayIcon *systemTray = new QSystemTrayIcon(app.windowIcon(), &app);
     QMenu *systemTrayMenu = new QMenu;
     Radio *radio = new Radio;
 

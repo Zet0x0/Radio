@@ -71,21 +71,23 @@ class Radio : public QWidget
     };
 
 private:
-    QAudioOutput *m_audioOutput = new QAudioOutput(QMediaDevices::defaultAudioOutput());
-    QNetworkAccessManager *m_accessManager = new QNetworkAccessManager;
-    QMediaPlayer *m_mediaPlayer = new QMediaPlayer;
+    QMediaPlayer *m_mediaPlayer = new QMediaPlayer(this);
+    QAudioOutput *m_audioOutput =
+        new QAudioOutput(QMediaDevices::defaultAudioOutput(), m_mediaPlayer);
+    QNetworkAccessManager *m_accessManager = new QNetworkAccessManager(this);
 
-    QStandardItemModel *m_searchResultsListViewModel = new QStandardItemModel;
+    QListView *m_searchResultsListView = new QListView;
+    QStandardItemModel *m_searchResultsListViewModel =
+        new QStandardItemModel(m_searchResultsListView);
     MuteUnmuteButton *m_muteUnmuteButton = new MuteUnmuteButton(this);
     QLabel *m_nowPlayingLabel = new QLabel("No station selected.");
     PlayStopButton *m_playStopButton = new PlayStopButton(this);
     QPushButton *m_searchButton = new QPushButton("Search");
-    QListView *m_searchResultsListView = new QListView;
     QGridLayout *m_layout = new QGridLayout(this);
     QLineEdit *m_searchLine = new QLineEdit;
     QFrame *m_separator = new QFrame;
 
-    QTimer *m_frequentInterruptionDetectionTimer = new QTimer;
+    QTimer *m_frequentInterruptionDetectionTimer = new QTimer(this);
     int m_timesInterrupted = 0;
 
     QString m_currentSourceOriginal;
