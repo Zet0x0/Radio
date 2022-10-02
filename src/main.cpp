@@ -90,7 +90,7 @@ int main(int argc, char **argv)
         "QSlider[isForMenu=true] { margin: 2 1 0 1; }"
         "QScrollBar:disabled { background: black; }"
         "QToolButton { padding: 0 -1 -1 0; }"
-        "QMenu::item { margin: 1;}"
+        "QMenu::item { margin: 1; }"
         "QListView { padding: 1; }");
 
     QSystemTrayIcon *systemTray = new QSystemTrayIcon(app.windowIcon(), &app);
@@ -113,7 +113,7 @@ int main(int argc, char **argv)
     QAction *playStopAction =
         systemTrayMenu->addAction("Play", radio->playStopButton(), &QToolButton::click);
     systemTrayMenu->addSeparator();
-    systemTrayMenu->addAction("Quit", &app, &QApplication::quit);
+    systemTrayMenu->addAction("Exit", &app, &QApplication::quit);
 
     QObject::connect(radio->mediaPlayer(), &QMediaPlayer::playbackStateChanged, &app,
                      [playStopAction](const QMediaPlayer::PlaybackState &state)

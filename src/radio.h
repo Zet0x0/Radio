@@ -3,6 +3,7 @@
 #include <QAudioDevice>
 #include <QAudioOutput>
 #include <QGridLayout>
+#include <QJsonObject>
 #include <QLabel>
 #include <QLineEdit>
 #include <QListView>
@@ -10,11 +11,27 @@
 #include <QMediaPlayer>
 #include <QNetworkAccessManager>
 #include <QPushButton>
-#include <QStandardItemModel>
 #include <QTimer>
 #include <QToolButton>
 
 QT_FORWARD_DECLARE_CLASS(Radio);
+
+class RadioStationsModel : public QAbstractListModel
+{
+private:
+    QList<QJsonObject> m_radioStations;
+    int m_radioStationCount = 0;
+
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+
+    bool canFetchMore(const QModelIndex &parent) const override;
+    void fetchMore(const QModelIndex &parent) override;
+
+public:
+    void setRadioStations(const QList<QJsonObject> &radioStations);
+};
 
 class MuteUnmuteButton : public QToolButton
 {
@@ -32,6 +49,22 @@ private:
 
 public:
     MuteUnmuteButton(Radio *);
+};
+
+class PlayStopButton : public QToolButton
+{
+private:
+    bool m_isPlaying = false;
+    Radio *m_radio;
+
+    void enterEvent(QEnterEvent *);
+    void leaveEvent(QEvent *);
+
+public:
+    PlayStopButton(Radio *);
+
+    void setPlaying(const bool &);
+    bool isPlaying();
 };
 
 class VolumeSlider : public QSlider
@@ -54,35 +87,19 @@ public:
 
 class Radio : public QWidget
 {
-    class PlayStopButton : public QToolButton
-    {
-    private:
-        bool m_isPlaying = false;
-        Radio *m_radio;
-
-        void enterEvent(QEnterEvent *);
-        void leaveEvent(QEvent *);
-
-    public:
-        PlayStopButton(Radio *);
-
-        void setPlaying(const bool &);
-        bool isPlaying();
-    };
-
 private:
     QMediaPlayer *m_mediaPlayer = new QMediaPlayer(this);
     QAudioOutput *m_audioOutput =
         new QAudioOutput(QMediaDevices::defaultAudioOutput(), m_mediaPlayer);
     QNetworkAccessManager *m_accessManager = new QNetworkAccessManager(this);
 
-    QListView *m_searchResultsListView = new QListView;
-    QStandardItemModel *m_searchResultsListViewModel =
-        new QStandardItemModel(m_searchResultsListView);
+    RadioStationsModel *m_searchResultsListViewModel = new RadioStationsModel;
     MuteUnmuteButton *m_muteUnmuteButton = new MuteUnmuteButton(this);
     QLabel *m_nowPlayingLabel = new QLabel("No station selected.");
     PlayStopButton *m_playStopButton = new PlayStopButton(this);
     QPushButton *m_searchButton = new QPushButton("Search");
+    VolumeSlider *m_volumeSlider = new VolumeSlider(this);
+    QListView *m_searchResultsListView = new QListView;
     QGridLayout *m_layout = new QGridLayout(this);
     QLineEdit *m_searchLine = new QLineEdit;
     QFrame *m_separator = new QFrame;
@@ -108,7 +125,4 @@ public:
     const QUrl currentSource();
 
     void restartPlayback();
-
-private:
-    VolumeSlider *m_volumeSlider = new VolumeSlider(this);
 };

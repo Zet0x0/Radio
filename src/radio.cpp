@@ -2,10 +2,85 @@
 #include <QApplication>
 #include <QJsonArray>
 #include <QJsonDocument>
-#include <QJsonObject>
 #include <QMessageBox>
 #include <QNetworkReply>
 #include <QScrollBar>
+
+void RadioStationsModel::setRadioStations(const QList<QJsonObject> &radioStations)
+{
+    beginResetModel();
+
+    m_radioStations = radioStations;
+    m_radioStationCount = 0;
+
+    endResetModel();
+}
+
+QVariant RadioStationsModel::data(const QModelIndex &index, int role) const
+{
+    if (!index.isValid())
+    {
+        return QVariant();
+    }
+
+    const int row = index.row();
+
+    if (row >= m_radioStations.size() or row < 0)
+    {
+        return QVariant();
+    }
+
+    switch (role)
+    {
+        case Qt::BackgroundRole:
+        {
+            return (row % 2) ? Qt::transparent : QColor(0xAA, 0x00, 0xFF, 25);
+        }
+        case Qt::DisplayRole:
+        {
+            return m_radioStations[row]["displayText"];
+        }
+        case Qt::UserRole:
+        {
+            return m_radioStations[row];
+        }
+        default:
+        {
+            return QVariant();
+        }
+    }
+}
+
+bool RadioStationsModel::canFetchMore(const QModelIndex &parent) const
+{
+    return (parent.isValid()) ? false : (m_radioStationCount < m_radioStations.size());
+}
+
+int RadioStationsModel::rowCount(const QModelIndex &parent) const
+{
+    return (parent.isValid()) ? 0 : m_radioStationCount;
+}
+
+void RadioStationsModel::fetchMore(const QModelIndex &parent)
+{
+    if (parent.isValid())
+    {
+        return;
+    }
+
+    const int itemsToFetch = qMin(3, m_radioStations.size() - m_radioStationCount);
+
+    if (itemsToFetch <= 0)
+    {
+        return;
+    }
+
+    beginInsertRows(QModelIndex(), m_radioStationCount, m_radioStationCount + itemsToFetch - 1);
+
+    m_radioStationCount += itemsToFetch;
+
+    endInsertRows();
+}
 
 MuteUnmuteButton::MuteUnmuteButton(Radio *radio) : m_radio(radio)
 {
@@ -50,6 +125,55 @@ void MuteUnmuteButton::leaveEvent(QEvent *)
     }
 }
 
+PlayStopButton::PlayStopButton(Radio *radio) : m_radio(radio)
+{
+    connect(this, &PlayStopButton::clicked, this,
+            [this]
+            {
+                if (m_isPlaying)
+                {
+                    m_radio->mediaPlayer()->stop();
+                }
+                else
+                {
+                    m_radio->restartPlayback();
+                }
+            });
+
+    setIcon(QIcon(":/normal/playIcon"));
+    setDisabled(true);
+}
+
+void PlayStopButton::setPlaying(const bool &isPlaying)
+{
+    m_isPlaying = isPlaying;
+
+    setIcon(QIcon(QString(":/%0/%1").arg((underMouse()) ? "hovered" : "normal",
+                                         (m_isPlaying) ? "stopIcon" : "playIcon")));
+    setToolTip((m_isPlaying) ? "Stop" : "Play");
+}
+
+void PlayStopButton::enterEvent(QEnterEvent *)
+{
+    if (isEnabled())
+    {
+        setIcon(QIcon(QString(":/hovered/%0").arg((m_isPlaying) ? "stopIcon" : "playIcon")));
+    }
+}
+
+void PlayStopButton::leaveEvent(QEvent *)
+{
+    if (isEnabled())
+    {
+        setIcon(QIcon(QString(":/normal/%0").arg((m_isPlaying) ? "stopIcon" : "playIcon")));
+    }
+}
+
+bool PlayStopButton::isPlaying()
+{
+    return m_isPlaying;
+}
+
 VolumeSlider::VolumeSlider(Radio *radio, const bool &isForMenu)
     : QSlider(Qt::Horizontal), m_radio(radio)
 {
@@ -78,55 +202,6 @@ void VolumeSlider::setVisuallyDisabled(const bool &visuallyDisabled)
     style()->polish(this);
 }
 
-Radio::PlayStopButton::PlayStopButton(Radio *radio) : m_radio(radio)
-{
-    connect(this, &PlayStopButton::clicked, this,
-            [this]
-            {
-                if (m_isPlaying)
-                {
-                    m_radio->mediaPlayer()->stop();
-                }
-                else
-                {
-                    m_radio->restartPlayback();
-                }
-            });
-
-    setIcon(QIcon(":/normal/playIcon"));
-    setDisabled(true);
-}
-
-void Radio::PlayStopButton::setPlaying(const bool &isPlaying)
-{
-    m_isPlaying = isPlaying;
-
-    setIcon(QIcon(QString(":/%0/%1").arg((underMouse()) ? "hovered" : "normal",
-                                         (m_isPlaying) ? "stopIcon" : "playIcon")));
-    setToolTip((m_isPlaying) ? "Stop" : "Play");
-}
-
-void Radio::PlayStopButton::enterEvent(QEnterEvent *)
-{
-    if (isEnabled())
-    {
-        setIcon(QIcon(QString(":/hovered/%0").arg((m_isPlaying) ? "stopIcon" : "playIcon")));
-    }
-}
-
-void Radio::PlayStopButton::leaveEvent(QEvent *)
-{
-    if (isEnabled())
-    {
-        setIcon(QIcon(QString(":/normal/%0").arg((m_isPlaying) ? "stopIcon" : "playIcon")));
-    }
-}
-
-bool Radio::PlayStopButton::isPlaying()
-{
-    return m_isPlaying;
-}
-
 Radio::Radio()
 {
     connect(
@@ -134,12 +209,10 @@ Radio::Radio()
         [this]
         {
             m_searchResultsListView->setDisabled(true);
-            m_searchResultsListViewModel->clear();
             m_searchButton->setDisabled(true);
             m_searchLine->setDisabled(true);
 
-            m_searchResultsListViewModel->appendColumn(
-                QList<QStandardItem *>{new QStandardItem("Searching...")});
+            m_searchResultsListViewModel->setRadioStations({{{"displayText", "Searching..."}}});
 
             QNetworkReply *reply = m_accessManager->get(QNetworkRequest(
                 QUrl("https://radio.garden/api/search?q=" + m_searchLine->text().trimmed())));
@@ -148,14 +221,13 @@ Radio::Radio()
                 reply, &QNetworkReply::finished, this,
                 [reply, this]
                 {
-                    m_searchResultsListViewModel->clear();
                     m_searchButton->setDisabled(false);
                     m_searchLine->setDisabled(false);
 
                     if (reply->error())
                     {
-                        m_searchResultsListViewModel->appendColumn(
-                            QList<QStandardItem *>{new QStandardItem("Error.")});
+                        m_searchResultsListViewModel->setRadioStations(
+                            {{{"displayText", "Error."}}});
 
                         return (void)QMessageBox::critical(
                             this, "Search Error",
@@ -169,49 +241,42 @@ Radio::Radio()
 
                     if (parseError.error)
                     {
-                        m_searchResultsListViewModel->appendColumn(
-                            QList<QStandardItem *>{new QStandardItem("Error.")});
+                        m_searchResultsListViewModel->setRadioStations(
+                            {{{"displayText", "Error."}}});
 
                         return (void)QMessageBox::critical(
                             this, "Search Results Parse Error",
                             QString("%0 (%1)").arg(parseError.errorString(), parseError.offset));
                     }
 
-                    QList<QStandardItem *> items;
+                    QList<QJsonObject> radioStations;
 
                     for (const QJsonValue &hit : hits)
                     {
                         if (hit["_source"]["type"] == "channel")
                         {
-                            QStandardItem *item = new QStandardItem(
-                                QString("%0 — " + hit["_source"]["subtitle"].toString())
-                                    .arg(hit["_source"]["title"].toString()));
-
-                            item->setData(
-                                QJsonObject{
-                                    {"url",
-                                     QString("https://radio.garden/api/ara/content/listen/%0/"
-                                             "channel.mp3")
-                                         .arg(hit["_source"]["url"].toString().split("/").last())},
-                                    {"subTitle", hit["_source"]["subtitle"]                      },
-                                    {"title",    hit["_source"]["title"]                         }
-                            },
-                                Qt::UserRole);
-                            item->setEditable(false);
-
-                            items.append(item);
+                            radioStations.append(
+                                {{{{"url",
+                                    QString("https://radio.garden/api/ara/content/listen/%0/"
+                                            "channel.mp3")
+                                        .arg(hit["_source"]["url"].toString().split("/").last())},
+                                   {"displayText",
+                                    QString("%0 — " + hit["_source"]["subtitle"].toString())
+                                        .arg(hit["_source"]["title"].toString())},
+                                   {"subTitle", hit["_source"]["subtitle"]},
+                                   {"title", hit["_source"]["title"]}}}});
                         }
                     }
 
-                    if (items.isEmpty())
+                    if (radioStations.isEmpty())
                     {
-                        m_searchResultsListViewModel->appendColumn(
-                            QList<QStandardItem *>{new QStandardItem("No results.")});
+                        m_searchResultsListViewModel->setRadioStations(
+                            {{{"displayText", "No results."}}});
                         m_searchResultsListView->setDisabled(true);
                     }
                     else
                     {
-                        m_searchResultsListViewModel->appendColumn(items);
+                        m_searchResultsListViewModel->setRadioStations(radioStations);
                         m_searchResultsListView->setDisabled(false);
                     }
 
@@ -350,8 +415,8 @@ Radio::Radio()
             &MuteUnmuteButton::setMuted);
     connect(m_searchLine, &QLineEdit::returnPressed, m_searchButton, &QPushButton::click);
 
-    m_searchResultsListViewModel->appendColumn(
-        QList<QStandardItem *>{new QStandardItem("Start searching for stations.")});
+    m_searchResultsListViewModel->setRadioStations(
+        {{{"displayText", "Start searching for stations."}}});
     m_accessManager->setRedirectPolicy(QNetworkRequest::UserVerifiedRedirectPolicy);
     m_searchResultsListView->setVerticalScrollMode(QListView::ScrollPerPixel);
     m_nowPlayingLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
@@ -380,14 +445,14 @@ Radio::Radio()
     show();
 }
 
-Radio::PlayStopButton *Radio::playStopButton()
-{
-    return m_playStopButton;
-}
-
 MuteUnmuteButton *Radio::muteUnmuteButton()
 {
     return m_muteUnmuteButton;
+}
+
+PlayStopButton *Radio::playStopButton()
+{
+    return m_playStopButton;
 }
 
 void Radio::closeEvent(QCloseEvent *)
