@@ -34,7 +34,7 @@ QVariant RadioStationsModel::data(const QModelIndex &index, int role) const
     {
         case Qt::BackgroundRole:
         {
-            return (row % 2) ? Qt::transparent : QColor(0xAA, 0x00, 0xFF, 25);
+            return (row % 2) ? Qt::transparent : QColor(0xAA, 0x00, 0xFF, 33);
         }
         case Qt::DisplayRole:
         {
