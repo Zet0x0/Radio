@@ -14,7 +14,7 @@
 #include <QTimer>
 #include <QToolButton>
 
-QT_FORWARD_DECLARE_CLASS(Radio);
+class Radio;
 
 class RadioStationsModel : public QAbstractListModel
 {
