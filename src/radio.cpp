@@ -390,12 +390,6 @@ Radio::Radio()
                 QMessageBox::critical(this, "Playback Error",
                                       QString("[%0] " + m_mediaPlayer->errorString()).arg(error));
             });
-    connect(m_searchLine, &QLineEdit::textChanged, this,
-            [this](const QString &text)
-            {
-                m_searchButton->setDisabled(text.trimmed().isEmpty());
-                m_searchLine->style()->polish(m_searchLine);
-            });
     connect(m_mediaPlayer, &QMediaPlayer::playbackStateChanged, this,
             [this](const QMediaPlayer::PlaybackState &state)
             {
@@ -405,6 +399,11 @@ Radio::Radio()
             [this](const float &volume)
             {
                 m_volumeSlider->setValue(qRound(volume * 100));
+            });
+    connect(m_searchLine, &QLineEdit::textChanged, this,
+            [this](const QString &text)
+            {
+                m_searchButton->setDisabled(text.trimmed().isEmpty());
             });
     connect(m_frequentInterruptionDetectionTimer, &QTimer::timeout, this,
             [this]

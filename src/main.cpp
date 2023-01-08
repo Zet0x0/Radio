@@ -81,7 +81,6 @@ int main(int argc, char **argv)
         "QScrollBar:horizontal { margin-top: 1; min-width: 64; height: 6; }"
         "QScrollBar:vertical { margin-left: 1; min-height: 64; width: 6; }"
         "QListView::item:disabled { color: #550080; background: black; }"
-        "QMenu::item:disabled, QLineEdit[text=\"\"] { color: #550080; }"
         "QLineEdit { border: 1 solid #a0f; padding: 0 -2 1 -1; }"
         "QPushButton { border: 1 solid #a0f; padding: 6 32; }"
         "QScrollBar:handle:horizontal { min-width: 32; }"
@@ -89,6 +88,7 @@ int main(int argc, char **argv)
         "QToolTip { border: 1 solid #a0f; padding: 1; }"
         "QSlider[isForMenu=true] { margin: 2 1 0 1; }"
         "QScrollBar:disabled { background: black; }"
+        "QMenu::item:disabled { color: #550080; }"
         "QToolButton { padding: 0 -1 -1 0; }"
         "QMenu::item { margin: 1; }"
         "QListView { padding: 1; }");
