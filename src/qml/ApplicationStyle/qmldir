@@ -1,0 +1,28 @@
+module ApplicationStyle
+
+Button 6.7 Button.qml
+CheckBox 6.7 CheckBox.qml
+ComboBox 6.7 ComboBox.qml
+Control 6.7 Control.qml
+Dialog 6.7 Dialog.qml
+Label 6.7 Label.qml
+Frame 6.7 Frame.qml
+MenuItem 6.7 MenuItem.qml
+Menu 6.7 Menu.qml
+MenuBar 6.7 MenuBar.qml
+MenuSeparator 6.7 MenuSeparator.qml
+Pane 6.7 Pane.qml
+Popup 6.7 Popup.qml
+ScrollBar 6.7 ScrollBar.qml
+ScrollView 6.7 ScrollView.qml
+Slider 6.7 Slider.qml
+TabButton 6.7 TabButton.qml
+TabView 6.7 TabView.qml
+TextArea 6.7 TextArea.qml
+TextField 6.7 TextField.qml
+ToolTip 6.7 ToolTip.qml
+ItemDelegate 6.7 ItemDelegate.qml
+ApplicationWindow 6.7 ApplicationWindow.qml
+ScrollIndicator 6.7 ScrollIndicator.qml
+
+import QtQuick.Controls.Basic auto

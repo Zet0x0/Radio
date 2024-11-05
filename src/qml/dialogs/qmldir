@@ -1,0 +1,7 @@
+singleton EqualizerDialog 1.0 EqualizerDialog.qml
+singleton OpenLocationDialog 1.0 OpenLocationDialog.qml
+singleton PreferencesDialog 1.0 PreferencesDialog.qml
+singleton MediaInformationDialog 1.0 MediaInformationDialog.qml
+singleton AboutDialog 1.0 AboutDialog.qml
+singleton DialogMaster 1.0 DialogMaster.qml
+singleton MessagesDialog 1.0 MessagesDialog.qml

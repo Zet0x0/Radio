@@ -1,0 +1,26 @@
+<RCC>
+    <qresource prefix="/assets">
+        <file>fonts/OCR-A.ttf</file>
+        <file>icons/applicationIcon.svg</file>
+        <file>icons/checkIcon.svg</file>
+        <file>icons/copyStreamUrlIcon.svg</file>
+        <file>icons/downArrowIcon.svg</file>
+        <file>icons/equalizerIcon.svg</file>
+        <file>icons/errorIcon.svg</file>
+        <file>icons/favoritedIcon.svg</file>
+        <file>icons/favoriteIcon.svg</file>
+        <file>icons/muteIcon.svg</file>
+        <file>icons/playIcon.svg</file>
+        <file>icons/searchIcon.svg</file>
+        <file>icons/settingsIcon.svg</file>
+        <file>icons/stopIcon.svg</file>
+        <file>icons/unmuteIcon.svg</file>
+        <file>icons/loadingIcon.svg</file>
+        <file>icons/applicationIconBackground.svg</file>
+        <file>icons/upArrowIcon.svg</file>
+        <file>icons/warningIcon.svg</file>
+        <file>icons/synchronizeIcon.svg</file>
+        <file>icons/externalIcon.svg</file>
+        <file>icons/disconnectedIcon.svg</file>
+    </qresource>
+</RCC>
