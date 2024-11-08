@@ -3,76 +3,65 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import "./components"
 
+// commented out services == not implemented
 RowLayout {
     spacing: -1
 
-    // commented out services == not ready
     ListModel {
         id: serviceModel
 
         ListElement {
             divider: false
-            file: "RadioGarden.qml"
             friendlyName: "Radio Garden"
         }
 
         ListElement {
             divider: false
-            file: "RadioNet.qml"
             friendlyName: "radio.net"
         }
 
         ListElement {
             divider: false
-            file: "ZenoFM.qml"
             friendlyName: "Zeno.FM"
         }
 
         // ListElement {
         //     divider: false
-        //     file: "RadioTochka.qml"
         //     friendlyName: "Radio-Tochka.com"
         // }
 
         // ListElement {
         //     divider: false
-        //     file: "XiphDirectory.qml"
         //     friendlyName: "Xiph Directory"
         // }
 
         // ListElement {
         //     divider: false
-        //     file: "RadioBrowser.qml"
         //     friendlyName: "RadioBrowser"
         // }
 
         // ListElement {
         //     divider: false
-        //     file: "RadioPlayer.qml"
         //     friendlyName: "RadioPlayer"
         // }
 
         // ListElement {
         //     divider: false
-        //     file: "OneOhOneRu.qml"
         //     friendlyName: "101.ru"
         // }
 
         ListElement {
             divider: true
-            file: ""
             friendlyName: ""
         }
 
-        ListElement {
-            divider: false
-            file: "AddedStations.qml"
-            friendlyName: "Added Stations"
-        }
+        // ListElement {
+        //     divider: false
+        //     friendlyName: "Added Stations"
+        // }
 
         ListElement {
             divider: false
-            file: "Favorites.qml"
             friendlyName: "Favorites"
         }
     }
@@ -115,7 +104,6 @@ RowLayout {
         Layout.fillHeight: true
         boundsBehavior: ListView.StopAtBounds
         clip: true
-        implicitWidth: 50
         model: serviceModel
         spacing: 5
 
@@ -130,7 +118,7 @@ RowLayout {
 
             Button {
                 checked: serviceList.currentIndex === index
-                text: divider ? "" : friendlyName
+                text: friendlyName
                 visible: !divider
                 width: serviceList.width
 
@@ -169,7 +157,7 @@ RowLayout {
         }
         onServiceLoadedCountChanged: {
             if (serviceLoadedCount === count) {
-                adjustWidth();
+                Qt.callLater(adjustWidth);
             }
         }
 
@@ -198,24 +186,75 @@ RowLayout {
         Layout.fillHeight: true
         Layout.fillWidth: true
 
+        // initial value for currentIndex never works if i use Repeater with model set to serviceModel, :(
         StackLayout {
             anchors.fill: parent
             currentIndex: serviceList.currentIndex
 
             onCurrentIndexChanged: itemAt(currentIndex).active = true
 
-            Repeater {
-                model: serviceModel
+            OptionallyIndicatedLoader {
+                active: false
+                showLoadingIndicator: true
+                source: "qrc:/qml/servicePages/RadioGarden.qml"
+            }
 
-                OptionallyIndicatedLoader {
-                    required property bool divider
-                    required property string file
-                    required property int index
+            OptionallyIndicatedLoader {
+                active: false
+                showLoadingIndicator: true
+                source: "qrc:/qml/servicePages/RadioNet.qml"
+            }
 
-                    active: false
-                    showLoadingIndicator: true
-                    source: divider ? "" : `qrc:/qml/servicePages/${file}`
-                }
+            OptionallyIndicatedLoader {
+                active: false
+                showLoadingIndicator: true
+                source: "qrc:/qml/servicePages/ZenoFM.qml"
+            }
+
+            // OptionallyIndicatedLoader {
+            //     active: false
+            //     showLoadingIndicator: true
+            //     source: "qrc:/qml/servicePages/RadioTochka.qml"
+            // }
+
+            // OptionallyIndicatedLoader {
+            //     active: false
+            //     showLoadingIndicator: true
+            //     source: "qrc:/qml/servicePages/XiphDirectory.qml"
+            // }
+
+            // OptionallyIndicatedLoader {
+            //     active: false
+            //     showLoadingIndicator: true
+            //     source: "qrc:/qml/servicePages/RadioBrowser.qml"
+            // }
+
+            // OptionallyIndicatedLoader {
+            //     active: false
+            //     showLoadingIndicator: true
+            //     source: "qrc:/qml/servicePages/RadioPlayer.qml"
+            // }
+
+            // OptionallyIndicatedLoader {
+            //     active: false
+            //     showLoadingIndicator: true
+            //     source: "qrc:/qml/servicePages/OneOhOneRu.qml"
+            // }
+
+            Label {
+                text: "You're not supposed to see this text."
+            }
+
+            // OptionallyIndicatedLoader {
+            //     active: false
+            //     showLoadingIndicator: true
+            //     source: "qrc:/qml/servicePages/AddedStations.qml"
+            // }
+
+            OptionallyIndicatedLoader {
+                active: false
+                showLoadingIndicator: true
+                source: "qrc:/qml/servicePages/Favorites.qml"
             }
         }
     }
