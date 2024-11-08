@@ -441,7 +441,7 @@ void Player::initialize()
                     return;
                 }
 
-                m_startedListeningAt = QDateTime::currentSecsSinceEpoch();
+                m_startedListeningAt = QDateTime::currentMSecsSinceEpoch();
 
                 updateDiscordActivity();
             });
@@ -882,25 +882,31 @@ void Player::updateDiscordActivity()
 {
     qCDebug(radio_player) << "updating discord activity";
 
-    QJsonValue activity;
+    QJsonObject activity;
 
-    if (m_state == PlayingState)
+    if (m_playing)
     {
-        const QString nowPlayingImageUrl = NowPlayingImageProvider::currentImageUrl();
-        const QString largeImage =
-            (nowPlayingImageUrl.isEmpty()) ? m_station.imageUrl : nowPlayingImageUrl;
+        QString largeImage;
+        const QStringList largeImageUrls = {NowPlayingImageProvider::currentImageUrl(),
+                                            m_station.imageUrl, "applicationicon"};
+
+        for (const QString &largeImageUrl : largeImageUrls)
+        {
+            if (largeImage.isEmpty() || largeImage.size() >= 512 || !QUrl(largeImage).isValid())
+            {
+                largeImage = largeImageUrl;
+            }
+        }
+
+        activity = {
+            {"type",       Discord::ActivityType::Listening        },
+            {"created_at", m_startedListeningAt                    },
+            {"assets",     QJsonObject{{"large_image", largeImage}}}
+        };
 
         const QString largeText = m_station.subtitle;
-        const QString streamUrl = getCurrentStreamUrl();
         const QString state = m_station.title;
-
-        QJsonObject activity = QJsonObject{
-            {"type",   2                                                                },
-            {"assets", QJsonObject{{"large_image", (largeImage.isEmpty() || largeImage.size() > 256)
-                                                       ? "applicationicon"
-                                                       : largeImage},
-                                   {"small_image", "playingicon"}}}
-        };
+        const QString streamUrl = getCurrentStreamUrl();
 
         if (!largeText.isEmpty())
         {
@@ -923,13 +929,6 @@ void Player::updateDiscordActivity()
                                                               : m_nowPlaying.leftJustified(2);
         }
 
-        if (m_startedListeningAt >= 1)
-        {
-            activity["timestamps"] = QJsonObject{
-                {"start", m_startedListeningAt}
-            };
-        }
-
         if (!streamUrl.isEmpty() && streamUrl.size() <= 512)
         {
             const QUrl qUrl_streamUrl = QUrl(streamUrl);
@@ -945,5 +944,5 @@ void Player::updateDiscordActivity()
         }
     }
 
-    Discord::setActivity(activity);
+    Discord::setActivity((activity.isEmpty()) ? QJsonValue() : QJsonValue(activity));
 }

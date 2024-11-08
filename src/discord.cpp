@@ -1,7 +1,7 @@
 #include "discord.h"
 #include "utilities.h"
+#include <QCoreApplication>
 #include <QFile>
-#include <QGuiApplication>
 #include <QJsonDocument>
 
 Q_LOGGING_CATEGORY(radio_discord, "radio.discord")
@@ -53,10 +53,7 @@ Discord::Discord()
 
                                      m_handshakeState = HandshakeDone;
 
-                                     if (!m_currentActivity.isNull())
-                                     {
-                                         setActivity(m_currentActivity, true);
-                                     }
+                                     setActivity(m_currentActivity, true);
 
                                      break;
                                  }
@@ -246,7 +243,7 @@ void Discord::handshake()
 
 void Discord::connect()
 {
-    if (m_pipeNumber == -1 || !pipeExists(m_pipeNumber))
+    if (!pipeExists(m_pipeNumber))
     {
         qCDebug(radio_discord) << "looking for available pipes";
 
@@ -287,7 +284,8 @@ void Discord::setActivity(const QJsonValue &activity, const bool &force)
     m_currentActivity = activity;
 
     sendMessage({
-        {"args", QJsonObject{{"pid", QGuiApplication::applicationPid()}, {"activity", activity}}},
-        {"cmd",  "SET_ACTIVITY"                                                                 }
+        {"cmd",  "SET_ACTIVITY"                                                          },
+        {"args",
+         QJsonObject{{"pid", QCoreApplication::applicationPid()}, {"activity", activity}}}
     });
 }

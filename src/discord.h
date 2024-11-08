@@ -21,11 +21,11 @@ private:
 
     enum OperationCode
     {
-        Handshake,
-        Frame,
-        Close,
-        Ping,
-        Pong
+        Handshake = 0,
+        Frame = 1,
+        Close = 2,
+        Ping = 3,
+        Pong = 4
     };
 
     struct MessageHeader
@@ -38,10 +38,9 @@ private:
     HandshakeState m_handshakeState = HandshakeInactive;
     QLocalSocket *m_socket = new QLocalSocket(this);
     QTimer *m_reconnectTimer = new QTimer(this);
+    int m_pipeNumber = -1;
 
     QJsonValue m_currentActivity;
-
-    int m_pipeNumber = -1;
 
     Discord();
     static Discord *instance();
@@ -56,5 +55,15 @@ private:
     void connect();
 
 public:
+    enum ActivityType
+    {
+        Playing = 0,
+        Streaming = 1,
+        Listening = 2,
+        Watching = 3,
+        Custom = 4,
+        Competing = 5
+    };
+
     static void setActivity(const QJsonValue &activity);
 };
