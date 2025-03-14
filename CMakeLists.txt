@@ -14,7 +14,7 @@ qt_standard_project_setup(REQUIRES 6.8)
 # Run the update_translations CMake target to update translation strings
 qt_add_translations(Radio
     TS_FILES
-        i18n/Radio_en_US.ts
+        src/i18n/Radio_en_US.ts
     LRELEASE_OPTIONS
         -idbased
 )
