@@ -1,4 +1,5 @@
 #include <QGuiApplication>
+#include <QIcon>
 #include <QLoggingCategory>
 #include <QQmlApplicationEngine>
 #include <QTranslator>
@@ -31,6 +32,7 @@ int main(int argc, char *argv[])
         return -1;
     }
 
+    app.setWindowIcon(QIcon(":/icons/applicationIconBackground.svg"));
     app.installTranslator(&translator);
 
     qmlEngine.load(":/qml/Main.qml");
