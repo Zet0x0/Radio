@@ -8,14 +8,21 @@ Q_LOGGING_CATEGORY(log_main, "main")
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
+    QQmlApplicationEngine qmlEngine;
 
     QTranslator translator;
 
-    if (translator.load(":/translations/Radio_en_US"))
-    {
-        app.installTranslator(&translator);
-    }
-    else // this should not happen
+    QObject::connect(
+        &qmlEngine, &QQmlApplicationEngine::objectCreationFailed, &app,
+        []
+        {
+            qCCritical(log_main) << "qml object creation failed";
+
+            QGuiApplication::exit(-1);
+        },
+        Qt::QueuedConnection);
+
+    if (!translator.load(":/i18n/Radio_en_US.ts")) // this should not happen
     {
         qCCritical(log_main) << "translator.load failed";
 
@@ -24,15 +31,9 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    QQmlApplicationEngine engine;
-    QObject::connect(
-        &engine, &QQmlApplicationEngine::objectCreationFailed, &app,
-        []()
-        {
-            QCoreApplication::exit(-1);
-        },
-        Qt::QueuedConnection);
-    engine.loadFromModule("Radio", "Main");
+    app.installTranslator(&translator);
+
+    qmlEngine.load(":/qml/Main.qml");
 
     return app.exec();
 }
