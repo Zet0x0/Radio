@@ -30,7 +30,7 @@ Window {
         onClosed: window.hide()
 
         MenuItem {
-            text: qsTrId("systemTray.buttons.exitApp")
+            text: qsTrId("systemTray.buttons.quitApp")
 
             onTriggered: Qt.quit()
         }

@@ -11,7 +11,20 @@ set(CMAKE_AUTORCC ON)
 find_package(Qt6 REQUIRED COMPONENTS LinguistTools Quick)
 qt_standard_project_setup(REQUIRES 6.8)
 
+file(GLOB_RECURSE lupdate_sources src/*/*.qml)
+
 # Run the update_translations CMake target to update translation strings
+qt_add_lupdate(
+    SOURCE_TARGETS
+        Radio
+    TS_FILES
+        src/i18n/Radio_en_US.ts
+    SOURCES
+        ${lupdate_sources}
+    LUPDATE_TARGET
+        lupdate
+)
+
 qt_add_translations(Radio
     TS_FILES
         src/i18n/Radio_en_US.ts
