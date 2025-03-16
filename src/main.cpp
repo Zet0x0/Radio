@@ -1,3 +1,4 @@
+#include "utilities.h"
 #include <QGuiApplication>
 #include <QIcon>
 #include <QLoggingCategory>
@@ -15,9 +16,9 @@ int main(int argc, char *argv[])
 
     QObject::connect(
         &qmlEngine, &QQmlApplicationEngine::objectCreationFailed, &app,
-        []
+        [](const QUrl &url)
         {
-            qCCritical(log_main) << "qml object creation failed";
+            qCCritical(log_main) << "qml object creation failed for url" << url;
 
             QGuiApplication::exit(-1);
         },
@@ -32,8 +33,11 @@ int main(int argc, char *argv[])
         return -1;
     }
 
+    qmlRegisterSingletonInstance("Radio.Utilities", 1, 0, "Utilities", Utilities::instance());
+
     app.setWindowIcon(QIcon(":/icons/applicationIconBackground.svg"));
     app.installTranslator(&translator);
+    app.setQuitOnLastWindowClosed(false);
 
     qmlEngine.load(":/qml/Main.qml");
 

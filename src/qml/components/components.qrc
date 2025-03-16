@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/qml/components">
+        <file>systemTray/SystemTrayIcon.qml</file>
+        <file>systemTray/SystemTrayMenu.qml</file>
+    </qresource>
+</RCC>
