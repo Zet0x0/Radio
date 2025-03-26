@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    qmlRegisterSingletonInstance("Radio.Utilities", 1, 0, "Utilities", Utilities::instance());
+    qmlRegisterSingletonInstance("Radio.Cpp.Utilities", 1, 0, "Utilities", Utilities::instance());
 
     app.setWindowIcon(QIcon(":/icons/applicationIconBackground.svg"));
     app.installTranslator(&translator);

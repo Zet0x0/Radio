@@ -4,7 +4,7 @@ import QtQuick
 import Qt.labs.platform as Labs
 import QtQuick.Controls
 
-import Radio.Utilities
+import Radio.Cpp.Utilities
 
 Labs.SystemTrayIcon {
     required property ApplicationWindow applicationWindow
