@@ -1,9 +1,9 @@
-qt_add_executable(Radio
+QT_ADD_EXECUTABLE(
+    Radio
     main.cpp
-    utilities.h utilities.cpp
-
+    utilities.h
+    utilities.cpp
     icons/icons.qrc
-
     qml/qml.qrc
     qml/components/components.qrc
 )

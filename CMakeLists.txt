@@ -1,42 +1,56 @@
 # https://doc.qt.io/qt-6/cmake-get-started.html#structuring-projects
 
-cmake_minimum_required(VERSION 3.16)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.22)
 
-project(Radio VERSION 0.1.0 LANGUAGES CXX)
+PROJECT(
+    Radio
+    VERSION 0.1.0
+    LANGUAGES CXX
+)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_AUTORCC ON)
+SET(CMAKE_CXX_STANDARD 17)
+SET(CMAKE_CXX_STANDARD_REQUIRED ON)
+SET(CMAKE_AUTORCC ON)
 
-find_package(Qt6 REQUIRED COMPONENTS LinguistTools Quick)
-qt_standard_project_setup(REQUIRES 6.8)
+FIND_PACKAGE(
+    Qt6 REQUIRED
+    COMPONENTS
+        LinguistTools
+        Core
+        Quick
+        QuickControls2
+)
 
-file(GLOB_RECURSE lupdate_sources src/*/*.qml)
+QT_STANDARD_PROJECT_SETUP(REQUIRES 6.8)
+
+FILE(
+    GLOB_RECURSE
+    lupdate_sources
+    src/*/*.qml
+)
 
 # Run the update_translations CMake target to update translation strings
-qt_add_lupdate(
-    SOURCE_TARGETS
-        Radio
-    TS_FILES
-        src/i18n/Radio_en_US.ts
-    SOURCES
-        ${lupdate_sources}
-    LUPDATE_TARGET
-        lupdate
+QT_ADD_LUPDATE(
+    SOURCE_TARGETS Radio
+    TS_FILES src/i18n/Radio_en_US.ts
+    SOURCES ${lupdate_sources}
+    LUPDATE_TARGET lupdate
 )
 
-qt_add_translations(Radio
-    TS_FILES
-        src/i18n/Radio_en_US.ts
-    LRELEASE_OPTIONS
-        -idbased
+QT_ADD_TRANSLATIONS(
+    Radio
+    TS_FILES src/i18n/Radio_en_US.ts
+    LRELEASE_OPTIONS -idbased
 )
 
-add_subdirectory(src)
+ADD_SUBDIRECTORY(src)
 
-target_link_libraries(Radio PRIVATE Qt6::Quick)
-
-set_target_properties(Radio PROPERTIES
-    WIN32_EXECUTABLE ON
-    MACOSX_BUNDLE ON
+TARGET_LINK_LIBRARIES(
+    Radio
+    PRIVATE
+        Qt6::Core
+        Qt6::Quick
+        Qt6::QuickControls2
 )
+
+SET_TARGET_PROPERTIES(Radio PROPERTIES WIN32_EXECUTABLE ON)

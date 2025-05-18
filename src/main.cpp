@@ -3,6 +3,7 @@
 #include <QIcon>
 #include <QLoggingCategory>
 #include <QQmlApplicationEngine>
+#include <QQuickStyle>
 #include <QTranslator>
 
 Q_LOGGING_CATEGORY(log_main, "main")
@@ -32,6 +33,8 @@ int main(int argc, char *argv[])
 
         return -1;
     }
+
+    QQuickStyle::setStyle("FluentWinUI3");
 
     qmlRegisterSingletonInstance("Radio.Cpp.Utilities", 1, 0, "Utilities", Utilities::instance());
 
