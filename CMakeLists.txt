@@ -16,12 +16,13 @@ FIND_PACKAGE(
     Qt6 REQUIRED
     COMPONENTS
         LinguistTools
-        Core
         Quick
         QuickControls2
 )
-
 QT_STANDARD_PROJECT_SETUP(REQUIRES 6.9)
+
+LINK_DIRECTORIES(${CMAKE_SOURCE_DIR}/libmpv)
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/libmpv/include)
 
 FILE(
     GLOB_RECURSE
@@ -48,9 +49,9 @@ ADD_SUBDIRECTORY(src)
 TARGET_LINK_LIBRARIES(
     Radio
     PRIVATE
-        Qt6::Core
         Qt6::Quick
         Qt6::QuickControls2
+        libmpv-2
 )
 
 SET_TARGET_PROPERTIES(Radio PROPERTIES WIN32_EXECUTABLE ON)
