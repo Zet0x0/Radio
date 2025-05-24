@@ -1,28 +1,37 @@
 import QtQuick
 import QtQuick.Controls
-import "qrc:/qml/components/systemTray"
+import QtQuick.Layouts
+import "components/systemTray"
+import "components/layouts/mainWindow"
 
 ApplicationWindow {
     id: applicationWindow
-
-    property QtObject systemTrayMenu: null
 
     minimumHeight: 480
     minimumWidth: 640
     title: qsTrId("application.name")
     visible: true
 
-    Component.onCompleted: systemTrayMenu = systemTrayMenuComponent.createObject()
-
     SystemTrayIcon {
         applicationWindow: applicationWindow
-        systemTrayMenu: applicationWindow.systemTrayMenu
+
+        systemTrayMenu: SystemTrayMenu {
+        }
     }
 
-    Component {
-        id: systemTrayMenuComponent
+    ColumnLayout {
+        anchors {
+            fill: parent
+            margins: 5
+        }
 
-        SystemTrayMenu {
+        TopLayout {
+            Layout.fillWidth: true
+        }
+
+        BottomLayout {
+            Layout.fillHeight: true
+            Layout.fillWidth: true
         }
     }
 }

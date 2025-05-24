@@ -2,5 +2,7 @@
     <qresource prefix="/qml/components">
         <file>systemTray/SystemTrayIcon.qml</file>
         <file>systemTray/SystemTrayMenu.qml</file>
+        <file>layouts/mainWindow/BottomLayout.qml</file>
+        <file>layouts/mainWindow/TopLayout.qml</file>
     </qresource>
 </RCC>
