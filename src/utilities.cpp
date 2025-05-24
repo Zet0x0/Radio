@@ -1,4 +1,5 @@
 #include "utilities.h"
+
 #include <QCursor>
 
 Utilities *Utilities::instance()

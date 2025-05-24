@@ -1,4 +1,5 @@
 #include "utilities.h"
+
 #include <QGuiApplication>
 #include <QIcon>
 #include <QLoggingCategory>
@@ -16,7 +17,9 @@ int main(int argc, char *argv[])
     QTranslator translator;
 
     QObject::connect(
-        &qmlEngine, &QQmlApplicationEngine::objectCreationFailed, &app,
+        &qmlEngine,
+        &QQmlApplicationEngine::objectCreationFailed,
+        &app,
         [](const QUrl &url)
         {
             qCCritical(log_main) << "qml object creation failed for url" << url;
