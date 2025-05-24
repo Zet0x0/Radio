@@ -23,5 +23,15 @@
         <source></source>
         <translation>Hide Menu</translation>
     </message>
+    <message id="mainWindow.topLayout.elapsed">
+        <location filename="../qml/components/layouts/mainWindow/TopLayout.qml" line="73"/>
+        <source></source>
+        <translation>%0 elapsed</translation>
+    </message>
+    <message id="mainWindow.topLayout.nowPlayingPlaceholder">
+        <location filename="../qml/components/layouts/mainWindow/TopLayout.qml" line="84"/>
+        <source></source>
+        <translation>No song information available</translation>
+    </message>
 </context>
 </TS>
