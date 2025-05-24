@@ -30,7 +30,6 @@ FILE(
     src/*/*.qml
 )
 
-# Run the update_translations CMake target to update translation strings
 QT_ADD_LUPDATE(
     SOURCE_TARGETS Radio
     TS_FILES src/i18n/Radio_en_US.ts
