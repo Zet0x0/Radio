@@ -1,9 +1,8 @@
 QT_ADD_EXECUTABLE(
-    Radio
+    ${CMAKE_PROJECT_NAME}
     main.cpp
     utilities.h
     utilities.cpp
     icons/icons.qrc
-    qml/qml.qrc
-    qml/components/components.qrc
+    js/js.qrc
 )

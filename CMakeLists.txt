@@ -44,13 +44,20 @@ QT_ADD_TRANSLATIONS(
 )
 
 ADD_SUBDIRECTORY(src)
+ADD_SUBDIRECTORY(src/qml)
 
 TARGET_LINK_LIBRARIES(
     Radio
     PRIVATE
+        # Qt
         Qt6::Quick
         Qt6::QuickControls2
+        # External libs
         libmpv-2
+        # Our QML modules
+        Radio_main_module
+        Radio_mainWindow_module
+        Radio_systemTray_module
 )
 
 SET_TARGET_PROPERTIES(Radio PROPERTIES WIN32_EXECUTABLE ON)

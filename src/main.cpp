@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
     app.installTranslator(&translator);
     app.setQuitOnLastWindowClosed(false);
 
-    qmlEngine.load(":/qml/Main.qml");
+    qmlEngine.loadFromModule("Radio", "Main");
 
     return app.exec();
 }

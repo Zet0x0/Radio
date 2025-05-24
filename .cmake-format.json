@@ -23,6 +23,15 @@
                 "kwargs": {
                     "PROPERTIES": "*"
                 }
+            },
+            "QT_ADD_QML_MODULE": {
+                "kwargs": {
+                    "URI": "*",
+                    "VERSION": "*",
+                    "QML_FILES": "*",
+                    "PLUGIN_TARGET": "*",
+                    "RESOURCES": "*"
+                }
             }
         },
         "_help_override_spec": [

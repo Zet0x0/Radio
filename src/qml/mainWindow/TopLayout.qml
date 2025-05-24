@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import "/qml/utilities.js" as Utilities
+import "qrc:/js/utilities.js" as Utilities
 
 Control {
     contentItem: RowLayout {
@@ -65,10 +65,10 @@ Control {
                         var formatted_string = "";
 
                         if (hours > 0) {
-                            formatted_string += Utilities.zero_pad(hours) + ":";
+                            formatted_string += Utilities.zeroPad(hours) + ":";
                         }
 
-                        formatted_string += Utilities.zero_pad(minutes) + ":" + Utilities.zero_pad(seconds);
+                        formatted_string += Utilities.zeroPad(minutes) + ":" + Utilities.zeroPad(seconds);
 
                         return qsTrId("mainWindow.topLayout.elapsed").arg(formatted_string);
                     }
