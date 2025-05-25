@@ -5,7 +5,7 @@
             "Specify structure for custom cmake functions"
         ],
         "additional_commands": {
-            "QT_ADD_LUPDATE": {
+            "qt_add_lupdate": {
                 "kwargs": {
                     "SOURCE_TARGETS": "*",
                     "TS_FILES": "*",
@@ -13,18 +13,18 @@
                     "LUPDATE_TARGET": "*"
                 }
             },
-            "QT_ADD_TRANSLATIONS": {
+            "qt_add_translations": {
                 "kwargs": {
                     "TS_FILES": "*",
                     "LRELEASE_OPTIONS": "*"
                 }
             },
-            "SET_TARGET_PROPERTIES": {
+            "set_target_properties": {
                 "kwargs": {
                     "PROPERTIES": "*"
                 }
             },
-            "QT_ADD_QML_MODULE": {
+            "qt_add_qml_module": {
                 "kwargs": {
                     "URI": "*",
                     "VERSION": "*",
@@ -131,7 +131,7 @@
         "_help_command_case": [
             "Format command names consistently as 'lower' or 'upper' case"
         ],
-        "command_case": "upper",
+        "command_case": "lower",
         "_help_keyword_case": [
             "Format keywords consistently as 'lower' or 'upper' case"
         ],
