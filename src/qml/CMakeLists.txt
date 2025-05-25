@@ -1,4 +1,4 @@
-add_library(Radio_main STATIC)
+qt_add_library(Radio_main STATIC)
 
 qt_add_qml_module(
     Radio_main

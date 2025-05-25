@@ -1,4 +1,4 @@
-add_library(Radio_systemTray STATIC)
+qt_add_library(Radio_systemTray STATIC)
 
 qt_add_qml_module(
     Radio_systemTray
