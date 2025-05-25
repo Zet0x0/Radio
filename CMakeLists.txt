@@ -32,9 +32,9 @@ target_link_libraries(
         # External libs
         libmpv-2
         # Our QML modules
-        Radio_main_module
-        Radio_mainWindow_module
-        Radio_systemTray_module
+        Radio_Main_module
+        Radio_MainWindow_module
+        Radio_SystemTray_module
 )
 
 set_target_properties(Radio PROPERTIES WIN32_EXECUTABLE ON)
