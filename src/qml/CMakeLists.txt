@@ -1,6 +1,6 @@
-ADD_LIBRARY(Radio_main STATIC)
+add_library(Radio_main STATIC)
 
-QT_ADD_QML_MODULE(
+qt_add_qml_module(
     Radio_main
     URI Radio
     VERSION 1.0
@@ -8,5 +8,5 @@ QT_ADD_QML_MODULE(
     PLUGIN_TARGET Radio_main_module
 )
 
-ADD_SUBDIRECTORY(mainWindow)
-ADD_SUBDIRECTORY(systemTray)
+add_subdirectory(mainWindow)
+add_subdirectory(systemTray)

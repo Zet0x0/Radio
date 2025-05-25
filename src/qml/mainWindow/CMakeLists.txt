@@ -1,6 +1,6 @@
-ADD_LIBRARY(Radio_mainWindow STATIC)
+add_library(Radio_mainWindow STATIC)
 
-QT_ADD_QML_MODULE(
+qt_add_qml_module(
     Radio_mainWindow
     URI Radio.MainWindow
     VERSION 1.0

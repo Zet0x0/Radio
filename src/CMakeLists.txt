@@ -1,4 +1,4 @@
-QT_ADD_EXECUTABLE(
+qt_add_executable(
     ${CMAKE_PROJECT_NAME}
     main.cpp
     utilities.h

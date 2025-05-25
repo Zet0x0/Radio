@@ -1,6 +1,6 @@
-ADD_LIBRARY(Radio_systemTray STATIC)
+add_library(Radio_systemTray STATIC)
 
-QT_ADD_QML_MODULE(
+qt_add_qml_module(
     Radio_systemTray
     URI Radio.SystemTray
     VERSION 1.0

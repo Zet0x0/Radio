@@ -1,34 +1,29 @@
 # https://doc.qt.io/qt-6/cmake-get-started.html#structuring-projects
 
-CMAKE_MINIMUM_REQUIRED(VERSION 3.22)
+cmake_minimum_required(VERSION 3.22)
 
-PROJECT(
+project(
     Radio
     VERSION 0.1.0
     LANGUAGES CXX
 )
 
-SET(CMAKE_CXX_STANDARD 17)
-SET(CMAKE_CXX_STANDARD_REQUIRED ON)
-SET(CMAKE_AUTORCC ON)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOMOC ON)
 
-FIND_PACKAGE(
-    Qt6 REQUIRED
-    COMPONENTS
-        LinguistTools
-        Quick
-        QuickControls2
-)
+find_package(Qt6 REQUIRED COMPONENTS Quick QuickControls2)
 
-QT_STANDARD_PROJECT_SETUP(REQUIRES 6.9)
+qt_standard_project_setup(REQUIRES 6.9)
 
-LINK_DIRECTORIES(${CMAKE_SOURCE_DIR}/libmpv)
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/libmpv/include)
+link_directories(${CMAKE_SOURCE_DIR}/libmpv)
+include_directories(${CMAKE_SOURCE_DIR}/libmpv/include)
 
-ADD_SUBDIRECTORY(src)
-ADD_SUBDIRECTORY(src/qml)
+add_subdirectory(src)
+add_subdirectory(src/qml)
 
-TARGET_LINK_LIBRARIES(
+target_link_libraries(
     Radio
     PRIVATE
         # Qt
@@ -42,4 +37,4 @@ TARGET_LINK_LIBRARIES(
         Radio_systemTray_module
 )
 
-SET_TARGET_PROPERTIES(Radio PROPERTIES WIN32_EXECUTABLE ON)
+set_target_properties(Radio PROPERTIES WIN32_EXECUTABLE ON)
