@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import "qrc:/js/utilities.js" as Utilities
+import Radio
 
 Control {
     contentItem: RowLayout {

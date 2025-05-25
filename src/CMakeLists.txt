@@ -4,5 +4,4 @@ qt_add_executable(
     utilities.h
     utilities.cpp
     icons/icons.qrc
-    js/js.qrc
 )
