@@ -28,9 +28,9 @@ target_link_libraries(
         # Qt
         Qt6::Quick
         Qt6::QuickControls2
-        # External libs
+        # External
         libmpv-2
-        # Our QML modules
+        # Radio QML modules
         Radio_Main_module
         Radio_MainWindow_module
         Radio_SystemTray_module
