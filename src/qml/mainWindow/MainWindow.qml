@@ -5,7 +5,7 @@ import QtQuick.Layouts
 ApplicationWindow {
     minimumHeight: 480
     minimumWidth: 640
-    title: qsTrId("application.name")
+    title: qsTr("Radio")
     visible: true
 
     ColumnLayout {

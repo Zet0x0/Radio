@@ -11,7 +11,7 @@ Labs.SystemTrayIcon {
     required property QtObject systemTrayMenu
 
     icon.source: "qrc:/icons/applicationIconBackground.svg"
-    tooltip: qsTrId("systemTray.placeholderToolTip")
+    tooltip: qsTr("Radio")
     visible: systemTrayMenu !== null
 
     onActivated: reason => {

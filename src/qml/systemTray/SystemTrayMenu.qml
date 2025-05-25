@@ -30,7 +30,7 @@ Window {
         onClosed: window.hide()
 
         MenuItem {
-            text: qsTrId("systemTray.buttons.quitApp")
+            text: qsTr("Quit Radio")
 
             onTriggered: Qt.quit()
         }
@@ -44,7 +44,7 @@ Window {
         it's just yet another bug Qt doesn't want to fix (QTBUG-33481)
         */
         MenuItem {
-            text: qsTrId("systemTray.buttons.hideMenu")
+            text: qsTr("Hide Menu")
         }
     }
 }

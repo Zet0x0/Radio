@@ -70,7 +70,7 @@ Control {
 
                         formatted_string += Utilities.zeroPad(minutes) + ":" + Utilities.zeroPad(seconds);
 
-                        return qsTrId("mainWindow.topLayout.elapsed").arg(formatted_string);
+                        return qsTr("%0 elapsed").arg(formatted_string);
                     }
                 }
             }
@@ -81,7 +81,7 @@ Control {
                 Layout.fillWidth: true
                 elide: Label.ElideMiddle
                 enabled: !!test_props.nowPlaying
-                text: test_props.nowPlaying || qsTrId("mainWindow.topLayout.nowPlayingPlaceholder")
+                text: test_props.nowPlaying || qsTr("No song information available")
                 textFormat: Text.PlainText
 
                 Component.onCompleted: {

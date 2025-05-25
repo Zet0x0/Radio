@@ -19,29 +19,11 @@ FIND_PACKAGE(
         Quick
         QuickControls2
 )
+
 QT_STANDARD_PROJECT_SETUP(REQUIRES 6.9)
 
 LINK_DIRECTORIES(${CMAKE_SOURCE_DIR}/libmpv)
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/libmpv/include)
-
-FILE(
-    GLOB_RECURSE
-    lupdate_sources
-    src/*/*.qml
-)
-
-QT_ADD_LUPDATE(
-    SOURCE_TARGETS Radio
-    TS_FILES src/i18n/Radio_en_US.ts
-    SOURCES ${lupdate_sources}
-    LUPDATE_TARGET lupdate
-)
-
-QT_ADD_TRANSLATIONS(
-    Radio
-    TS_FILES src/i18n/Radio_en_US.ts
-    LRELEASE_OPTIONS -idbased
-)
 
 ADD_SUBDIRECTORY(src)
 ADD_SUBDIRECTORY(src/qml)
