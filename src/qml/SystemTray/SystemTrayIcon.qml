@@ -8,11 +8,11 @@ import Radio.Cpp.Utilities
 
 Labs.SystemTrayIcon {
     required property ApplicationWindow applicationWindow
-    required property QtObject systemTrayMenu
+    required property SystemTrayMenu systemTrayMenu
 
     icon.source: "qrc:/icons/applicationIconBackground.svg"
     tooltip: qsTr("Radio")
-    visible: systemTrayMenu !== null
+    visible: true
 
     onActivated: reason => {
         switch (reason) {
