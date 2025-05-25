@@ -37,8 +37,8 @@ Thumbs.db
 
 # qtcreator generated files
 *.pro.user*
+*.qbs.user*
 CMakeLists.txt.user*
-build/
 
 # xemacs temporary files
 *.flc
@@ -69,5 +69,14 @@ build/
 *.pyc
 
 # Binaries
+# --------
 *.dll
 *.exe
+
+# Directories with generated files
+.moc/
+.obj/
+.pch/
+.rcc/
+.uic/
+/build*/
