@@ -11,7 +11,13 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOMOC ON)
 set(QT_QML_GENERATE_QMLLS_INI ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Quick QuickControls2)
+find_package(
+    Qt6 REQUIRED
+    COMPONENTS
+        Gui
+        Quick
+        QuickControls2
+)
 
 qt_standard_project_setup(REQUIRES 6.8)
 
@@ -27,6 +33,7 @@ target_link_libraries(
     Radio
     PRIVATE
         # Qt
+        Qt6::Gui
         Qt6::Quick
         Qt6::QuickControls2
         # External

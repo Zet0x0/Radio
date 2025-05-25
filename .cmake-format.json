@@ -30,7 +30,8 @@
                     "VERSION": "*",
                     "QML_FILES": "*",
                     "PLUGIN_TARGET": "*",
-                    "RESOURCES": "*"
+                    "RESOURCES": "*",
+                    "SOURCES": "*"
                 }
             }
         },
