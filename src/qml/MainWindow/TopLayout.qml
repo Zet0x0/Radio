@@ -141,7 +141,7 @@ Control {
         id: test_props
 
         readonly property int elapsed: 3612
-        readonly property string nowPlaying: "Humpty Dumpty - Shotgun Willy, Billy Marchiafava"
+        readonly property string nowPlaying: "Gabberland - Joost"
         // readonly property string nowPlaying: "Humpty Dumpty - Shotgun Willy, Billy Marchiafava Humpty Dumpty - Shotgun Willy, Billy Marchiafava Humpty Dumpty - Shotgun Willy, Billy Marchiafava Humpty Dumpty - Shotgun Willy, Billy Marchiafava Humpty Dumpty - Shotgun Willy, Billy Marchiafava"
         // readonly property string nowPlaying: ""
         // readonly property string stationImageUrl: ""
