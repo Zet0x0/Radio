@@ -31,7 +31,9 @@
                     "QML_FILES": "*",
                     "PLUGIN_TARGET": "*",
                     "RESOURCES": "*",
-                    "SOURCES": "*"
+                    "SOURCES": "*",
+                    "RESOURCE_PREFIX": "*",
+                    "OUTPUT_DIRECTORY": "*"
                 }
             }
         },

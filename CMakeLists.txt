@@ -38,10 +38,10 @@ target_link_libraries(
         Qt6::QuickControls2
         # External
         libmpv-2
-        # Radio QML modules
-        Radio_Main_module
-        Radio_MainWindow_module
-        Radio_SystemTray_module
+        # Our QML plugins
+        Radio_Mainplugin
+        Radio_MainWindowplugin
+        Radio_SystemTrayplugin
 )
 
 include(GNUInstallDirs)

@@ -13,6 +13,8 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine qmlEngine;
 
+    qmlEngine.addImportPath(":/zet0x0.github.io/imports");
+
     QObject::connect(
         &qmlEngine,
         &QQmlApplicationEngine::objectCreationFailed,

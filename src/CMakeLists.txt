@@ -9,4 +9,6 @@ qt_add_qml_module(
     URI Radio.Cpp
     VERSION 1.0
     SOURCES utilities.h utilities.cpp
+    RESOURCE_PREFIX /zet0x0.github.io/imports
+    OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/Radio/Cpp"
 )
