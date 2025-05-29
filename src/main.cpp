@@ -13,8 +13,6 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine qmlEngine;
 
-    qmlEngine.addImportPath(":/zet0x0.github.io/imports");
-
     QObject::connect(
         &qmlEngine,
         &QQmlApplicationEngine::objectCreationFailed,
@@ -27,10 +25,10 @@ int main(int argc, char *argv[])
         },
         Qt::QueuedConnection);
 
+    qmlEngine.addImportPath(":/zet0x0.github.io/imports");
+    qmlRegisterSingletonInstance("Radio.Cpp", 1, 0, "Utilities", Utilities::instance());
+
     QQuickStyle::setStyle("FluentWinUI3");
-
-    qmlRegisterSingletonInstance("Radio.Cpp.Utilities", 1, 0, "Utilities", Utilities::instance());
-
     app.setWindowIcon(QIcon(":/icons/applicationIconBackground.svg"));
     app.setQuitOnLastWindowClosed(false);
 
