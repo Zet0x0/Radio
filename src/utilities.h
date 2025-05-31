@@ -13,4 +13,6 @@ public:
     static Utilities *instance();
 
     Q_INVOKABLE QPoint getGlobalCursorPos(); // https://github.com/Zet0x0/SampleCustomSystemTray
+
+    static char *toCString(const QString &string);
 };

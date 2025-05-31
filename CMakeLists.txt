@@ -14,6 +14,7 @@ set(QT_QML_GENERATE_QMLLS_INI ON)
 find_package(
     Qt6 REQUIRED
     COMPONENTS
+        Core
         Gui
         Quick
         QuickControls2
@@ -33,6 +34,7 @@ target_link_libraries(
     Radio
     PRIVATE
         # Qt
+        Qt6::Core
         Qt6::Gui
         Qt6::Quick
         Qt6::QuickControls2
