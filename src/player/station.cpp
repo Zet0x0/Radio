@@ -1,10 +1,13 @@
 #include "station.h"
 
+#include <QUrl>
+
 Station::Station(const QString &name, const QString &imageUrl, const QString &streamUrl)
-    : m_name(name),
-      m_imageUrl(imageUrl),
-      m_streamUrl(streamUrl)
+    : m_streamUrl(streamUrl)
 {
+    setName(name);
+    setImageUrl(imageUrl);
+
     updateSetInvalid();
 
     connect(this, &Station::nameChanged, this, &Station::updateSetInvalid);
@@ -16,8 +19,10 @@ QString Station::name() const
     return m_name;
 }
 
-void Station::setName(const QString &newName)
+void Station::setName(QString newName)
 {
+    newName = newName.trimmed();
+
     if (m_name == newName)
     {
         return;
@@ -33,8 +38,11 @@ QString Station::imageUrl() const
     return m_imageUrl;
 }
 
-void Station::setImageUrl(const QString &newImageUrl)
+void Station::setImageUrl(QString newImageUrl)
 {
+    const QUrl _newImageUrl = newImageUrl.trimmed();
+    newImageUrl = (_newImageUrl.isValid()) ? _newImageUrl.toString() : QString();
+
     if (m_imageUrl == newImageUrl)
     {
         return;

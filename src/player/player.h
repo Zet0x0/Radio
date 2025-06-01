@@ -48,7 +48,7 @@ public:
     void setVolume(const qreal &newVolume);
 
     bool muted() const;
-    Q_INVOKABLE void setMuted(const bool &newMuted);
+    void setMuted(const bool &newMuted);
 
 signals:
     void stationChanged();

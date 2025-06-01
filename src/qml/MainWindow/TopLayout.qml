@@ -13,7 +13,7 @@ Control {
             Layout.preferredWidth: height
             cache: false
             fillMode: Image.PreserveAspectCrop
-            source: test_props.stationImageUrl || ""
+            source: Player.station.imageUrl || ""
 
             sourceSize {
                 height: height
@@ -47,7 +47,7 @@ Control {
 
                 Label {
                     elide: Label.ElideMiddle
-                    text: test_props.stationName
+                    text: (Player.station.invalid) ? qsTr("No station selected") : (Player.station.name || qsTr("Unnamed Station"))
                     textFormat: Text.PlainText
                     width: Math.min(informationalRow.width - elapsedLabel.width - informationalRow.spacing, implicitWidth)
                 }
@@ -57,22 +57,23 @@ Control {
 
                     enabled: false
                     text: {
-                        const total = test_props.elapsed;
+                        const total = Player.elapsed;
 
                         const seconds = total % 60;
                         const minutes = Math.floor(total / 60) % 60;
                         const hours = Math.floor(total / 3600);
 
-                        var formatted_string = "";
+                        var formattedString = "";
 
                         if (hours > 0) {
-                            formatted_string += Utilities.zeroPad(hours) + ":";
+                            formattedString += Utilities.zeroPad(hours) + ":";
                         }
 
-                        formatted_string += Utilities.zeroPad(minutes) + ":" + Utilities.zeroPad(seconds);
+                        formattedString += Utilities.zeroPad(minutes) + ":" + Utilities.zeroPad(seconds);
 
-                        return qsTr("%0 elapsed").arg(formatted_string);
+                        return qsTr("%0 elapsed").arg(formattedString);
                     }
+                    visible: !Player.station.invalid && Player.state === Player.PLAYING
                 }
             }
 
@@ -81,8 +82,8 @@ Control {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
                 elide: Label.ElideMiddle
-                enabled: !!test_props.nowPlaying
-                text: test_props.nowPlaying || qsTr("No song information available")
+                enabled: !Player.station.invalid && !!Player.nowPlaying
+                text: (Player.station.invalid) ? qsTr("Nothing to play, browse for stations below") : (Player.nowPlaying || qsTr("No song information available"))
                 textFormat: Text.PlainText
 
                 Component.onCompleted: {
@@ -135,19 +136,5 @@ Control {
                 }
             }
         }
-    }
-
-    // TODO: once we get a real controller for all the info, we get rid of this altogether
-    QtObject {
-        id: test_props
-
-        readonly property int elapsed: 3612
-        readonly property string nowPlaying: "Gabberland - Joost"
-        // readonly property string nowPlaying: "Humpty Dumpty - Shotgun Willy, Billy Marchiafava Humpty Dumpty - Shotgun Willy, Billy Marchiafava Humpty Dumpty - Shotgun Willy, Billy Marchiafava Humpty Dumpty - Shotgun Willy, Billy Marchiafava Humpty Dumpty - Shotgun Willy, Billy Marchiafava"
-        // readonly property string nowPlaying: ""
-        // readonly property string stationImageUrl: ""
-        readonly property string stationImageUrl: "https://cdn.explorecams.com/storage/photos/LEFEikw0MR_1600.jpg"
-        // readonly property string stationName: "NRJ+NRJ+NRJ+NRJ+NRJ+NRJ+NRJ+NRJ+NRJ+NRJ+NRJ+NRJ+NRJ+NRJ+NRJ+NRJ+NRJ+NRJ+NRJ+NRJ+NRJ+NRJ+NRJ+NRJ+NRJ+NRJ+NRJ+NRJ+NRJ+NRJ+"
-        readonly property string stationName: "NRJ+"
     }
 }

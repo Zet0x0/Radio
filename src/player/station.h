@@ -20,10 +20,10 @@ public:
     Station(const QString &name = QString(), const QString &imageUrl = QString(), const QString &streamUrl = QString());
 
     QString name() const;
-    void setName(const QString &newName);
+    void setName(QString newName);
 
     QString imageUrl() const;
-    void setImageUrl(const QString &newImageUrl);
+    void setImageUrl(QString newImageUrl);
 
     QString streamUrl() const;
 
@@ -39,7 +39,7 @@ signals:
     void invalidChanged();
 
 private:
-    bool m_invalid;
+    bool m_invalid = true;
 
     QString m_name;
     QString m_imageUrl;
