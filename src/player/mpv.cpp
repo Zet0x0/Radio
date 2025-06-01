@@ -124,6 +124,8 @@ Mpv::Mpv()
         return;
     }
 
+    setProperty("title", MPV_FORMAT_STRING, "${?metadata/by-key/icy-title:${metadata/by-key/icy-title} – Radio}${!metadata/by-key/icy-title:Radio}");
+
     if (handleError(initialize()))
     {
         return;
