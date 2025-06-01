@@ -35,8 +35,11 @@ private:
 
     Mpv();
 
+    mpv_node *nodeFromVariant(const mpv_format &format, const QVariant &value);
+
     int create();
     int requestLogMessages();
+    int setOption(const char *name, const mpv_format &format, const QVariant &value);
     int initialize();
 
     // NOTE: args must be terminated with NULL
