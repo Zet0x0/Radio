@@ -57,3 +57,8 @@ void Station::setStreamUrl(const QString &newStreamUrl)
 
     emit streamUrlChanged();
 }
+
+bool Station::operator==(const Station &other) const
+{
+    return m_name == other.m_name && m_imageUrl == other.m_imageUrl && m_streamUrl == other.m_streamUrl;
+}

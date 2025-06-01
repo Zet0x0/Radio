@@ -93,7 +93,7 @@ void MpvEventManager::handleEvent(mpv_event *event)
             else if (propertyName == "volume") // volume
             {
                 emit volumeChanged((propertyFormat == MPV_FORMAT_NONE)
-                                       ? 0
+                                       ? 100.0
                                        : *static_cast<qreal *>(propertyData));
             }
             else if (propertyName == "mute") // muted

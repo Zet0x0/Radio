@@ -24,6 +24,8 @@ public:
     QString streamUrl() const;
     void setStreamUrl(const QString &newStreamUrl);
 
+    bool operator==(const Station &other) const;
+
 signals:
     void nameChanged();
     void imageUrlChanged();
