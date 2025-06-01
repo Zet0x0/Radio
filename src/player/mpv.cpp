@@ -6,7 +6,7 @@
 #include <QVariant>
 
 // a class function wouldn't work to get rid of this macro
-#define printMpvLogMessage(debug, logMessage) debug.noquote() << logMessage->prefix << QString(logMessage->text).trimmed()
+#define printMpvLogMessage(debug, logMessage) debug.noquote().nospace() << "[" << logMessage->prefix << "] " << QString(logMessage->text).trimmed()
 
 Q_LOGGING_CATEGORY(radioMpv, "radio.mpv")
 Q_LOGGING_CATEGORY(mpv, "mpv")
