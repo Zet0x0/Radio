@@ -9,6 +9,11 @@ Player *Player::instance()
     return instance;
 }
 
+Player *Player::create(QQmlEngine *, QJSEngine *)
+{
+    return instance();
+}
+
 Station *Player::station() const
 {
     return m_station;
@@ -29,7 +34,6 @@ void Player::setStation(Station *newStation)
 Player::Player()
 {
     MpvEventManager *mpvEventManager = MpvEventManager::instance();
-
     connect(mpvEventManager, &MpvEventManager::nowPlayingChanged, this, &Player::setNowPlaying);
     connect(mpvEventManager, &MpvEventManager::elapsedChanged, this, &Player::setElapsed);
     connect(mpvEventManager, &MpvEventManager::playerStateChanged, this, &Player::setState);
@@ -71,12 +75,12 @@ void Player::setElapsed(const qint64 &newElapsed)
     emit elapsedChanged();
 }
 
-PlayerState Player::state() const
+Player::State Player::state() const
 {
     return m_state;
 }
 
-void Player::setState(const PlayerState &newState)
+void Player::setState(const Player::State &newState)
 {
     if (m_state == newState)
     {

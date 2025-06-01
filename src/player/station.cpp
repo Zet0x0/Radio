@@ -5,6 +5,10 @@ Station::Station(const QString &name, const QString &imageUrl, const QString &st
       m_imageUrl(imageUrl),
       m_streamUrl(streamUrl)
 {
+    updateSetInvalid();
+
+    connect(this, &Station::nameChanged, this, &Station::updateSetInvalid);
+    connect(this, &Station::imageUrlChanged, this, &Station::updateSetInvalid);
 }
 
 QString Station::name() const
@@ -46,19 +50,26 @@ QString Station::streamUrl() const
     return m_streamUrl;
 }
 
-void Station::setStreamUrl(const QString &newStreamUrl)
+bool Station::operator==(const Station &other) const
 {
-    if (m_streamUrl == newStreamUrl)
+    return m_name == other.m_name && m_imageUrl == other.m_imageUrl && m_streamUrl == other.m_streamUrl;
+}
+
+bool Station::isInvalid() const
+{
+    return m_invalid;
+}
+
+void Station::updateSetInvalid()
+{
+    const bool newInvalid = m_name.isEmpty() && m_imageUrl.isEmpty() && m_streamUrl.isEmpty();
+
+    if (m_invalid == newInvalid)
     {
         return;
     }
 
-    m_streamUrl = newStreamUrl;
+    m_invalid = newInvalid;
 
-    emit streamUrlChanged();
-}
-
-bool Station::operator==(const Station &other) const
-{
-    return m_name == other.m_name && m_imageUrl == other.m_imageUrl && m_streamUrl == other.m_streamUrl;
+    emit invalidChanged();
 }

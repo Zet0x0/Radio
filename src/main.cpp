@@ -1,4 +1,5 @@
-#include "mpv.h"
+#include "player/mpv.h"
+#include "player/player.h"
 #include "utilities.h"
 
 #include <QGuiApplication>
@@ -30,7 +31,8 @@ int main(int argc, char *argv[])
         Qt::QueuedConnection);
 
     qmlEngine.addImportPath(":/zet0x0.github.io/imports");
-    qmlRegisterSingletonInstance("Radio.Cpp", 1, 0, "Utilities", Utilities::instance());
+    qmlRegisterSingletonInstance("Radio.Cpp.Utilities", 1, 0, "Utilities", Utilities::instance());
+    qmlRegisterSingletonInstance("Radio.Cpp.Player", 1, 0, "Player", Player::instance());
 
     QQuickStyle::setStyle("FluentWinUI3");
     app.setWindowIcon(QIcon(":/icons/applicationIconBackground.svg"));

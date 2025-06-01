@@ -21,7 +21,7 @@ signals:
     void nowPlayingChanged(const QString &);
 
     void elapsedChanged(const qint64 &);
-    void playerStateChanged(const PlayerState &);
+    void playerStateChanged(const Player::State &);
     void errorOccurred(const int &);
     void logMessage(mpv_event_log_message *);
 

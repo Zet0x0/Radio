@@ -1,7 +1,7 @@
 #include "mpv.h"
 
+#include "../utilities.h"
 #include "mpveventmanager.h"
-#include "utilities.h"
 
 #include <QVariant>
 

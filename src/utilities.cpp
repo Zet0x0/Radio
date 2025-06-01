@@ -9,6 +9,11 @@ Utilities *Utilities::instance()
     return instance;
 }
 
+Utilities *Utilities::create(QQmlEngine *, QJSEngine *)
+{
+    return instance();
+}
+
 QPoint Utilities::getGlobalCursorPos()
 {
     return QCursor::pos();

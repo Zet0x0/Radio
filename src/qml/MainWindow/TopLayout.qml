@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Radio
+import Radio.Cpp.Player
 
 Control {
     contentItem: RowLayout {

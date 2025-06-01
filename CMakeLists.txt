@@ -27,6 +27,7 @@ include_directories(${CMAKE_SOURCE_DIR}/libmpv/include)
 
 add_subdirectory(src)
 add_subdirectory(src/qml)
+add_subdirectory(src/player)
 
 set_target_properties(Radio PROPERTIES WIN32_EXECUTABLE TRUE)
 
@@ -44,6 +45,7 @@ target_link_libraries(
         Radio_Mainplugin
         Radio_MainWindowplugin
         Radio_SystemTrayplugin
+        Radio_Cpp_Playerplugin
 )
 
 include(GNUInstallDirs)
