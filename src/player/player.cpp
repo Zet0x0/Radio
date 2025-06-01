@@ -2,6 +2,8 @@
 
 #include "mpveventmanager.h"
 
+Q_LOGGING_CATEGORY(radioPlayer, "radio.player")
+
 Player *Player::instance()
 {
     static Player *instance = new Player;
@@ -27,6 +29,8 @@ void Player::setStation(Station *newStation)
     }
 
     m_station = newStation;
+
+    qCInfo(radioPlayer) << "station changed:" << *m_station;
 
     emit stationChanged();
 }
@@ -56,6 +60,8 @@ void Player::setNowPlaying(QString newNowPlaying)
     }
 
     m_nowPlaying = newNowPlaying;
+
+    qCInfo(radioPlayer) << "nowPlaying changed:" << m_nowPlaying;
 
     emit nowPlayingChanged();
 }
@@ -91,6 +97,8 @@ void Player::setState(const Player::State &newState)
 
     m_state = newState;
 
+    qCInfo(radioPlayer) << "state changed:" << m_state;
+
     emit stateChanged();
 }
 
@@ -108,6 +116,8 @@ void Player::setVolume(const qreal &newVolume)
 
     m_volume = newVolume;
 
+    qCInfo(radioPlayer) << "volume changed:" << m_volume;
+
     emit volumeChanged();
 }
 
@@ -124,6 +134,8 @@ void Player::setMuted(const bool &newMuted)
     }
 
     m_muted = newMuted;
+
+    qCInfo(radioPlayer) << "muted changed:" << m_muted;
 
     emit mutedChanged();
 }

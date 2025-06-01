@@ -6,6 +6,8 @@
 #include <QQmlEngine>
 #include <QtQmlIntegration/qqmlintegration.h>
 
+Q_DECLARE_LOGGING_CATEGORY(radioPlayer)
+
 class Player : public QObject
 {
     Q_OBJECT

@@ -1,5 +1,6 @@
 #include "station.h"
 
+#include <QDebug>
 #include <QUrl>
 
 Station::Station(const QString &name, const QString &imageUrl, const QString &streamUrl)
@@ -80,4 +81,18 @@ void Station::updateSetInvalid()
     m_invalid = newInvalid;
 
     emit invalidChanged();
+}
+
+QDebug operator<<(QDebug debug, const Station &station)
+{
+    QDebugStateSaver saver(debug);
+
+    debug.nospace() << "{ "
+                    << "invalid = " << station.isInvalid() << ", "
+                    << "name = " << station.name() << ", "
+                    << "imageUrl = " << station.imageUrl() << ", "
+                    << "streamUrl = " << station.streamUrl()
+                    << " }";
+
+    return debug;
 }

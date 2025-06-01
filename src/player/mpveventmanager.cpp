@@ -15,8 +15,6 @@ void MpvEventManager::listenToEvents()
 {
     mpv_handle *mpvHandle = Mpv::mpvHandle();
 
-    qCInfo(radioMpvEventManager) << "started listening to events";
-
     while (true)
     {
         handleEvent(mpv_wait_event(mpvHandle, -1));

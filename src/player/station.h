@@ -47,3 +47,5 @@ private:
 
     void updateSetInvalid();
 };
+
+QDebug operator<<(QDebug, const Station &);
