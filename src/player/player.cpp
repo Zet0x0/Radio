@@ -46,8 +46,10 @@ QString Player::nowPlaying() const
     return m_nowPlaying;
 }
 
-void Player::setNowPlaying(const QString &newNowPlaying)
+void Player::setNowPlaying(QString newNowPlaying)
 {
+    newNowPlaying = newNowPlaying.trimmed();
+
     if (m_nowPlaying == newNowPlaying)
     {
         return;

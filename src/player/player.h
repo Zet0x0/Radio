@@ -37,7 +37,7 @@ public:
     void setStation(Station *newStation);
 
     QString nowPlaying() const;
-    void setNowPlaying(const QString &newNowPlaying);
+    void setNowPlaying(QString newNowPlaying);
 
     qint64 elapsed() const;
     void setElapsed(const qint64 &newElapsed);
