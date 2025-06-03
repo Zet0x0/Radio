@@ -34,12 +34,12 @@ bool Mpv::stop()
 
 bool Mpv::setVolume(const qreal &volume)
 {
-    return setProperty("volume", MPV_FORMAT_DOUBLE, volume) >= 0;
+    return setProperty("volume", MPV_FORMAT_DOUBLE, volume) == MPV_ERROR_SUCCESS;
 }
 
 bool Mpv::setMuted(const bool &muted)
 {
-    return setProperty("mute", MPV_FORMAT_STRING, (muted) ? "yes" : "no") >= 0;
+    return setProperty("mute", MPV_FORMAT_STRING, (muted) ? "yes" : "no") == MPV_ERROR_SUCCESS;
 }
 
 mpv_handle *Mpv::mpvHandle()
