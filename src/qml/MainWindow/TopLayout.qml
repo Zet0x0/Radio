@@ -91,7 +91,7 @@ Control {
                 }
 
                 font {
-                    bold: true
+                    bold: enabled
                     italic: !enabled
                 }
             }
