@@ -118,18 +118,14 @@ Mpv::Mpv()
     connect(&m_eventManagerThread, &QThread::started, eventManager, &MpvEventManager::listenToEvents);
     m_eventManagerThread.start();
 
-    if (handleError(setOption("vid", MPV_FORMAT_STRING, "no"))
-        || handleError(setOption("sid", MPV_FORMAT_STRING, "no")))
+    if (handleError(initialize()))
     {
         return;
     }
 
     setProperty("title", MPV_FORMAT_STRING, "${?metadata/by-key/icy-title:${metadata/by-key/icy-title} – Radio}${!metadata/by-key/icy-title:Radio}");
-
-    if (handleError(initialize()))
-    {
-        return;
-    }
+    setProperty("vid", MPV_FORMAT_STRING, "no");
+    setProperty("sid", MPV_FORMAT_STRING, "no");
 
     observeProperty("metadata/by-key/icy-title", MPV_FORMAT_STRING); // now playing
     observeProperty("time-pos", MPV_FORMAT_INT64);                   // elapsed
@@ -203,26 +199,6 @@ int Mpv::requestLogMessages()
     if (errorCode != MPV_ERROR_SUCCESS)
     {
         qCCritical(radioMpv) << "mpv_request_log_messages(" << minLogLevel << ") failed with error code" << errorCode;
-    }
-
-    return errorCode;
-}
-
-int Mpv::setOption(const char *name, const mpv_format &format, const QVariant &value)
-{
-    mpv_node *node = nodeFromVariant(format, value);
-
-    // this is a fatal condition, we can not care about anything when we get here
-    if (!node)
-    {
-        return MPV_ERROR_GENERIC;
-    }
-
-    const int errorCode = mpv_set_option(m_mpvHandle, name, MPV_FORMAT_NODE, node);
-
-    if (errorCode != MPV_ERROR_SUCCESS)
-    {
-        qCCritical(radioMpv) << "mpv_set_option(" << name << "=" << value << ") failed with error code" << errorCode;
     }
 
     return errorCode;
