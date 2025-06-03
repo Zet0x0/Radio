@@ -7,7 +7,6 @@
 #include <QLoggingCategory>
 #include <QQmlApplicationEngine>
 #include <QQuickStyle>
-#include <QTimer>
 
 Q_LOGGING_CATEGORY(radioMain, "radio.main")
 
@@ -17,6 +16,11 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine qmlEngine;
 
     QLocale::setDefault(QLocale::c());
+
+    QQuickStyle::setStyle("FluentWinUI3");
+    app.setWindowIcon(QIcon(":/icons/applicationIconBackground.svg"));
+
+    app.setQuitOnLastWindowClosed(false);
 
     QObject::connect(
         &qmlEngine,
@@ -34,14 +38,12 @@ int main(int argc, char *argv[])
     qmlRegisterSingletonInstance("Radio.Cpp.Utilities", 1, 0, "Utilities", Utilities::instance());
     qmlRegisterSingletonInstance("Radio.Cpp.Player", 1, 0, "Player", Player::instance());
 
-    QQuickStyle::setStyle("FluentWinUI3");
-    app.setWindowIcon(QIcon(":/icons/applicationIconBackground.svg"));
-    app.setQuitOnLastWindowClosed(false);
-
     qmlEngine.loadFromModule("Radio", "Main");
 
-    Mpv::instance()->play("https://www.youtube.com/watch?v=xUQxzICc3e4");
-    // Mpv::instance()->play("https://stream.zeno.fm/90fvpb27u18uv");
+    // TESTING AREA START
+    // Mpv::instance()->play("https://www.youtube.com/watch?v=xUQxzICc3e4");
+    Mpv::instance()->play("https://stream.zeno.fm/90fvpb27u18uv");
+    // TESTING AREA END
 
     return app.exec();
 }
