@@ -3,7 +3,9 @@
 #include <QDebug>
 #include <QUrl>
 
-Station::Station(const QString &name, const QString &imageUrl, const QString &streamUrl)
+Station::Station(const QString &name,
+                 const QString &imageUrl,
+                 const QString &streamUrl)
     : m_streamUrl(streamUrl)
 {
     setName(name);
@@ -42,7 +44,8 @@ QString Station::imageUrl() const
 void Station::setImageUrl(QString newImageUrl)
 {
     const QUrl _newImageUrl = newImageUrl.trimmed();
-    newImageUrl = (_newImageUrl.isValid()) ? _newImageUrl.toString() : QString();
+    newImageUrl
+        = (_newImageUrl.isValid()) ? _newImageUrl.toString() : QString();
 
     if (m_imageUrl == newImageUrl)
     {
@@ -61,7 +64,8 @@ QString Station::streamUrl() const
 
 bool Station::operator==(const Station &other) const
 {
-    return m_name == other.m_name && m_imageUrl == other.m_imageUrl && m_streamUrl == other.m_streamUrl;
+    return m_name == other.m_name && m_imageUrl == other.m_imageUrl
+        && m_streamUrl == other.m_streamUrl;
 }
 
 bool Station::isInvalid() const
@@ -71,7 +75,8 @@ bool Station::isInvalid() const
 
 void Station::updateSetInvalid()
 {
-    const bool newInvalid = m_name.isEmpty() && m_imageUrl.isEmpty() && m_streamUrl.isEmpty();
+    const bool newInvalid
+        = m_name.isEmpty() && m_imageUrl.isEmpty() && m_streamUrl.isEmpty();
 
     if (m_invalid == newInvalid)
     {
@@ -91,8 +96,7 @@ QDebug operator<<(QDebug debug, const Station &station)
                     << "invalid = " << station.isInvalid() << ", "
                     << "name = " << station.name() << ", "
                     << "imageUrl = " << station.imageUrl() << ", "
-                    << "streamUrl = " << station.streamUrl()
-                    << " }";
+                    << "streamUrl = " << station.streamUrl() << " }";
 
     return debug;
 }

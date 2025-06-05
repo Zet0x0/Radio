@@ -42,7 +42,8 @@ void MpvEventManager::handleEvent(mpv_event *event)
         }
         case MPV_EVENT_END_FILE:
         {
-            mpv_event_end_file *endFile = static_cast<mpv_event_end_file *>(eventData);
+            mpv_event_end_file *endFile
+                = static_cast<mpv_event_end_file *>(eventData);
             const mpv_end_file_reason endFileReason = endFile->reason;
 
             switch (endFileReason)
@@ -50,9 +51,10 @@ void MpvEventManager::handleEvent(mpv_event *event)
                 case MPV_END_FILE_REASON_ERROR:
                 case MPV_END_FILE_REASON_EOF:
                 {
-                    emit errorOccurred((endFileReason == MPV_END_FILE_REASON_ERROR)
-                                           ? endFile->error
-                                           : MPV_ERROR_NOTHING_TO_PLAY);
+                    emit errorOccurred(
+                        (endFileReason == MPV_END_FILE_REASON_ERROR)
+                            ? endFile->error
+                            : MPV_ERROR_NOTHING_TO_PLAY);
 
                     break;
                 }
@@ -70,7 +72,8 @@ void MpvEventManager::handleEvent(mpv_event *event)
 
         case MPV_EVENT_PROPERTY_CHANGE:
         {
-            mpv_event_property *property = static_cast<mpv_event_property *>(eventData);
+            mpv_event_property *property
+                = static_cast<mpv_event_property *>(eventData);
 
             const QString propertyName = property->name;
             const mpv_format propertyFormat = property->format;
@@ -84,13 +87,18 @@ void MpvEventManager::handleEvent(mpv_event *event)
 
                 if (propertyFormat != MPV_FORMAT_NONE)
                 {
-                    const QString rawNowPlaying = QString(*static_cast<char **>(propertyData)).trimmed();
+                    const QString rawNowPlaying
+                        = QString(*static_cast<char **>(propertyData))
+                              .trimmed();
 
                     if (!rawNowPlaying.isEmpty())
                     {
                         QVariant filename;
 
-                        if (mpv->getProperty("filename", MPV_FORMAT_STRING, &filename) == MPV_ERROR_SUCCESS
+                        if (mpv->getProperty("filename",
+                                             MPV_FORMAT_STRING,
+                                             &filename)
+                                == MPV_ERROR_SUCCESS
                             && rawNowPlaying != filename)
                         {
                             nowPlaying = rawNowPlaying;
@@ -98,7 +106,12 @@ void MpvEventManager::handleEvent(mpv_event *event)
                     }
                 }
 
-                mpv->setProperty("title", MPV_FORMAT_STRING, (nowPlaying.isEmpty()) ? tr("Radio") : QString(tr("%0 – Radio")).arg(nowPlaying));
+                mpv->setProperty(
+                    "title",
+                    MPV_FORMAT_STRING,
+                    (nowPlaying.isEmpty())
+                        ? tr("Radio")
+                        : QString(tr("%0 – Radio")).arg(nowPlaying));
 
                 emit nowPlayingChanged(nowPlaying);
             }
@@ -116,13 +129,17 @@ void MpvEventManager::handleEvent(mpv_event *event)
             }
             else if (propertyName == "mute") // muted
             {
-                emit mutedChanged((propertyFormat == MPV_FORMAT_NONE)
-                                      ? false
-                                      : QString(*static_cast<char **>(propertyData)) == "yes");
+                emit mutedChanged(
+                    (propertyFormat == MPV_FORMAT_NONE)
+                        ? false
+                        : QString(*static_cast<char **>(propertyData))
+                              == "yes");
             }
             else
             {
-                qCWarning(radioMpvEventManager) << "property" << propertyName << "change not normally expected, so not handled";
+                qCWarning(radioMpvEventManager)
+                    << "property" << propertyName
+                    << "change not normally expected, so not handled";
             }
 
             break;
@@ -137,8 +154,9 @@ void MpvEventManager::handleEvent(mpv_event *event)
 
         default:
         {
-            qCWarning(radioMpvEventManager) << "event with id" << eventId << '(' << mpv_event_name(eventId) << ')'
-                                            << "not normally expected, so not handled";
+            qCWarning(radioMpvEventManager)
+                << "event with id" << eventId << '(' << mpv_event_name(eventId)
+                << ')' << "not normally expected, so not handled";
 
             break;
         }

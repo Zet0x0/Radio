@@ -38,11 +38,26 @@ void Player::setStation(Station *newStation)
 Player::Player()
 {
     MpvEventManager *mpvEventManager = MpvEventManager::instance();
-    connect(mpvEventManager, &MpvEventManager::nowPlayingChanged, this, &Player::setNowPlaying);
-    connect(mpvEventManager, &MpvEventManager::elapsedChanged, this, &Player::setElapsed);
-    connect(mpvEventManager, &MpvEventManager::playerStateChanged, this, &Player::setState);
-    connect(mpvEventManager, &MpvEventManager::volumeChanged, this, &Player::setVolume);
-    connect(mpvEventManager, &MpvEventManager::mutedChanged, this, &Player::setMuted);
+    connect(mpvEventManager,
+            &MpvEventManager::nowPlayingChanged,
+            this,
+            &Player::setNowPlaying);
+    connect(mpvEventManager,
+            &MpvEventManager::elapsedChanged,
+            this,
+            &Player::setElapsed);
+    connect(mpvEventManager,
+            &MpvEventManager::playerStateChanged,
+            this,
+            &Player::setState);
+    connect(mpvEventManager,
+            &MpvEventManager::volumeChanged,
+            this,
+            &Player::setVolume);
+    connect(mpvEventManager,
+            &MpvEventManager::mutedChanged,
+            this,
+            &Player::setMuted);
 }
 
 QString Player::nowPlaying() const

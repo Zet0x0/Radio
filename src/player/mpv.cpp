@@ -6,7 +6,9 @@
 #include <QVariant>
 
 // a class function wouldn't work to get rid of this macro
-#define printMpvLogMessage(debug, logMessage) debug.noquote().nospace() << '[' << logMessage->prefix << "] " << QString(logMessage->text).trimmed()
+#define printMpvLogMessage(debug, logMessage)                      \
+    debug.noquote().nospace() << '[' << logMessage->prefix << "] " \
+                              << QString(logMessage->text).trimmed()
 
 Q_LOGGING_CATEGORY(radioMpv, "radio.mpv")
 Q_LOGGING_CATEGORY(mpv, "mpv")
@@ -39,15 +41,19 @@ bool Mpv::stop()
 
 bool Mpv::setVolume(const qreal &volume)
 {
-    return setProperty("volume", MPV_FORMAT_DOUBLE, volume) == MPV_ERROR_SUCCESS;
+    return setProperty("volume", MPV_FORMAT_DOUBLE, volume)
+        == MPV_ERROR_SUCCESS;
 }
 
 bool Mpv::setMuted(const bool &muted)
 {
-    return setProperty("mute", MPV_FORMAT_STRING, (muted) ? "yes" : "no") == MPV_ERROR_SUCCESS;
+    return setProperty("mute", MPV_FORMAT_STRING, (muted) ? "yes" : "no")
+        == MPV_ERROR_SUCCESS;
 }
 
-int Mpv::setProperty(const char *name, const mpv_format &format, const QVariant &value)
+int Mpv::setProperty(const char *name,
+                     const mpv_format &format,
+                     const QVariant &value)
 {
     int errorCode;
 
@@ -57,7 +63,10 @@ int Mpv::setProperty(const char *name, const mpv_format &format, const QVariant 
     {
         errorCode = MPV_ERROR_PROPERTY_FORMAT;
 
-        qCCritical(radioMpv) << "Mpv::setProperty(" << name << '=' << value << ") failed because nodeFromVariant returned NULL, either due to an unsupported format or type casting error";
+        qCCritical(radioMpv)
+            << "Mpv::setProperty(" << name << '=' << value
+            << ") failed because nodeFromVariant returned NULL, either due to "
+               "an unsupported format or type casting error";
     }
     else
     {
@@ -65,14 +74,17 @@ int Mpv::setProperty(const char *name, const mpv_format &format, const QVariant 
 
         if (errorCode != MPV_ERROR_SUCCESS)
         {
-            qCCritical(radioMpv) << "mpv_set_property(" << name << '=' << value << ") failed with error code" << errorCode;
+            qCCritical(radioMpv) << "mpv_set_property(" << name << '=' << value
+                                 << ") failed with error code" << errorCode;
         }
     }
 
     return errorCode;
 }
 
-int Mpv::getProperty(const char *name, const mpv_format &format, QVariant *result)
+int Mpv::getProperty(const char *name,
+                     const mpv_format &format,
+                     QVariant *result)
 {
     void *data = NULL;
 
@@ -86,12 +98,17 @@ int Mpv::getProperty(const char *name, const mpv_format &format, QVariant *resul
         {
             errorCode = MPV_ERROR_PROPERTY_FORMAT;
 
-            qCCritical(radioMpv) << "Mpv::getProperty(" << name << ") failed because variantFromVoidPtr returned an invalid value, either due to an unsupported format or type casting error";
+            qCCritical(radioMpv)
+                << "Mpv::getProperty(" << name
+                << ") failed because variantFromVoidPtr returned an invalid "
+                   "value, either due to an unsupported format or type casting "
+                   "error";
         }
     }
     else
     {
-        qCCritical(radioMpv) << "mpv_get_property(" << name << ") failed with error code" << errorCode;
+        qCCritical(radioMpv) << "mpv_get_property(" << name
+                             << ") failed with error code" << errorCode;
     }
 
     mpv_free(data);
@@ -164,11 +181,20 @@ Mpv::Mpv()
 
     MpvEventManager *eventManager = MpvEventManager::instance();
 
-    connect(eventManager, &MpvEventManager::errorOccurred, this, &Mpv::handleError);
-    connect(eventManager, &MpvEventManager::logMessage, this, &Mpv::handleLogMessage);
+    connect(eventManager,
+            &MpvEventManager::errorOccurred,
+            this,
+            &Mpv::handleError);
+    connect(eventManager,
+            &MpvEventManager::logMessage,
+            this,
+            &Mpv::handleLogMessage);
 
     eventManager->moveToThread(&m_eventManagerThread);
-    connect(&m_eventManagerThread, &QThread::started, eventManager, &MpvEventManager::listenToEvents);
+    connect(&m_eventManagerThread,
+            &QThread::started,
+            eventManager,
+            &MpvEventManager::listenToEvents);
     m_eventManagerThread.start();
 
     if (handleError(initialize()))
@@ -250,7 +276,8 @@ int Mpv::create()
 
     if (errorCode != MPV_ERROR_SUCCESS)
     {
-        qCCritical(radioMpv) << "mpv_create failed with error code" << MPV_ERROR_NOMEM;
+        qCCritical(radioMpv)
+            << "mpv_create failed with error code" << MPV_ERROR_NOMEM;
     }
 
     return errorCode;
@@ -264,7 +291,8 @@ int Mpv::requestLogMessages()
 
     if (errorCode != MPV_ERROR_SUCCESS)
     {
-        qCCritical(radioMpv) << "mpv_request_log_messages(" << minLogLevel << ") failed with error code" << errorCode;
+        qCCritical(radioMpv) << "mpv_request_log_messages(" << minLogLevel
+                             << ") failed with error code" << errorCode;
     }
 
     return errorCode;
@@ -276,7 +304,8 @@ int Mpv::initialize()
 
     if (errorCode != MPV_ERROR_SUCCESS)
     {
-        qCCritical(radioMpv) << "mpv_initialize failed with error code" << errorCode;
+        qCCritical(radioMpv)
+            << "mpv_initialize failed with error code" << errorCode;
     }
 
     return errorCode;
@@ -295,7 +324,8 @@ int Mpv::command(const char *args[])
             argsStringList << args[i];
         }
 
-        qCCritical(radioMpv) << "mpv_command(" << argsStringList << ") failed with error code" << errorCode;
+        qCCritical(radioMpv) << "mpv_command(" << argsStringList
+                             << ") failed with error code" << errorCode;
     }
 
     return errorCode;
@@ -307,7 +337,8 @@ int Mpv::observeProperty(const char *name, const mpv_format &format)
 
     if (errorCode != MPV_ERROR_SUCCESS)
     {
-        qCCritical(radioMpv) << "mpv_observe_property(" << name << ") failed with error code" << errorCode;
+        qCCritical(radioMpv) << "mpv_observe_property(" << name
+                             << ") failed with error code" << errorCode;
     }
 
     return errorCode;

@@ -11,13 +11,17 @@ class Station : public QObject
     Q_PROPERTY(bool invalid READ isInvalid NOTIFY invalidChanged FINAL)
 
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged FINAL)
-    // Q_PROPERTY(QString caption READ caption WRITE setCaption NOTIFY captionChanged FINAL)
+    // Q_PROPERTY(QString caption READ caption WRITE setCaption NOTIFY
+    // captionChanged FINAL)
     // TODO: implement that ^ sometime
-    Q_PROPERTY(QString imageUrl READ imageUrl WRITE setImageUrl NOTIFY imageUrlChanged FINAL)
+    Q_PROPERTY(QString imageUrl READ imageUrl WRITE setImageUrl NOTIFY
+                   imageUrlChanged FINAL)
     Q_PROPERTY(QString streamUrl READ streamUrl NOTIFY streamUrlChanged FINAL)
 
 public:
-    Station(const QString &name = QString(), const QString &imageUrl = QString(), const QString &streamUrl = QString());
+    Station(const QString &name = QString(),
+            const QString &imageUrl = QString(),
+            const QString &streamUrl = QString());
 
     QString name() const;
     void setName(QString newName);

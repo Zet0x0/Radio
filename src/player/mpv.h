@@ -22,12 +22,17 @@ public:
     bool setVolume(const qreal &);
     bool setMuted(const bool &);
 
-    int setProperty(const char *name, const mpv_format &format, const QVariant &value);
-    int getProperty(const char *name, const mpv_format &format, QVariant *result);
+    int setProperty(const char *name,
+                    const mpv_format &format,
+                    const QVariant &value);
+    int getProperty(const char *name,
+                    const mpv_format &format,
+                    QVariant *result);
 
 private slots:
     /*
-     * Returns true if errorCode != MPV_ERROR_SUCCESS and it was handled accordingly, false otherwise
+     * Returns true if errorCode != MPV_ERROR_SUCCESS and it was handled
+     * accordingly, false otherwise
      */
     bool handleError(const int &errorCode);
     void handleLogMessage(mpv_event_log_message *);

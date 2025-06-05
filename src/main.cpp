@@ -28,15 +28,24 @@ int main(int argc, char *argv[])
         &app,
         [](const QUrl &url)
         {
-            qCCritical(radioMain) << "qml object creation failed for url" << url;
+            qCCritical(radioMain)
+                << "qml object creation failed for url" << url;
 
             QGuiApplication::exit(-1);
         },
         Qt::QueuedConnection);
 
     qmlEngine.addImportPath(":/zet0x0.github.io/imports");
-    qmlRegisterSingletonInstance("Radio.Cpp.Utilities", 1, 0, "Utilities", Utilities::instance());
-    qmlRegisterSingletonInstance("Radio.Cpp.Player", 1, 0, "Player", Player::instance());
+    qmlRegisterSingletonInstance("Radio.Cpp.Utilities",
+                                 1,
+                                 0,
+                                 "Utilities",
+                                 Utilities::instance());
+    qmlRegisterSingletonInstance("Radio.Cpp.Player",
+                                 1,
+                                 0,
+                                 "Player",
+                                 Player::instance());
 
     qmlEngine.loadFromModule("Radio", "Main");
 

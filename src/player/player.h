@@ -14,13 +14,18 @@ class Player : public QObject
     QML_ELEMENT
     QML_SINGLETON
 
-    Q_PROPERTY(Station *station READ station WRITE setStation NOTIFY stationChanged FINAL)
+    Q_PROPERTY(Station *station READ station WRITE setStation NOTIFY
+                   stationChanged FINAL)
 
-    Q_PROPERTY(QString nowPlaying READ nowPlaying WRITE setNowPlaying NOTIFY nowPlayingChanged FINAL)
+    Q_PROPERTY(QString nowPlaying READ nowPlaying WRITE setNowPlaying NOTIFY
+                   nowPlayingChanged FINAL)
 
-    Q_PROPERTY(qint64 elapsed READ elapsed WRITE setElapsed NOTIFY elapsedChanged FINAL)
-    Q_PROPERTY(Player::State state READ state WRITE setState NOTIFY stateChanged FINAL)
-    Q_PROPERTY(qreal volume READ volume WRITE setVolume NOTIFY volumeChanged FINAL)
+    Q_PROPERTY(qint64 elapsed READ elapsed WRITE setElapsed NOTIFY
+                   elapsedChanged FINAL)
+    Q_PROPERTY(
+        Player::State state READ state WRITE setState NOTIFY stateChanged FINAL)
+    Q_PROPERTY(
+        qreal volume READ volume WRITE setVolume NOTIFY volumeChanged FINAL)
     Q_PROPERTY(bool muted READ muted WRITE setMuted NOTIFY mutedChanged FINAL)
 
 public:
