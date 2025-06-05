@@ -76,11 +76,31 @@ void MpvEventManager::handleEvent(mpv_event *event)
             const mpv_format propertyFormat = property->format;
             void *propertyData = property->data;
 
-            if (propertyName == "metadata/by-key/icy-title") // now playing
+            if (propertyName == "media-title") // now playing
             {
-                emit nowPlayingChanged((propertyFormat == MPV_FORMAT_NONE)
-                                           ? QString()
-                                           : *static_cast<char **>(propertyData));
+                Mpv *mpv = Mpv::instance();
+
+                QString nowPlaying;
+
+                if (propertyFormat != MPV_FORMAT_NONE)
+                {
+                    const QString rawNowPlaying = QString(*static_cast<char **>(propertyData)).trimmed();
+
+                    if (!rawNowPlaying.isEmpty())
+                    {
+                        QVariant filename;
+
+                        if (mpv->getProperty("filename", MPV_FORMAT_STRING, &filename) == MPV_ERROR_SUCCESS
+                            && rawNowPlaying != filename)
+                        {
+                            nowPlaying = rawNowPlaying;
+                        }
+                    }
+                }
+
+                mpv->setProperty("title", MPV_FORMAT_STRING, (nowPlaying.isEmpty()) ? tr("Radio") : QString(tr("%0 – Radio")).arg(nowPlaying));
+
+                emit nowPlayingChanged(nowPlaying);
             }
             else if (propertyName == "time-pos") // elapsed
             {
@@ -117,7 +137,7 @@ void MpvEventManager::handleEvent(mpv_event *event)
 
         default:
         {
-            qCWarning(radioMpvEventManager) << "event with id" << eventId << "(" << mpv_event_name(eventId) << ")"
+            qCWarning(radioMpvEventManager) << "event with id" << eventId << '(' << mpv_event_name(eventId) << ')'
                                             << "not normally expected, so not handled";
 
             break;

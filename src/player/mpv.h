@@ -14,13 +14,16 @@ class Mpv : public QObject
 public:
     static Mpv *instance();
 
+    static mpv_handle *mpvHandle();
+
     bool play(const QString &url);
     bool stop();
 
     bool setVolume(const qreal &);
     bool setMuted(const bool &);
 
-    static mpv_handle *mpvHandle();
+    int setProperty(const char *name, const mpv_format &format, const QVariant &value);
+    int getProperty(const char *name, const mpv_format &format, QVariant *result);
 
 private slots:
     /*
@@ -36,6 +39,7 @@ private:
     Mpv();
 
     mpv_node *nodeFromVariant(const mpv_format &format, const QVariant &value);
+    QVariant variantFromVoidPtr(const mpv_format &format, void *data);
 
     int create();
     int requestLogMessages();
@@ -44,6 +48,5 @@ private:
     // NOTE: args must be terminated with NULL
     int command(const char *args[]);
 
-    int setProperty(const char *name, const mpv_format &format, const QVariant &value);
     int observeProperty(const char *name, const mpv_format &format);
 };

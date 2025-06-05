@@ -6,7 +6,7 @@
 #include <QVariant>
 
 // a class function wouldn't work to get rid of this macro
-#define printMpvLogMessage(debug, logMessage) debug.noquote().nospace() << "[" << logMessage->prefix << "] " << QString(logMessage->text).trimmed()
+#define printMpvLogMessage(debug, logMessage) debug.noquote().nospace() << '[' << logMessage->prefix << "] " << QString(logMessage->text).trimmed()
 
 Q_LOGGING_CATEGORY(radioMpv, "radio.mpv")
 Q_LOGGING_CATEGORY(mpv, "mpv")
@@ -16,6 +16,11 @@ Mpv *Mpv::instance()
     static Mpv *instance = new Mpv;
 
     return instance;
+}
+
+mpv_handle *Mpv::mpvHandle()
+{
+    return instance()->m_mpvHandle;
 }
 
 bool Mpv::play(const QString &url)
@@ -42,9 +47,56 @@ bool Mpv::setMuted(const bool &muted)
     return setProperty("mute", MPV_FORMAT_STRING, (muted) ? "yes" : "no") == MPV_ERROR_SUCCESS;
 }
 
-mpv_handle *Mpv::mpvHandle()
+int Mpv::setProperty(const char *name, const mpv_format &format, const QVariant &value)
 {
-    return instance()->m_mpvHandle;
+    int errorCode;
+
+    mpv_node *node = nodeFromVariant(format, value);
+
+    if (!node)
+    {
+        errorCode = MPV_ERROR_PROPERTY_FORMAT;
+
+        qCCritical(radioMpv) << "Mpv::setProperty(" << name << '=' << value << ") failed because nodeFromVariant returned NULL, either due to an unsupported format or type casting error";
+    }
+    else
+    {
+        errorCode = mpv_set_property(m_mpvHandle, name, MPV_FORMAT_NODE, node);
+
+        if (errorCode != MPV_ERROR_SUCCESS)
+        {
+            qCCritical(radioMpv) << "mpv_set_property(" << name << '=' << value << ") failed with error code" << errorCode;
+        }
+    }
+
+    return errorCode;
+}
+
+int Mpv::getProperty(const char *name, const mpv_format &format, QVariant *result)
+{
+    void *data = NULL;
+
+    int errorCode = mpv_get_property(m_mpvHandle, name, format, &data);
+
+    if (errorCode == MPV_ERROR_SUCCESS)
+    {
+        *result = variantFromVoidPtr(format, &data);
+
+        if (!result->isValid())
+        {
+            errorCode = MPV_ERROR_PROPERTY_FORMAT;
+
+            qCCritical(radioMpv) << "Mpv::getProperty(" << name << ") failed because variantFromVoidPtr returned an invalid value, either due to an unsupported format or type casting error";
+        }
+    }
+    else
+    {
+        qCCritical(radioMpv) << "mpv_get_property(" << name << ") failed with error code" << errorCode;
+    }
+
+    mpv_free(data);
+
+    return errorCode;
 }
 
 // TODO: implement this properly, ui-wise too
@@ -88,6 +140,7 @@ void Mpv::handleLogMessage(mpv_event_log_message *logMessage)
 
             break;
         }
+
         case MPV_LOG_LEVEL_INFO:
         case MPV_LOG_LEVEL_V:
         case MPV_LOG_LEVEL_TRACE:
@@ -123,14 +176,13 @@ Mpv::Mpv()
         return;
     }
 
-    setProperty("title", MPV_FORMAT_STRING, "${?metadata/by-key/icy-title:${metadata/by-key/icy-title} – Radio}${!metadata/by-key/icy-title:Radio}");
     setProperty("vid", MPV_FORMAT_STRING, "no");
     setProperty("sid", MPV_FORMAT_STRING, "no");
 
-    observeProperty("metadata/by-key/icy-title", MPV_FORMAT_STRING); // now playing
-    observeProperty("time-pos", MPV_FORMAT_INT64);                   // elapsed
-    observeProperty("volume", MPV_FORMAT_DOUBLE);                    // volume
-    observeProperty("mute", MPV_FORMAT_STRING);                      // muted
+    observeProperty("media-title", MPV_FORMAT_STRING); // now playing
+    observeProperty("time-pos", MPV_FORMAT_INT64);     // elapsed
+    observeProperty("volume", MPV_FORMAT_DOUBLE);      // volume
+    observeProperty("mute", MPV_FORMAT_STRING);        // muted
 }
 
 mpv_node *Mpv::nodeFromVariant(const mpv_format &format, const QVariant &value)
@@ -147,6 +199,7 @@ mpv_node *Mpv::nodeFromVariant(const mpv_format &format, const QVariant &value)
 
             break;
         }
+
         case MPV_FORMAT_DOUBLE:
         {
             bool ok;
@@ -155,26 +208,39 @@ mpv_node *Mpv::nodeFromVariant(const mpv_format &format, const QVariant &value)
 
             if (!ok)
             {
-                qCFatal(radioMpv) << "nodeFromVariant: value.toReal failed";
-
                 delete node;
 
-                return nullptr;
+                return NULL;
             }
 
             break;
         }
+
         default:
         {
-            qCFatal(radioMpv) << "nodeFromVariant: format" << format << "not supported";
-
             delete node;
 
-            return nullptr;
+            return NULL;
         }
     }
 
     return node;
+}
+
+QVariant Mpv::variantFromVoidPtr(const mpv_format &format, void *data)
+{
+    switch (format)
+    {
+        case MPV_FORMAT_STRING:
+        {
+            return QString(*static_cast<char **>(data));
+        }
+
+        default:
+        {
+            return QVariant();
+        }
+    }
 }
 
 int Mpv::create()
@@ -230,26 +296,6 @@ int Mpv::command(const char *args[])
         }
 
         qCCritical(radioMpv) << "mpv_command(" << argsStringList << ") failed with error code" << errorCode;
-    }
-
-    return errorCode;
-}
-
-int Mpv::setProperty(const char *name, const mpv_format &format, const QVariant &value)
-{
-    mpv_node *node = nodeFromVariant(format, value);
-
-    // this is a fatal condition, we can not care about anything when we get here
-    if (!node)
-    {
-        return MPV_ERROR_GENERIC;
-    }
-
-    const int errorCode = mpv_set_property(m_mpvHandle, name, MPV_FORMAT_NODE, node);
-
-    if (errorCode != MPV_ERROR_SUCCESS)
-    {
-        qCCritical(radioMpv) << "mpv_set_property(" << name << "=" << value << ") failed with error code" << errorCode;
     }
 
     return errorCode;
