@@ -28,16 +28,12 @@ mpv_handle *Mpv::mpvHandle()
 
 bool Mpv::play(const QString &url)
 {
-    const char *args[] = {"loadfile", Utilities::toCString(url), NULL};
-
-    return !handleError(command(args));
+    return !handleError(command(QStringList({"loadfile", url})));
 }
 
 bool Mpv::stop()
 {
-    const char *args[] = {"stop", NULL};
-
-    return !handleError(command(args));
+    return !handleError(command(QStringList({"stop"})));
 }
 
 bool Mpv::setVolume(const qreal &volume)
@@ -70,24 +66,21 @@ int Mpv::setProperty(const QString &name, const QVariant &value)
 
 int Mpv::getProperty(const QString &name, QVariant *result)
 {
-    mpv_node node;
+    mpv_node resultNode;
 
     int errorCode = mpv_get_property(m_mpvHandle,
                                      Utilities::toCString(name),
                                      MPV_FORMAT_NODE,
-                                     &node);
+                                     &resultNode);
 
-    if (errorCode == MPV_ERROR_SUCCESS)
-    {
-        *result = nodeToVariant(&node);
-    }
-    else
+    MpvNodeAutoFree _(&resultNode);
+    *result = nodeToVariant(&resultNode);
+
+    if (errorCode != MPV_ERROR_SUCCESS)
     {
         qCCritical(radioMpv) << "mpv_get_property(" << name
                              << ") failed with error code" << errorCode;
     }
-
-    MpvNodeAutoFree _(&node);
 
     return errorCode;
 }
@@ -229,20 +222,24 @@ int Mpv::initialize()
     return errorCode;
 }
 
-int Mpv::command(const char *args[])
+int Mpv::command(const QVariant &args, QVariant *result)
 {
-    const int errorCode = mpv_command(m_mpvHandle, args);
+    MpvNodeBuilder argsNode(args);
+    mpv_node resultNode;
+
+    const int errorCode
+        = mpv_command_node(m_mpvHandle, argsNode.node(), &resultNode);
+
+    MpvNodeAutoFree _(&resultNode);
+
+    if (result)
+    {
+        *result = nodeToVariant(&resultNode);
+    }
 
     if (errorCode != MPV_ERROR_SUCCESS)
     {
-        QStringList argsStringList;
-
-        for (int i = 0; args[i] != NULL; ++i)
-        {
-            argsStringList << args[i];
-        }
-
-        qCCritical(radioMpv) << "mpv_command(" << argsStringList
+        qCCritical(radioMpv) << "mpv_command_node(" << args
                              << ") failed with error code" << errorCode;
     }
 

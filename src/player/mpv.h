@@ -43,8 +43,7 @@ private:
     int requestLogMessages();
     int initialize();
 
-    /* NOTE: args must be terminated with NULL */
-    int command(const char *args[]);
+    int command(const QVariant &args, QVariant *result = nullptr);
 
     int observeProperty(const QString &name, const mpv_format &format);
 };
