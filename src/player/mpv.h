@@ -22,12 +22,8 @@ public:
     bool setVolume(const qreal &);
     bool setMuted(const bool &);
 
-    int setProperty(const char *name,
-                    const mpv_format &format,
-                    const QVariant &value);
-    int getProperty(const char *name,
-                    const mpv_format &format,
-                    QVariant *result);
+    int setProperty(const QString &name, const QVariant &value);
+    int getProperty(const QString &name, QVariant *result);
 
 private slots:
     /*
@@ -43,9 +39,6 @@ private:
 
     Mpv();
 
-    mpv_node *nodeFromVariant(const mpv_format &format, const QVariant &value);
-    QVariant variantFromVoidPtr(const mpv_format &format, void *data);
-
     int create();
     int requestLogMessages();
     int initialize();
@@ -53,5 +46,5 @@ private:
     // NOTE: args must be terminated with NULL
     int command(const char *args[]);
 
-    int observeProperty(const char *name, const mpv_format &format);
+    int observeProperty(const QString &name, const mpv_format &format);
 };

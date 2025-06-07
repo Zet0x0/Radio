@@ -19,7 +19,7 @@ QPoint Utilities::getGlobalCursorPos()
     return QCursor::pos();
 }
 
-char *Utilities::toCString(const QString &string)
+const char *Utilities::toCString(const QString &string)
 {
     return string.toUtf8().data();
 }

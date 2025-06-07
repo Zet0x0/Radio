@@ -95,9 +95,7 @@ void MpvEventManager::handleEvent(mpv_event *event)
                     {
                         QVariant filename;
 
-                        if (mpv->getProperty("filename",
-                                             MPV_FORMAT_STRING,
-                                             &filename)
+                        if (mpv->getProperty("filename", &filename)
                                 == MPV_ERROR_SUCCESS
                             && rawNowPlaying != filename)
                         {
@@ -108,7 +106,6 @@ void MpvEventManager::handleEvent(mpv_event *event)
 
                 mpv->setProperty(
                     "title",
-                    MPV_FORMAT_STRING,
                     (nowPlaying.isEmpty())
                         ? tr("Radio")
                         : QString(tr("%0 – Radio")).arg(nowPlaying));

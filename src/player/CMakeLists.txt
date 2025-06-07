@@ -16,6 +16,8 @@ qt_add_qml_module(
         mpv.cpp
         mpveventmanager.h
         mpveventmanager.cpp
+        mpvnodehelper.h
+        mpvnodehelper.cpp
     RESOURCE_PREFIX /zet0x0.github.io/imports
     OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/Radio/Cpp/Player"
 )
