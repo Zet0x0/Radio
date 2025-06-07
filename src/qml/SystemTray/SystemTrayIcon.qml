@@ -1,4 +1,4 @@
-// https://github.com/Zet0x0/SampleCustomSystemTray
+/* https://github.com/Zet0x0/SampleCustomSystemTray */
 
 import QtQuick
 import Qt.labs.platform as Labs

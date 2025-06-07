@@ -79,7 +79,7 @@ void MpvEventManager::handleEvent(mpv_event *event)
             const mpv_format propertyFormat = property->format;
             void *propertyData = property->data;
 
-            if (propertyName == "media-title") // now playing
+            if (propertyName == "media-title") /* now playing */
             {
                 Mpv *mpv = Mpv::instance();
 
@@ -112,19 +112,19 @@ void MpvEventManager::handleEvent(mpv_event *event)
 
                 emit nowPlayingChanged(nowPlaying);
             }
-            else if (propertyName == "time-pos") // elapsed
+            else if (propertyName == "time-pos") /* elapsed */
             {
                 emit elapsedChanged((propertyFormat == MPV_FORMAT_NONE)
                                         ? 0
                                         : *static_cast<qint64 *>(propertyData));
             }
-            else if (propertyName == "volume") // volume
+            else if (propertyName == "volume") /* volume */
             {
                 emit volumeChanged((propertyFormat == MPV_FORMAT_NONE)
                                        ? 100.0
                                        : *static_cast<qreal *>(propertyData));
             }
-            else if (propertyName == "mute") // muted
+            else if (propertyName == "mute") /* muted */
             {
                 emit mutedChanged(
                     (propertyFormat == MPV_FORMAT_NONE)

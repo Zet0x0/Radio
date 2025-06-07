@@ -6,7 +6,7 @@
 
 #include <QVariant>
 
-// a class function wouldn't work to get rid of this macro
+/* a class function wouldn't work to get rid of this macro */
 #define printMpvLogMessage(debug, logMessage)                      \
     debug.noquote().nospace() << '[' << logMessage->prefix << "] " \
                               << QString(logMessage->text).trimmed()
@@ -92,7 +92,7 @@ int Mpv::getProperty(const QString &name, QVariant *result)
     return errorCode;
 }
 
-// TODO: implement this properly, ui-wise too
+/* TODO: implement this properly, ui-wise too */
 bool Mpv::handleError(const int &errorCode)
 {
     if (errorCode == MPV_ERROR_SUCCESS)
@@ -181,10 +181,10 @@ Mpv::Mpv()
     setProperty("vid", "no");
     setProperty("sid", "no");
 
-    observeProperty("media-title", MPV_FORMAT_STRING); // now playing
-    observeProperty("time-pos", MPV_FORMAT_INT64);     // elapsed
-    observeProperty("volume", MPV_FORMAT_DOUBLE);      // volume
-    observeProperty("mute", MPV_FORMAT_STRING);        // muted
+    observeProperty("media-title", MPV_FORMAT_STRING); /* now playing */
+    observeProperty("time-pos", MPV_FORMAT_INT64);     /* elapsed*/
+    observeProperty("volume", MPV_FORMAT_DOUBLE);      /* volume*/
+    observeProperty("mute", MPV_FORMAT_STRING);        /* muted*/
 }
 
 int Mpv::create()

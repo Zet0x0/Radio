@@ -23,7 +23,7 @@ Control {
             Image {
                 anchors.fill: parent
                 fillMode: Image.PreserveAspectCrop
-                source: "https://t4.ftcdn.net/jpg/05/43/65/91/360_F_543659162_ujoMeFscPHhs09Qs2lryntvuGN2xqvjY.jpg" // TODO: placeholder icon image here
+                source: "https://t4.ftcdn.net/jpg/05/43/65/91/360_F_543659162_ujoMeFscPHhs09Qs2lryntvuGN2xqvjY.jpg" /* TODO: placeholder icon image here */
                 visible: stationImage.status !== Image.Ready
 
                 sourceSize {
@@ -37,7 +37,7 @@ Control {
             Layout.fillHeight: true
             Layout.fillWidth: true
 
-            // other information
+            /* other information */
             Row {
                 id: informationalRow
 
@@ -77,7 +77,7 @@ Control {
                 }
             }
 
-            // now playing
+            /* now playing */
             Label {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
@@ -96,7 +96,7 @@ Control {
                 }
             }
 
-            // controls
+            /* controls */
             Row {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 32

@@ -13,8 +13,8 @@ public:
     static Utilities *instance();
     static Utilities *create(QQmlEngine *, QJSEngine *);
 
-    Q_INVOKABLE QPoint
-        getGlobalCursorPos(); // https://github.com/Zet0x0/SampleCustomSystemTray
+    /* https://github.com/Zet0x0/SampleCustomSystemTray */
+    Q_INVOKABLE QPoint getGlobalCursorPos();
 
     static const char *toCString(const QString &string);
 };

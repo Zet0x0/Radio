@@ -49,10 +49,10 @@ int main(int argc, char *argv[])
 
     qmlEngine.loadFromModule("Radio", "Main");
 
-    // TESTING AREA START
+    /* TESTING AREA START */
     // Mpv::instance()->play("https://www.youtube.com/watch?v=xUQxzICc3e4");
     Mpv::instance()->play("https://stream.zeno.fm/90fvpb27u18uv");
-    // TESTING AREA END
+    /* TESTING AREA END */
 
     return app.exec();
 }

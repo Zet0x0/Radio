@@ -268,7 +268,8 @@ QVariant nodeToVariant(const mpv_node *node)
             return qMap;
         }
 
-        default: // MPV_FORMAT_NONE, unknown values (e.g. future extensions)
+        /* MPV_FORMAT_NONE, unknown values (e.g. future extensions) */
+        default:
         {
             return QVariant();
         }

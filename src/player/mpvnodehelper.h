@@ -3,7 +3,9 @@
 #include <QVariant>
 #include <mpv/client.h>
 
-// https://github.com/mpv-player/mpv-examples/blob/e0d1a84c99e8c469b58fde31a1541401acfb0eb2/libmpv/common/qthelper.hpp#L78-L195
+/*
+ * https://github.com/mpv-player/mpv-examples/blob/e0d1a84c99e8c469b58fde31a1541401acfb0eb2/libmpv/common/qthelper.hpp#L78-L195
+ */
 struct MpvNodeBuilder
 {
     MpvNodeBuilder(const QVariant &);
@@ -26,7 +28,9 @@ private:
     void freeNode(mpv_node *);
 };
 
-// https://github.com/mpv-player/mpv-examples/blob/e0d1a84c99e8c469b58fde31a1541401acfb0eb2/libmpv/common/qthelper.hpp#L200-L204
+/*
+ * https://github.com/mpv-player/mpv-examples/blob/e0d1a84c99e8c469b58fde31a1541401acfb0eb2/libmpv/common/qthelper.hpp#L200-L204
+ */
 struct MpvNodeAutoFree
 {
     mpv_node *node;
@@ -35,5 +39,7 @@ struct MpvNodeAutoFree
     ~MpvNodeAutoFree();
 };
 
-// https://github.com/mpv-player/mpv-examples/blob/e0d1a84c99e8c469b58fde31a1541401acfb0eb2/libmpv/common/qthelper.hpp#L46-L76
+/*
+ * https://github.com/mpv-player/mpv-examples/blob/e0d1a84c99e8c469b58fde31a1541401acfb0eb2/libmpv/common/qthelper.hpp#L46-L76
+ */
 QVariant nodeToVariant(const mpv_node *node);
