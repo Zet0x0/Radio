@@ -24,10 +24,7 @@ qt_standard_project_setup(REQUIRES 6.8)
 
 link_directories(${CMAKE_SOURCE_DIR}/libmpv)
 include_directories(${CMAKE_SOURCE_DIR}/libmpv/include)
-install(
-    FILES ${CMAKE_SOURCE_DIR}/libmpv/libmpv-2.dll
-    DESTINATION ${CMAKE_INSTALL_BINDIR}
-)
+install(FILES ${CMAKE_SOURCE_DIR}/libmpv/libmpv-2.dll DESTINATION .)
 
 add_subdirectory(src)
 add_subdirectory(src/qml)
@@ -56,6 +53,6 @@ include(GNUInstallDirs)
 install(
     TARGETS Radio
     BUNDLE DESTINATION .
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    LIBRARY DESTINATION .
+    RUNTIME DESTINATION .
 )
