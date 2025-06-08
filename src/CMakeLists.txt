@@ -2,6 +2,7 @@ qt_add_executable(
     ${CMAKE_PROJECT_NAME}
     main.cpp
     icons/icons.qrc
+    Radio.rc
 )
 
 qt_add_qml_module(
