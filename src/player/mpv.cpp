@@ -171,6 +171,7 @@ Mpv::Mpv()
         return;
     }
 
+    setProperty("title", Utilities::toCString(tr("Radio")));
     setProperty("vid", "no");
     setProperty("sid", "no");
 

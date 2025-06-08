@@ -69,6 +69,17 @@ void Player::setNowPlaying(QString newNowPlaying)
 {
     newNowPlaying = newNowPlaying.trimmed();
 
+    if (!newNowPlaying.isEmpty())
+    {
+        QVariant filename;
+
+        if (m_mpv->getProperty("filename", &filename) == MPV_ERROR_SUCCESS
+            && newNowPlaying == filename)
+        {
+            newNowPlaying.clear();
+        }
+    }
+
     if (m_nowPlaying == newNowPlaying)
     {
         return;
@@ -77,6 +88,11 @@ void Player::setNowPlaying(QString newNowPlaying)
     m_nowPlaying = newNowPlaying;
 
     qCInfo(radioPlayer) << "nowPlaying changed:" << m_nowPlaying;
+
+    m_mpv->setProperty("title",
+                       (m_nowPlaying.isEmpty())
+                           ? tr("Radio")
+                           : QString(tr("%0 – Radio")).arg(m_nowPlaying));
 
     emit nowPlayingChanged();
 }

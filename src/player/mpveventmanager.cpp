@@ -81,36 +81,11 @@ void MpvEventManager::handleEvent(mpv_event *event)
 
             if (propertyName == "media-title") /* now playing */
             {
-                Mpv *mpv = Mpv::instance();
-
-                QString nowPlaying;
-
-                if (propertyFormat != MPV_FORMAT_NONE)
-                {
-                    const QString rawNowPlaying
-                        = QString(*static_cast<char **>(propertyData))
-                              .trimmed();
-
-                    if (!rawNowPlaying.isEmpty())
-                    {
-                        QVariant filename;
-
-                        if (mpv->getProperty("filename", &filename)
-                                == MPV_ERROR_SUCCESS
-                            && rawNowPlaying != filename)
-                        {
-                            nowPlaying = rawNowPlaying;
-                        }
-                    }
-                }
-
-                mpv->setProperty(
-                    "title",
-                    (nowPlaying.isEmpty())
-                        ? tr("Radio")
-                        : QString(tr("%0 – Radio")).arg(nowPlaying));
-
-                emit nowPlayingChanged(nowPlaying);
+                emit nowPlayingChanged(
+                    (propertyFormat == MPV_FORMAT_NONE)
+                        ? QString()
+                        : QString(*static_cast<char **>(propertyData))
+                              .trimmed());
             }
             else if (propertyName == "time-pos") /* elapsed */
             {
