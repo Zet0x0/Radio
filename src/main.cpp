@@ -1,4 +1,3 @@
-#include "player/mpv.h"
 #include "player/player.h"
 #include "utilities.h"
 
@@ -48,11 +47,6 @@ int main(int argc, char *argv[])
                                  Player::instance());
 
     qmlEngine.loadFromModule("Radio", "Main");
-
-    /* TESTING AREA START */
-    // Mpv::instance()->play("https://www.youtube.com/watch?v=xUQxzICc3e4");
-    Mpv::instance()->play("https://stream.zeno.fm/90fvpb27u18uv");
-    /* TESTING AREA END */
 
     return app.exec();
 }

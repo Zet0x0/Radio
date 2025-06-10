@@ -13,7 +13,7 @@ Control {
             Layout.preferredWidth: height
             cache: false
             fillMode: Image.PreserveAspectCrop
-            source: Player.station.imageUrl || ""
+            source: Player.station.imageUrl
 
             sourceSize {
                 height: height
@@ -23,7 +23,7 @@ Control {
             Image {
                 anchors.fill: parent
                 fillMode: Image.PreserveAspectCrop
-                source: "https://t4.ftcdn.net/jpg/05/43/65/91/360_F_543659162_ujoMeFscPHhs09Qs2lryntvuGN2xqvjY.jpg" /* TODO: placeholder icon image here */
+                source: "qrc:/icons/applicationIcon.svg"
                 visible: stationImage.status !== Image.Ready
 
                 sourceSize {
@@ -83,55 +83,95 @@ Control {
                 Layout.fillWidth: true
                 elide: Label.ElideMiddle
                 enabled: !Player.station.invalid && !!Player.nowPlaying
+                font.bold: enabled
                 text: (Player.station.invalid) ? qsTr("Nothing to play, browse for stations below") : (Player.nowPlaying || qsTr("No song information available"))
                 textFormat: Text.PlainText
 
                 Component.onCompleted: {
                     font.pixelSize *= 1.2;
                 }
-
-                font {
-                    bold: enabled
-                    italic: !enabled
-                }
             }
 
             /* controls */
-            Row {
+            // TODO: fix icons being tiny
+            // TODO: fix something causing a weird grandgrandparent layout resize
+            RowLayout {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 32
-                spacing: 5
 
                 Button {
-                    height: parent.height
-                    width: height
+                    property bool playing: Player.state === Player.LOADING || Player.state === Player.PLAYING
+
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: 32
+                    ToolTip.text: (playing) ? qsTr("Stop") : qsTr("Play")
+                    ToolTip.visible: hovered
+                    display: Button.IconOnly
+                    enabled: !!Player.station.streamUrl
+
+                    onClicked: {
+                        if (playing) {
+                            Player.stop();
+                        } else {
+                            Player.play();
+                        }
+                    }
 
                     icon {
                         height: height
-                        // source: "images/icon.png"
+                        source: (playing) ? "qrc:/icons/stop.svg" : "qrc:/icons/play.svg"
                         width: width
                     }
                 }
 
+                Item {
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                }
+
                 Button {
-                    height: parent.height
-                    width: height
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: 32
+                    ToolTip.text: (Player.muted) ? qsTr("Unmute") : qsTr("Mute")
+                    ToolTip.visible: hovered
+                    display: Button.IconOnly
+
+                    onClicked: {
+                        Player.setMuted(!Player.muted);
+                    }
 
                     icon {
                         height: height
-                        // source: "images/icon.png"
+                        source: (Player.muted) ? "qrc:/icons/mute.svg" : "qrc:/icons/unmute.svg"
                         width: width
                     }
                 }
 
-                Button {
-                    height: parent.height
-                    width: height
+                Slider {
+                    Layout.fillHeight: true
+                    ToolTip.text: qsTr("Volume: %0%").arg(value)
+                    ToolTip.visible: hovered
+                    from: 0
+                    palette.accent: (Player.muted) ? disabledPalette.accent : activePalette.accent
+                    stepSize: 1.0
+                    to: Player.maxVolume
+                    value: Player.volume
 
-                    icon {
-                        height: height
-                        // source: "images/icon.png"
-                        width: width
+                    onMoved: {
+                        Player.setVolume(value);
+                        Player.setMuted(false);
+                    }
+
+                    SystemPalette {
+                        id: activePalette
+
+                        colorGroup: SystemPalette.Active
+                    }
+
+                    SystemPalette {
+                        id: disabledPalette
+
+                        colorGroup: SystemPalette.Disabled
                     }
                 }
             }

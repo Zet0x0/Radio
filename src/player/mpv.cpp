@@ -176,9 +176,8 @@ Mpv::Mpv()
     setProperty("sid", "no");
 
     observeProperty("media-title", MPV_FORMAT_STRING); /* now playing */
-    observeProperty("time-pos", MPV_FORMAT_INT64);     /* elapsed*/
-    observeProperty("volume", MPV_FORMAT_DOUBLE);      /* volume*/
-    observeProperty("mute", MPV_FORMAT_STRING);        /* muted*/
+    observeProperty("time-pos", MPV_FORMAT_INT64);     /* elapsed */
+    observeProperty("volume-max", MPV_FORMAT_DOUBLE);  /* maximum volume */
 }
 
 int Mpv::create()

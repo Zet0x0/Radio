@@ -93,19 +93,11 @@ void MpvEventManager::handleEvent(mpv_event *event)
                                         ? 0
                                         : *static_cast<qint64 *>(propertyData));
             }
-            else if (propertyName == "volume") /* volume */
+            else if (propertyName == "volume-max") /* maximum volume */
             {
-                emit volumeChanged((propertyFormat == MPV_FORMAT_NONE)
-                                       ? 100.0
-                                       : *static_cast<qreal *>(propertyData));
-            }
-            else if (propertyName == "mute") /* muted */
-            {
-                emit mutedChanged(
-                    (propertyFormat == MPV_FORMAT_NONE)
-                        ? false
-                        : QString(*static_cast<char **>(propertyData))
-                              == "yes");
+                emit elapsedChanged((propertyFormat == MPV_FORMAT_NONE)
+                                        ? 0
+                                        : *static_cast<qreal *>(propertyData));
             }
             else
             {

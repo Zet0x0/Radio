@@ -17,16 +17,16 @@ class Player : public QObject
     Q_PROPERTY(Station *station READ station WRITE setStation NOTIFY
                    stationChanged FINAL)
 
-    Q_PROPERTY(QString nowPlaying READ nowPlaying WRITE setNowPlaying NOTIFY
-                   nowPlayingChanged FINAL)
+    Q_PROPERTY(
+        QString nowPlaying READ nowPlaying NOTIFY nowPlayingChanged FINAL)
 
     Q_PROPERTY(qint64 elapsed READ elapsed WRITE setElapsed NOTIFY
                    elapsedChanged FINAL)
-    Q_PROPERTY(
-        Player::State state READ state WRITE setState NOTIFY stateChanged FINAL)
+    Q_PROPERTY(Player::State state READ state NOTIFY stateChanged FINAL)
     Q_PROPERTY(
         qreal volume READ volume WRITE setVolume NOTIFY volumeChanged FINAL)
     Q_PROPERTY(bool muted READ muted WRITE setMuted NOTIFY mutedChanged FINAL)
+    Q_PROPERTY(qreal maxVolume READ maxVolume NOTIFY maxVolumeChanged FINAL)
 
 public:
     enum State
@@ -41,21 +41,25 @@ public:
     static Player *create(QQmlEngine *, QJSEngine *);
 
     Station *station() const;
-    void setStation(Station *newStation);
+    void setStation(Station *);
 
     QString nowPlaying() const;
-    void setNowPlaying(QString newNowPlaying);
+    void setNowPlaying(QString);
 
     qint64 elapsed() const;
-    void setElapsed(const qint64 &newElapsed);
 
     Player::State state() const;
 
     qreal volume() const;
-    void setVolume(const qreal &newVolume);
+    Q_INVOKABLE void setVolume(const qreal &);
 
     bool muted() const;
-    void setMuted(const bool &newMuted);
+    Q_INVOKABLE void setMuted(const bool &);
+
+    qreal maxVolume() const;
+
+    Q_INVOKABLE void play();
+    Q_INVOKABLE void stop();
 
 signals:
     void stationChanged();
@@ -66,6 +70,7 @@ signals:
     void stateChanged();
     void volumeChanged();
     void mutedChanged();
+    void maxVolumeChanged();
 
 private:
     Mpv *m_mpv = Mpv::instance();
@@ -73,13 +78,16 @@ private:
     Station *m_station = new Station;
 
     QString m_nowPlaying;
+
     qint64 m_elapsed;
     Player::State m_state = Player::State::STOPPED;
-
     qreal m_volume = 100.0;
     bool m_muted = false;
+    qreal m_maxVolume;
 
     Player();
 
-    void setState(const Player::State &newState);
+    void setElapsed(const qint64 &);
+    void setState(const Player::State &);
+    void setMaxVolume(const qreal &);
 };

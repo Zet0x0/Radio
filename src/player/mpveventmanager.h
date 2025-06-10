@@ -22,11 +22,10 @@ signals:
 
     void elapsedChanged(const qint64 &);
     void playerStateChanged(const Player::State &);
+    void maxVolumeChanged(const qreal &);
+
     void errorOccurred(const int &);
     void logMessage(mpv_event_log_message *);
-
-    void volumeChanged(const qreal &);
-    void mutedChanged(const bool &);
 
 private:
     void handleEvent(mpv_event *);

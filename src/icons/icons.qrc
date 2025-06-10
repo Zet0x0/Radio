@@ -2,5 +2,9 @@
     <qresource prefix="/icons">
         <file>applicationIcon.svg</file>
         <file>applicationIconBackground.svg</file>
+        <file>play.svg</file>
+        <file>stop.svg</file>
+        <file>mute.svg</file>
+        <file>unmute.svg</file>
     </qresource>
 </RCC>
