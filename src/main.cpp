@@ -2,7 +2,6 @@
 #include "utilities.h"
 
 #include <QGuiApplication>
-#include <QIcon>
 #include <QLoggingCategory>
 #include <QQmlApplicationEngine>
 
@@ -15,8 +14,6 @@ int main(int argc, char *argv[])
 
     QLocale::setDefault(QLocale::c());
 
-    app.setWindowIcon(
-        QIcon(":/zet0x0.github.io/icons/applicationIconBackground.svg"));
     app.setQuitOnLastWindowClosed(false);
 
     QObject::connect(
