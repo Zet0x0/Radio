@@ -1,3 +1,5 @@
 module Radio.ApplicationStyle
 
+ApplicationWindow 2.15 ApplicationWindow.qml
+
 import QtQuick.Controls.Basic auto
