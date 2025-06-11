@@ -8,7 +8,7 @@ qt_add_qml_module(
     URI Radio
     VERSION 1.0
     QML_FILES Main.qml Utilities.js
-    RESOURCE_PREFIX /zet0x0.github.io/imports
+    RESOURCE_PREFIX /zet0x0.github.io/qml/imports
     OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/Radio"
 )
 

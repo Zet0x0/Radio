@@ -23,7 +23,7 @@ Control {
             Image {
                 anchors.fill: parent
                 fillMode: Image.PreserveAspectCrop
-                source: "qrc:/icons/applicationIcon.svg"
+                source: "qrc:/zet0x0.github.io/icons/applicationIcon.svg"
                 visible: stationImage.status !== Image.Ready
 
                 sourceSize {
@@ -119,7 +119,7 @@ Control {
 
                     icon {
                         height: height
-                        source: (playing) ? "qrc:/icons/stop.svg" : "qrc:/icons/play.svg"
+                        source: (playing) ? "qrc:/zet0x0.github.io/icons/stop.svg" : "/zet0x0.github.io/icons/play.svg"
                         width: width
                     }
                 }
@@ -142,7 +142,7 @@ Control {
 
                     icon {
                         height: height
-                        source: (Player.muted) ? "qrc:/icons/mute.svg" : "qrc:/icons/unmute.svg"
+                        source: (Player.muted) ? "qrc:/zet0x0.github.io/icons/mute.svg" : "qrc:/zet0x0.github.io/icons/unmute.svg"
                         width: width
                     }
                 }

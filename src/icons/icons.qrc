@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/icons">
+    <qresource prefix="/zet0x0.github.io/icons">
         <file>applicationIcon.svg</file>
         <file>applicationIconBackground.svg</file>
         <file>play.svg</file>

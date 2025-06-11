@@ -15,7 +15,8 @@ int main(int argc, char *argv[])
 
     QLocale::setDefault(QLocale::c());
 
-    app.setWindowIcon(QIcon(":/icons/applicationIconBackground.svg"));
+    app.setWindowIcon(
+        QIcon(":/zet0x0.github.io/icons/applicationIconBackground.svg"));
     app.setQuitOnLastWindowClosed(false);
 
     QObject::connect(
@@ -31,7 +32,7 @@ int main(int argc, char *argv[])
         },
         Qt::QueuedConnection);
 
-    qmlEngine.addImportPath(":/zet0x0.github.io/imports");
+    qmlEngine.addImportPath(":/zet0x0.github.io/qml/imports");
     qmlRegisterSingletonInstance("Radio.Cpp.Utilities",
                                  1,
                                  0,

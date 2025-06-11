@@ -12,6 +12,6 @@ qt_add_qml_module(
     URI Radio.ApplicationStyle
     VERSION 1.0
     QML_FILES ApplicationPalette.qml ApplicationWindow.qml
-    RESOURCE_PREFIX /zet0x0.github.io/imports
+    RESOURCE_PREFIX /zet0x0.github.io/qml/imports
     OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/Radio/ApplicationStyle"
 )

@@ -10,7 +10,7 @@ Labs.SystemTrayIcon {
     required property ApplicationWindow applicationWindow
     required property SystemTrayMenu systemTrayMenu
 
-    icon.source: "qrc:/icons/applicationIconBackground.svg"
+    icon.source: "qrc:/zet0x0.github.io/icons/applicationIconBackground.svg"
     tooltip: qsTr("Radio")
     visible: true
 
