@@ -100,7 +100,7 @@ Control {
                 Layout.preferredHeight: 32
 
                 Button {
-                    property bool playing: Player.state === Player.LOADING || Player.state === Player.PLAYING
+                    readonly property bool playing: Player.state === Player.LOADING || Player.state === Player.PLAYING
 
                     Layout.fillHeight: true
                     Layout.preferredWidth: 32
