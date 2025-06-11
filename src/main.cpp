@@ -5,7 +5,6 @@
 #include <QIcon>
 #include <QLoggingCategory>
 #include <QQmlApplicationEngine>
-#include <QQuickStyle>
 
 Q_LOGGING_CATEGORY(radioMain, "radio.main")
 
@@ -16,9 +15,7 @@ int main(int argc, char *argv[])
 
     QLocale::setDefault(QLocale::c());
 
-    QQuickStyle::setStyle("FluentWinUI3");
     app.setWindowIcon(QIcon(":/icons/applicationIconBackground.svg"));
-
     app.setQuitOnLastWindowClosed(false);
 
     QObject::connect(

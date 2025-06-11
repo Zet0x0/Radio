@@ -47,6 +47,7 @@ target_link_libraries(
         Radio_MainWindowplugin
         Radio_SystemTrayplugin
         Radio_Cpp_Playerplugin
+        Radio_ApplicationStyleplugin
 )
 
 include(GNUInstallDirs)

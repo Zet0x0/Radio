@@ -1,0 +1,3 @@
+module Radio.ApplicationStyle
+
+import QtQuick.Controls.Basic auto
