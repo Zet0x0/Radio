@@ -32,8 +32,6 @@ void Player::setStation(Station *newStation)
 
     m_station = newStation;
 
-    qCInfo(radioPlayer) << "station changed:" << *m_station;
-
     emit stationChanged();
 }
 
@@ -63,8 +61,6 @@ void Player::setNowPlaying(QString newNowPlaying)
     }
 
     m_nowPlaying = newNowPlaying;
-
-    qCInfo(radioPlayer) << "nowPlaying changed:" << m_nowPlaying;
 
     m_mpv->setProperty("title",
                        (m_nowPlaying.isEmpty())
@@ -99,8 +95,6 @@ void Player::setVolume(const qint16 &newVolume)
     if (m_mpv->setVolume(newVolume))
     {
         m_volume = newVolume;
-
-        qCInfo(radioPlayer) << "volume changed:" << m_volume;
     }
 
     emit volumeChanged();
@@ -119,8 +113,6 @@ void Player::setMuted(const bool &newMuted)
     }
 
     m_muted = newMuted;
-
-    qCInfo(radioPlayer) << "muted changed:" << m_muted;
 
     emit mutedChanged();
 }
@@ -191,8 +183,6 @@ void Player::setState(const Player::State &newState)
 
     m_state = newState;
 
-    qCInfo(radioPlayer) << "state changed:" << m_state;
-
     emit stateChanged();
 }
 
@@ -204,8 +194,6 @@ void Player::setMaxVolume(const qint16 &newMaxVolume)
     }
 
     m_maxVolume = newMaxVolume;
-
-    qCInfo(radioPlayer) << "maxVolume changed:" << m_maxVolume;
 
     emit maxVolumeChanged();
 }
