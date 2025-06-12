@@ -24,9 +24,9 @@ class Player : public QObject
                    elapsedChanged FINAL)
     Q_PROPERTY(Player::State state READ state NOTIFY stateChanged FINAL)
     Q_PROPERTY(
-        qreal volume READ volume WRITE setVolume NOTIFY volumeChanged FINAL)
+        qint16 volume READ volume WRITE setVolume NOTIFY volumeChanged FINAL)
     Q_PROPERTY(bool muted READ muted WRITE setMuted NOTIFY mutedChanged FINAL)
-    Q_PROPERTY(qreal maxVolume READ maxVolume NOTIFY maxVolumeChanged FINAL)
+    Q_PROPERTY(qint16 maxVolume READ maxVolume NOTIFY maxVolumeChanged FINAL)
 
 public:
     enum State
@@ -50,13 +50,13 @@ public:
 
     Player::State state() const;
 
-    qreal volume() const;
-    Q_INVOKABLE void setVolume(const qreal &);
+    qint16 volume() const;
+    Q_INVOKABLE void setVolume(const qint16 &);
 
     bool muted() const;
     Q_INVOKABLE void setMuted(const bool &);
 
-    qreal maxVolume() const;
+    qint16 maxVolume() const;
 
     Q_INVOKABLE void play();
     Q_INVOKABLE void stop();
@@ -81,13 +81,13 @@ private:
 
     qint64 m_elapsed;
     Player::State m_state = Player::State::STOPPED;
-    qreal m_volume = 100.0;
+    qint16 m_volume = 100;
     bool m_muted = false;
-    qreal m_maxVolume;
+    qint16 m_maxVolume;
 
     Player();
 
     void setElapsed(const qint64 &);
     void setState(const Player::State &);
-    void setMaxVolume(const qreal &);
+    void setMaxVolume(const qint16 &);
 };

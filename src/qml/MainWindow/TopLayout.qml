@@ -142,7 +142,7 @@ Control {
                     ToolTip.visible: hovered
                     from: 0
                     palette.accent: (Player.muted) ? disabledPalette.accent : activePalette.accent
-                    stepSize: 1.0
+                    stepSize: 1
                     to: Player.maxVolume
                     value: Player.volume
 

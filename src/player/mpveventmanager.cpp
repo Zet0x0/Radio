@@ -98,7 +98,8 @@ void MpvEventManager::handleEvent(mpv_event *event)
                 emit maxVolumeChanged(
                     (propertyFormat == MPV_FORMAT_NONE)
                         ? 0
-                        : *static_cast<qreal *>(propertyData));
+                        : static_cast<qint16>(
+                              *static_cast<qreal *>(propertyData)));
             }
             else
             {

@@ -84,14 +84,14 @@ Player::State Player::state() const
     return m_state;
 }
 
-qreal Player::volume() const
+qint16 Player::volume() const
 {
     return m_volume;
 }
 
-void Player::setVolume(const qreal &newVolume)
+void Player::setVolume(const qint16 &newVolume)
 {
-    if (qFuzzyCompare(m_volume, newVolume))
+    if (m_volume == newVolume)
     {
         return;
     }
@@ -125,7 +125,7 @@ void Player::setMuted(const bool &newMuted)
     emit mutedChanged();
 }
 
-qreal Player::maxVolume() const
+qint16 Player::maxVolume() const
 {
     return m_maxVolume;
 }
@@ -164,7 +164,7 @@ Player::Player()
 
     {
         QVariant rawMaxVolume;
-        qreal maxVolume = 100.0;
+        qint16 maxVolume = 100;
 
         bool ok = false;
 
@@ -219,9 +219,9 @@ void Player::setState(const Player::State &newState)
     emit stateChanged();
 }
 
-void Player::setMaxVolume(const qreal &newMaxVolume)
+void Player::setMaxVolume(const qint16 &newMaxVolume)
 {
-    if (qFuzzyCompare(m_maxVolume, newMaxVolume))
+    if (m_maxVolume == newMaxVolume)
     {
         return;
     }

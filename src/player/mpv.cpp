@@ -36,7 +36,7 @@ bool Mpv::stop()
     return !handleError(command(QStringList({"stop"})));
 }
 
-bool Mpv::setVolume(const qreal &volume)
+bool Mpv::setVolume(const qint16 &volume)
 {
     return setProperty("volume", volume) == MPV_ERROR_SUCCESS;
 }
