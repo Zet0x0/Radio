@@ -14,6 +14,7 @@ QtObject {
 
     /* Controls */
     readonly property int controls_button_iconSize: 24
+    readonly property int controls_iconButton_size: 32
     readonly property int controls_margins: 5
     readonly property int controls_padding: 5
     readonly property int controls_spacing: 5

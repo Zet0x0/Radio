@@ -3,6 +3,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Radio
 import Radio.Cpp.Player
+import Radio.ApplicationStyle
 
 Control {
     contentItem: RowLayout {
@@ -94,61 +95,49 @@ Control {
 
             /* controls */
             // TODO: fix icons being tiny
-            // TODO: fix something causing a weird grandgrandparent layout resize
+            // TODO: fix icons being blurred (wtf, Qt)
+            // TODO: fix Slider fucking up the laoyut height
             RowLayout {
                 Layout.fillWidth: true
-                Layout.preferredHeight: 32
 
                 Button {
-                    readonly property bool playing: Player.state === Player.LOADING || Player.state === Player.PLAYING
-
-                    Layout.fillHeight: true
-                    Layout.preferredWidth: 32
-                    ToolTip.text: (playing) ? qsTr("Stop") : qsTr("Play")
+                    Layout.preferredHeight: StyleProperties.controls_iconButton_size
+                    Layout.preferredWidth: StyleProperties.controls_iconButton_size
+                    ToolTip.text: (checked) ? qsTr("Stop") : qsTr("Play")
                     ToolTip.visible: hovered
+                    checked: Player.state === Player.LOADING || Player.state === Player.PLAYING
                     display: Button.IconOnly
                     enabled: !!Player.station.streamUrl
+                    icon.source: (checked) ? "qrc:/zet0x0.github.io/icons/stop.svg" : "/zet0x0.github.io/icons/play.svg"
 
                     onClicked: {
-                        if (playing) {
+                        if (checked) {
                             Player.stop();
                         } else {
                             Player.play();
                         }
                     }
-
-                    icon {
-                        height: height
-                        source: (playing) ? "qrc:/zet0x0.github.io/icons/stop.svg" : "/zet0x0.github.io/icons/play.svg"
-                        width: width
-                    }
                 }
 
                 Item {
-                    Layout.fillHeight: true
                     Layout.fillWidth: true
                 }
 
                 Button {
-                    Layout.fillHeight: true
-                    Layout.preferredWidth: 32
-                    ToolTip.text: (Player.muted) ? qsTr("Unmute") : qsTr("Mute")
+                    Layout.preferredHeight: StyleProperties.controls_iconButton_size
+                    Layout.preferredWidth: StyleProperties.controls_iconButton_size
+                    ToolTip.text: (checked) ? qsTr("Unmute") : qsTr("Mute")
                     ToolTip.visible: hovered
+                    checked: Player.muted
                     display: Button.IconOnly
+                    icon.source: (checked) ? "qrc:/zet0x0.github.io/icons/mute.svg" : "qrc:/zet0x0.github.io/icons/unmute.svg"
 
                     onClicked: {
-                        Player.setMuted(!Player.muted);
-                    }
-
-                    icon {
-                        height: height
-                        source: (Player.muted) ? "qrc:/zet0x0.github.io/icons/mute.svg" : "qrc:/zet0x0.github.io/icons/unmute.svg"
-                        width: width
+                        Player.setMuted(!checked);
                     }
                 }
 
                 Slider {
-                    Layout.fillHeight: true
                     ToolTip.text: qsTr("Volume: %0%").arg(value)
                     ToolTip.visible: hovered
                     from: 0
