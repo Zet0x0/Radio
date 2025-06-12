@@ -9,6 +9,16 @@ import QtQuick
  * embedded properties in property `palette`, so there's that.
  */
 QtObject {
+    /* Border */
+    readonly property int border_width: 1
+
+    /* Controls */
+    readonly property int controls_margins: 5
+    readonly property int controls_padding: 5
+    readonly property int controls_spacing: 5
+
+    /* Palette */
     readonly property color palette_accent: "#a0f"
     readonly property color palette_background: "#000"
+    readonly property color palette_text: "#a0f"
 }
