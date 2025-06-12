@@ -28,6 +28,8 @@ void Player::setStation(Station *newStation)
         return;
     }
 
+    m_station->deleteLater();
+
     m_station = newStation;
 
     qCInfo(radioPlayer) << "station changed:" << *m_station;
