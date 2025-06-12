@@ -83,7 +83,7 @@ private:
     Player::State m_state = Player::State::STOPPED;
     qint16 m_volume = 100;
     bool m_muted = false;
-    qint16 m_maxVolume;
+    qint16 m_maxVolume = 100;
 
     Player();
 

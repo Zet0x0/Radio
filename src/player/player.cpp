@@ -162,29 +162,6 @@ Player::Player()
             this,
             &Player::setMaxVolume);
 
-    {
-        QVariant rawMaxVolume;
-        qint16 maxVolume = 100;
-
-        bool ok = false;
-
-        if (m_mpv->getProperty("volume-max", &rawMaxVolume)
-            == MPV_ERROR_SUCCESS)
-        {
-            maxVolume = rawMaxVolume.toReal(&ok);
-        }
-
-        setMaxVolume(maxVolume);
-
-        if (!ok)
-        {
-            qCWarning(radioPlayer).nospace()
-                << "failed to retrieve volume-max property (raw, returned "
-                   "value is: "
-                << rawMaxVolume << ')';
-        }
-    }
-
     // TODO: remove this when done testing
     setStation(
         new Station("test station",
