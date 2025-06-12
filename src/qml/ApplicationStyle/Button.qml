@@ -15,12 +15,12 @@ T.Button {
         visible: !control.flat || control.down || control.checked || control.highlighted || control.visualFocus
 
         border {
-            color: StyleProperties.palette_accent
+            color: (control.enabled) ? StyleProperties.palette_accent : Qt.darker(StyleProperties.palette_accent)
             width: StyleProperties.border_width
         }
     }
     contentItem: IconLabel {
-        color: (control.checked || control.highlighted) ? StyleProperties.palette_activeText : ((control.visualFocus || control.down) ? Qt.lighter(StyleProperties.palette_text) : StyleProperties.palette_text)
+        color: (control.enabled) ? ((control.checked || control.highlighted) ? StyleProperties.palette_activeText : ((control.visualFocus || control.down) ? Qt.lighter(StyleProperties.palette_text) : StyleProperties.palette_text)) : Qt.darker(StyleProperties.palette_accent)
         display: control.display
         font: control.font
         icon: control.icon
@@ -30,7 +30,7 @@ T.Button {
     }
 
     icon {
-        color: (control.checked || control.highlighted) ? StyleProperties.palette_activeAccent : ((control.visualFocus || control.down) ? Qt.lighter(StyleProperties.palette_accent) : StyleProperties.palette_accent)
+        color: (control.enabled) ? ((control.checked || control.highlighted) ? StyleProperties.palette_activeAccent : ((control.visualFocus || control.down) ? Qt.lighter(StyleProperties.palette_accent) : StyleProperties.palette_accent)) : Qt.darker(StyleProperties.palette_accent)
         height: StyleProperties.controls_button_iconSize
         width: StyleProperties.controls_button_iconSize
     }
