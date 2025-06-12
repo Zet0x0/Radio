@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import Radio.ApplicationStyle
 
 ApplicationWindow {
     minimumHeight: 480
@@ -11,7 +12,7 @@ ApplicationWindow {
     ColumnLayout {
         anchors {
             fill: parent
-            margins: 5
+            margins: StyleProperties.controls_margins
         }
 
         TopLayout {

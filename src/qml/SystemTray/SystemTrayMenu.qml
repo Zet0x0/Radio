@@ -32,7 +32,9 @@ Window {
         MenuItem {
             text: qsTr("Quit Radio")
 
-            onTriggered: Qt.quit()
+            onTriggered: {
+                Qt.quit();
+            }
         }
 
         MenuSeparator {

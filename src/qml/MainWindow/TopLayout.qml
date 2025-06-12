@@ -11,7 +11,7 @@ Control {
             id: stationImage
 
             Layout.preferredHeight: 96
-            Layout.preferredWidth: height
+            Layout.preferredWidth: 96
             cache: false
             fillMode: Image.PreserveAspectCrop
             source: Player.station.imageUrl
@@ -43,8 +43,7 @@ Control {
                 id: informationalRow
 
                 Layout.fillWidth: true
-                Layout.preferredHeight: implicitHeight
-                spacing: 5
+                spacing: StyleProperties.controls_spacing
 
                 Label {
                     elide: Label.ElideMiddle
@@ -94,9 +93,7 @@ Control {
             }
 
             /* controls */
-            // TODO: fix icons being tiny
-            // TODO: fix icons being blurred (wtf, Qt)
-            // TODO: fix Slider fucking up the laoyut height
+            // TODO: fix Slider fucking up the laoyut height (pending, this requires a custom Slider.qml)
             RowLayout {
                 Layout.fillWidth: true
 
@@ -140,7 +137,6 @@ Control {
                 Slider {
                     ToolTip.text: qsTr("Volume: %0%").arg(value)
                     ToolTip.visible: hovered
-                    from: 0
                     palette.accent: (Player.muted) ? disabledPalette.accent : activePalette.accent
                     stepSize: 1
                     to: Player.maxVolume
