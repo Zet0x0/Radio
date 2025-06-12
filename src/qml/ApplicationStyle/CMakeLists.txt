@@ -16,6 +16,7 @@ qt_add_qml_module(
         ApplicationWindow.qml
         ToolTip.qml
         Control.qml
+        Button.qml
     RESOURCE_PREFIX /zet0x0.github.io/qml/imports
     OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/Radio/ApplicationStyle"
 )

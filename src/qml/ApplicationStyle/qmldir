@@ -6,4 +6,6 @@ ApplicationWindow 2.15 ApplicationWindow.qml
 
 ToolTip 2.15 ToolTip.qml
 
+Button 2.15 Button.qml
+
 import QtQuick.Controls.Basic auto
