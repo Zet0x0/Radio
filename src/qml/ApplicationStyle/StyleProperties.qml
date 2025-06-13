@@ -16,6 +16,8 @@ QtObject {
     readonly property int controls_button_iconSize: 24
     readonly property int controls_iconButton_size: 32
     readonly property int controls_margins: 5
+    readonly property int controls_menuItem_iconSize: 24
+    readonly property int controls_menu_overlap: 1
     readonly property int controls_padding: 5
     readonly property int controls_spacing: 5
 
@@ -29,6 +31,8 @@ QtObject {
     readonly property color palette_darkerTextLink: Qt.darker(palette_textLink)
     readonly property color palette_lighterAccent: Qt.lighter(palette_accent)
     readonly property color palette_lighterText: Qt.lighter(palette_text)
+    readonly property color palette_menu_modalShadow: "#00000080"
+    readonly property color palette_menu_modelessShadow: "#0000001f"
     readonly property color palette_text: "#a0f"
     readonly property color palette_textLink: "#d47fff"
 }

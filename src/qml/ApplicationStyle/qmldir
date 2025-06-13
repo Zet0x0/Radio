@@ -9,4 +9,8 @@ ToolTip ToolTip.qml
 Button Button.qml
 Label Label.qml
 
+Menu.qml
+MenuItem.qml
+MenuSeparator.qml
+
 import QtQuick.Controls.Basic auto

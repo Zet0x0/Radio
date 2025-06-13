@@ -78,6 +78,7 @@ Control {
             }
 
             /* now playing */
+            // TODO: fix this thingy not actually being so centered
             Label {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
