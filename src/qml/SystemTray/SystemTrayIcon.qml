@@ -5,9 +5,10 @@ import Qt.labs.platform as Labs
 import QtQuick.Controls
 
 import Radio.Cpp.Utilities
+import Radio.MainWindow
 
 Labs.SystemTrayIcon {
-    required property ApplicationWindow applicationWindow
+    required property MainWindow applicationWindow
     required property SystemTrayMenu systemTrayMenu
 
     icon.source: "qrc:/zet0x0.github.io/icons/applicationIconBackground.svg"
