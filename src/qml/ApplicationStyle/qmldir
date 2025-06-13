@@ -7,5 +7,6 @@ ApplicationWindow ApplicationWindow.qml
 ToolTip ToolTip.qml
 
 Button Button.qml
+Label Label.qml
 
 import QtQuick.Controls.Basic auto

@@ -25,7 +25,10 @@ QtObject {
     readonly property color palette_activeText: "#fff"
     readonly property color palette_background: "#000"
     readonly property color palette_darkerAccent: Qt.darker(palette_accent)
+    readonly property color palette_darkerText: Qt.darker(palette_text)
+    readonly property color palette_darkerTextLink: Qt.darker(palette_textLink)
     readonly property color palette_lighterAccent: Qt.lighter(palette_accent)
     readonly property color palette_lighterText: Qt.lighter(palette_text)
     readonly property color palette_text: "#a0f"
+    readonly property color palette_textLink: "#d47fff"
 }
