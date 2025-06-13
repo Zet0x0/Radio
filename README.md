@@ -4,6 +4,7 @@
 
 ### Compiling requirements
 
+-   MinGW >= 13.1.0 64-bit
 -   CMake >= 3.22
 -   Qt >= 6.9
 -   `libmpv` directory with `libmpv-2.dll` file and `include/` directory
