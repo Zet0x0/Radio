@@ -1,11 +1,11 @@
 module Radio.ApplicationStyle
 
-Control 2.15 Control.qml
+Control Control.qml
 
-ApplicationWindow 2.15 ApplicationWindow.qml
+ApplicationWindow ApplicationWindow.qml
 
-ToolTip 2.15 ToolTip.qml
+ToolTip ToolTip.qml
 
-Button 2.15 Button.qml
+Button Button.qml
 
 import QtQuick.Controls.Basic auto
