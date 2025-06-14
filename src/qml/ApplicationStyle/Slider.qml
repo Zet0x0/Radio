@@ -1,5 +1,4 @@
 import QtQuick
-import QtQuick.Controls.impl
 import QtQuick.Templates as T
 
 T.Slider {
@@ -26,22 +25,14 @@ T.Slider {
         }
     }
     handle: Rectangle {
-        color: {
-            if (control.pressed) {
-                return StyleProperties.palette_accent;
-            } else if (control.enabled && control.hovered || control.visualFocus) {
-                return Color.blend(StyleProperties.palette_background, StyleProperties.palette_accent, 0.5);
-            }
-
-            return StyleProperties.palette_background;
-        }
+        color: (control.enabled) ? ((control.pressed) ? StyleProperties.palette_accent : ((control.visualFocus || control.hovered) ? StyleProperties.palette_activeFocusBackground : StyleProperties.palette_background)) : StyleProperties.palette_background
         implicitHeight: (control.horizontal) ? StyleProperties.controls_slider_horizontalSwapHandleHeight : StyleProperties.controls_slider_horizontalSwapHandleWidth
         implicitWidth: (control.horizontal) ? StyleProperties.controls_slider_horizontalSwapHandleWidth : StyleProperties.controls_slider_horizontalSwapHandleHeight
         x: control.leftPadding + ((control.horizontal) ? control.visualPosition * (control.availableWidth - width) : (control.availableWidth - width) / 2)
         y: control.topPadding + ((control.horizontal) ? (control.availableHeight - height) / 2 : control.visualPosition * (control.availableHeight - height))
 
         border {
-            color: (control.enabled) ? StyleProperties.palette_accent : StyleProperties.palette_darkerAccent
+            color: (control.enabled) ? (((control.visualFocus || control.hovered) && control.pressed) ? StyleProperties.palette_activeAccent : StyleProperties.palette_accent) : StyleProperties.palette_darkerAccent
             width: StyleProperties.border_width
         }
     }
