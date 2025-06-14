@@ -6,5 +6,8 @@
         <file>stop.svg</file>
         <file>mute.svg</file>
         <file>unmute.svg</file>
+        <file>chevronRight.svg</file>
+        <file>check.svg</file>
+        <file>cross.svg</file>
     </qresource>
 </RCC>

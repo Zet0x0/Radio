@@ -14,14 +14,12 @@ T.MenuItem {
     spacing: StyleProperties.controls_spacing
     topInset: 0
 
-    // TODO
     arrow: ColorImage {
-        color: control.palette.windowText
-        defaultColor: "#353637"
+        color: (control.enabled) ? ((control.checked) ? StyleProperties.palette_activeAccent : ((control.down) ? StyleProperties.palette_lighterAccent : StyleProperties.palette_accent)) : StyleProperties.palette_darkerAccent
         mirror: control.mirrored
-        source: control.subMenu ? "qrc:/qt-project.org/imports/QtQuick/Controls/Basic/images/arrow-indicator.png" : ""
-        visible: control.subMenu
-        x: control.mirrored ? control.leftPadding : control.width - width - control.rightPadding
+        source: (!control.subMenu) ? "" : "qrc:/zet0x0.github.io/icons/chevronRight.svg"
+        visible: !!control.subMenu
+        x: (control.mirrored) ? control.leftPadding : control.width - width - control.rightPadding
         y: control.topPadding + (control.availableHeight - height) / 2
     }
     background: Rectangle {
@@ -38,7 +36,7 @@ T.MenuItem {
         readonly property real indicatorPadding: (control.checkable && control.indicator) ? control.indicator.width + control.spacing : 0
 
         alignment: Qt.AlignLeft
-        color: (control.enabled) ? ((control.checked) ? StyleProperties.palette_activeText : ((control.down) ? StyleProperties.palette_lighterText : StyleProperties.palette_text)) : StyleProperties.palette_darkerAccent
+        color: (control.enabled) ? ((control.checked) ? StyleProperties.palette_activeText : ((control.down) ? StyleProperties.palette_lighterText : StyleProperties.palette_text)) : StyleProperties.palette_darkerText
         display: control.display
         font: control.font
         icon: control.icon
@@ -48,13 +46,11 @@ T.MenuItem {
         spacing: control.spacing
         text: control.text
     }
-    // TODO
     indicator: ColorImage {
-        color: control.palette.windowText
-        defaultColor: "#353637"
-        source: control.checkable ? "qrc:/qt-project.org/imports/QtQuick/Controls/Basic/images/check.png" : ""
-        visible: control.checked
-        x: control.mirrored ? control.width - width - control.rightPadding : control.leftPadding
+        color: (control.enabled) ? ((control.checked) ? StyleProperties.palette_activeAccent : ((control.down) ? StyleProperties.palette_lighterAccent : StyleProperties.palette_accent)) : StyleProperties.palette_darkerAccent
+        source: (control.checked) ? "qrc:/zet0x0.github.io/icons/check.svg" : "qrc:/zet0x0.github.io/icons/cross.svg"
+        visible: control.checkable
+        x: (control.mirrored) ? control.width - width - control.rightPadding : control.leftPadding
         y: control.topPadding + (control.availableHeight - height) / 2
     }
 
