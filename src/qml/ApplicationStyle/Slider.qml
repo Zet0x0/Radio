@@ -17,11 +17,21 @@ T.Slider {
         x: control.leftPadding + ((control.horizontal) ? 0 : (control.availableWidth - width) / 2)
         y: control.topPadding + ((control.horizontal) ? (control.availableHeight - height) / 2 : 0)
 
+        border {
+            color: StyleProperties.palette_activeAccent
+            width: (control.visualFocus) ? StyleProperties.border_width : 0
+        }
+
         Rectangle {
             color: (control.enabled) ? StyleProperties.palette_accent : StyleProperties.palette_darkerAccent
             height: (control.horizontal) ? StyleProperties.controls_slider_horizontalSwapImplicitHeight : control.position * parent.height
             width: (control.horizontal) ? control.position * parent.width : StyleProperties.controls_slider_horizontalSwapImplicitHeight
             y: control.horizontal ? 0 : control.visualPosition * parent.height
+
+            border {
+                color: StyleProperties.palette_activeAccent
+                width: (control.visualFocus) ? StyleProperties.border_width : 0
+            }
         }
     }
     handle: Rectangle {
@@ -32,7 +42,7 @@ T.Slider {
         y: control.topPadding + ((control.horizontal) ? (control.availableHeight - height) / 2 : control.visualPosition * (control.availableHeight - height))
 
         border {
-            color: (control.enabled) ? (((control.visualFocus || control.hovered) && control.pressed) ? StyleProperties.palette_activeAccent : StyleProperties.palette_accent) : StyleProperties.palette_darkerAccent
+            color: (control.enabled) ? ((control.pressed || control.visualFocus) ? StyleProperties.palette_activeAccent : StyleProperties.palette_accent) : StyleProperties.palette_darkerAccent
             width: StyleProperties.border_width
         }
     }

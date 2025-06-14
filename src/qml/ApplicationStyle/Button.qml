@@ -15,7 +15,7 @@ T.Button {
         visible: (control.flat && control.enabled && control.hovered) || !control.flat || control.down || control.checked || control.highlighted || control.visualFocus
 
         border {
-            color: (control.enabled) ? (((control.visualFocus || control.hovered) && (control.checked || control.highlighted || control.down)) ? StyleProperties.palette_activeAccent : StyleProperties.palette_accent) : StyleProperties.palette_darkerAccent
+            color: (control.enabled) ? (((control.hovered && (control.checked || control.highlighted || control.down)) || control.visualFocus) ? StyleProperties.palette_activeAccent : StyleProperties.palette_accent) : StyleProperties.palette_darkerAccent
             width: StyleProperties.border_width
         }
     }

@@ -27,7 +27,7 @@ T.MenuItem {
         visible: control.down || control.checked || (control.hovered && control.enabled) || control.visualFocus
 
         border {
-            color: (control.enabled) ? (((control.visualFocus || control.hovered) && (control.checked || control.down)) ? StyleProperties.palette_activeAccent : StyleProperties.palette_accent) : StyleProperties.palette_darkerAccent
+            color: (control.enabled) ? (((control.hovered && (control.checked || control.down)) || control.visualFocus) ? StyleProperties.palette_activeAccent : StyleProperties.palette_accent) : StyleProperties.palette_darkerAccent
             width: StyleProperties.border_width
         }
     }
