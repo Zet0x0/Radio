@@ -137,7 +137,7 @@ Control {
                 // TODO: make this its own custom VolumeSlider or something like that to support red color for volume above 100 and tooltip and so on
                 Slider {
                     ToolTip.text: qsTr("Volume: %0%").arg(value)
-                    ToolTip.visible: hovered || visualFocus
+                    ToolTip.visible: hovered || visualFocus || pressed
                     palette.accent: (Player.muted) ? disabledPalette.accent : activePalette.accent
                     stepSize: 1
                     to: Player.maxVolume
