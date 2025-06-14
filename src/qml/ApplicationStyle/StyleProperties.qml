@@ -19,6 +19,11 @@ QtObject {
     readonly property int controls_menuItem_iconSize: 24
     readonly property int controls_menu_overlap: 1
     readonly property int controls_padding: 5
+    readonly property int controls_slider_horizontalSwapHandleHeight: 26
+    readonly property int controls_slider_horizontalSwapHandleWidth: 10
+    readonly property int controls_slider_horizontalSwapImplicitHeight: 4
+    readonly property int controls_slider_horizontalSwapImplicitWidth: 200
+    readonly property int controls_slider_padding: 3
     readonly property int controls_spacing: 5
 
     /* Palette */

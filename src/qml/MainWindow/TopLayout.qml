@@ -94,7 +94,6 @@ Control {
             }
 
             /* controls */
-            // TODO: fix Slider fucking up the laoyut height (pending, this requires a custom Slider.qml)
             RowLayout {
                 Layout.fillWidth: true
 
@@ -102,7 +101,7 @@ Control {
                     Layout.preferredHeight: StyleProperties.controls_iconButton_size
                     Layout.preferredWidth: StyleProperties.controls_iconButton_size
                     ToolTip.text: (checked) ? qsTr("Stop") : qsTr("Play")
-                    ToolTip.visible: hovered
+                    ToolTip.visible: hovered || visualFocus
                     checked: Player.state === Player.LOADING || Player.state === Player.PLAYING
                     display: Button.IconOnly
                     enabled: !!Player.station.streamUrl
@@ -125,7 +124,7 @@ Control {
                     Layout.preferredHeight: StyleProperties.controls_iconButton_size
                     Layout.preferredWidth: StyleProperties.controls_iconButton_size
                     ToolTip.text: (checked) ? qsTr("Unmute") : qsTr("Mute")
-                    ToolTip.visible: hovered
+                    ToolTip.visible: hovered || visualFocus
                     checked: Player.muted
                     display: Button.IconOnly
                     icon.source: (checked) ? "qrc:/zet0x0.github.io/icons/mute.svg" : "qrc:/zet0x0.github.io/icons/unmute.svg"
@@ -135,9 +134,10 @@ Control {
                     }
                 }
 
+                // TODO: make this its own custom VolumeSlider or something like that to support red color for volume above 100 and tooltip and so on
                 Slider {
                     ToolTip.text: qsTr("Volume: %0%").arg(value)
-                    ToolTip.visible: hovered
+                    ToolTip.visible: hovered || visualFocus
                     palette.accent: (Player.muted) ? disabledPalette.accent : activePalette.accent
                     stepSize: 1
                     to: Player.maxVolume
