@@ -15,7 +15,7 @@ T.MenuItem {
     topInset: 0
 
     arrow: ColorImage {
-        color: (control.enabled) ? ((control.checked) ? StyleProperties.palette_activeAccent : ((control.down) ? StyleProperties.palette_lighterAccent : StyleProperties.palette_accent)) : StyleProperties.palette_darkerAccent
+        color: (control.enabled) ? ((control.checked || control.down) ? StyleProperties.palette_activeAccent : ((control.visualFocus || control.hovered) ? StyleProperties.palette_lighterAccent : StyleProperties.palette_accent)) : StyleProperties.palette_darkerAccent
         mirror: control.mirrored
         source: (!control.subMenu) ? "" : "qrc:/zet0x0.github.io/icons/chevronRight.svg"
         visible: !!control.subMenu
@@ -23,11 +23,11 @@ T.MenuItem {
         y: control.topPadding + (control.availableHeight - height) / 2
     }
     background: Rectangle {
-        color: (control.checked) ? StyleProperties.palette_accent : Color.blend(StyleProperties.palette_background, StyleProperties.palette_accent, (control.down) ? 0.5 : 0.0)
-        visible: control.down || control.checked || control.hovered || control.visualFocus
+        color: (control.enabled) ? ((control.checked || control.down) ? StyleProperties.palette_accent : ((control.visualFocus || control.hovered) ? StyleProperties.palette_activeFocusBackground : StyleProperties.palette_background)) : StyleProperties.palette_background
+        visible: control.down || control.checked || (control.hovered && control.enabled) || control.visualFocus
 
         border {
-            color: (control.enabled) ? StyleProperties.palette_accent : StyleProperties.palette_darkerAccent
+            color: (control.enabled) ? (((control.visualFocus || control.hovered) && (control.checked || control.down)) ? StyleProperties.palette_activeAccent : StyleProperties.palette_accent) : StyleProperties.palette_darkerAccent
             width: StyleProperties.border_width
         }
     }
@@ -36,7 +36,7 @@ T.MenuItem {
         readonly property real indicatorPadding: (control.checkable && control.indicator) ? control.indicator.width + control.spacing : 0
 
         alignment: Qt.AlignLeft
-        color: (control.enabled) ? ((control.checked) ? StyleProperties.palette_activeText : ((control.down) ? StyleProperties.palette_lighterText : StyleProperties.palette_text)) : StyleProperties.palette_darkerText
+        color: (control.enabled) ? ((control.checked || control.down) ? StyleProperties.palette_activeText : ((control.visualFocus || control.hovered) ? StyleProperties.palette_lighterText : StyleProperties.palette_text)) : StyleProperties.palette_darkerText
         display: control.display
         font: control.font
         icon: control.icon
@@ -47,7 +47,7 @@ T.MenuItem {
         text: control.text
     }
     indicator: ColorImage {
-        color: (control.enabled) ? ((control.checked) ? StyleProperties.palette_activeAccent : ((control.down) ? StyleProperties.palette_lighterAccent : StyleProperties.palette_accent)) : StyleProperties.palette_darkerAccent
+        color: (control.enabled) ? ((control.checked || control.down) ? StyleProperties.palette_activeAccent : ((control.visualFocus || control.hovered) ? StyleProperties.palette_lighterAccent : StyleProperties.palette_accent)) : StyleProperties.palette_darkerAccent
         source: (control.checked) ? "qrc:/zet0x0.github.io/icons/check.svg" : "qrc:/zet0x0.github.io/icons/cross.svg"
         visible: control.checkable
         x: (control.mirrored) ? control.width - width - control.rightPadding : control.leftPadding
@@ -55,7 +55,7 @@ T.MenuItem {
     }
 
     icon {
-        color: (control.enabled) ? ((control.checked) ? StyleProperties.palette_activeAccent : ((control.down) ? StyleProperties.palette_lighterAccent : StyleProperties.palette_accent)) : StyleProperties.palette_darkerAccent
+        color: (control.enabled) ? ((control.checked || control.down) ? StyleProperties.palette_activeAccent : ((control.visualFocus || control.hovered) ? StyleProperties.palette_lighterAccent : StyleProperties.palette_accent)) : StyleProperties.palette_darkerAccent
         height: StyleProperties.controls_menuItem_iconSize
         width: StyleProperties.controls_menuItem_iconSize
     }
