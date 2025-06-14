@@ -27,7 +27,9 @@ Window {
     Menu {
         id: menu
 
-        onClosed: window.hide()
+        onClosed: {
+            window.hide();
+        }
 
         MenuItem {
             text: qsTr("Quit Radio")
