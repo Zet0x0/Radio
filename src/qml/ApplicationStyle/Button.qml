@@ -20,7 +20,7 @@ T.Button {
         }
     }
     contentItem: IconLabel {
-        color: (control.enabled) ? ((control.checked || control.highlighted || control.down) ? StyleProperties.palette_activeText : ((control.visualFocus || control.hovered) ? StyleProperties.palette_lighterText : StyleProperties.palette_text)) : ((control.highlighted) ? StyleProperties.palette_accent : StyleProperties.palette_darkerText)
+        color: (control.enabled) ? ((control.checked || control.highlighted || control.down) ? StyleProperties.palette_activeText : ((control.visualFocus || control.hovered) ? StyleProperties.palette_lighterText : StyleProperties.palette_text)) : ((control.highlighted) ? StyleProperties.palette_text : StyleProperties.palette_darkerText)
         display: control.display
         font: control.font
         icon: control.icon
