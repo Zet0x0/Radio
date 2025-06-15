@@ -3,7 +3,6 @@ import QtQuick.Controls
 import Radio.Cpp.Player
 import Radio.ApplicationStyle
 
-// TODO: custom width property (e.g. for system menu)
 Slider {
     ToolTip.text: qsTr("Volume: %0%").arg(value)
     ToolTip.visible: hovered || visualFocus || pressed
