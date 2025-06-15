@@ -7,7 +7,7 @@ T.MenuItem {
 
     bottomInset: 0
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset, implicitContentHeight + topPadding + bottomPadding, implicitIndicatorHeight + topPadding + bottomPadding)
-    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset, implicitContentWidth + leftPadding + rightPadding)
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset, implicitContentWidth + leftPadding + rightPadding, implicitIndicatorWidth + topPadding + bottomPadding)
     leftInset: 0
     padding: StyleProperties.controls_padding + StyleProperties.border_width
     rightInset: 0
@@ -21,6 +21,11 @@ T.MenuItem {
         visible: !!control.subMenu
         x: (control.mirrored) ? control.leftPadding : control.width - width - control.rightPadding
         y: control.topPadding + (control.availableHeight - height) / 2
+
+        sourceSize {
+            height: StyleProperties.controls_menuItem_iconSize
+            width: StyleProperties.controls_menuItem_iconSize
+        }
     }
     background: Rectangle {
         color: (control.enabled) ? ((control.checked || control.down) ? StyleProperties.palette_accent : ((control.visualFocus || control.hovered) ? StyleProperties.palette_activeFocusBackground : StyleProperties.palette_background)) : StyleProperties.palette_background
@@ -52,6 +57,11 @@ T.MenuItem {
         visible: control.checkable
         x: (control.mirrored) ? control.width - width - control.rightPadding : control.leftPadding
         y: control.topPadding + (control.availableHeight - height) / 2
+
+        sourceSize {
+            height: StyleProperties.controls_menuItem_iconSize
+            width: StyleProperties.controls_menuItem_iconSize
+        }
     }
 
     icon {
