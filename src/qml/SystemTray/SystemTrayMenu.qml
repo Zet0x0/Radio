@@ -25,15 +25,6 @@ Window {
         menu.popup();
     }
 
-    function showOrHideMainWindow() {
-        if (applicationWindow.visible) {
-            applicationWindow.hide();
-        } else {
-            applicationWindow.show();
-            applicationWindow.requestActivate();
-        }
-    }
-
     color: "#00000000" /* make the window transparent to support menus with rounded edges */
     flags: Qt.Popup | Qt.NoDropShadowWindowHint
     height: menu.height
@@ -82,10 +73,11 @@ Window {
         }
 
         MenuItem {
-            text: (window.applicationWindow.visible) ? qsTr("Hide Main Window") : qsTr("Show Main Window")
+            text: qsTr("Show Main Window")
 
             onTriggered: {
-                window.showOrHideMainWindow();
+                window.applicationWindow.show();
+                window.applicationWindow.requestActivate();
             }
         }
 

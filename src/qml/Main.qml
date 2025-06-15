@@ -5,6 +5,8 @@ MainWindow {
     id: applicationWindow
 
     SystemTrayIcon {
+        applicationWindow: applicationWindow
+
         systemTrayMenu: SystemTrayMenu {
             applicationWindow: applicationWindow
         }
