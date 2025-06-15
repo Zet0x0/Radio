@@ -3,6 +3,8 @@
 import QtQuick
 import QtQuick.Controls
 import Radio.ApplicationStyle
+import Radio.Shared
+import QtQuick.Layouts
 
 Window {
     id: window
@@ -32,6 +34,39 @@ Window {
 
         onClosed: {
             window.hide();
+        }
+
+        Control {
+            contentItem: ColumnLayout {
+                StationImage {
+                    Layout.alignment: Qt.AlignHCenter
+                }
+
+                NowPlayingLabel {
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    horizontalAlignment: Qt.AlignHCenter
+                    systemTray: true
+                }
+
+                RowLayout {
+                    PlayButton {
+                        systemTray: true
+                        systemTrayMenu: menu
+                    }
+
+                    MuteButton {
+                        systemTray: true
+                        systemTrayMenu: menu
+                    }
+
+                    VolumeSlider {
+                    }
+                }
+            }
+        }
+
+        MenuSeparator {
         }
 
         MenuItem {

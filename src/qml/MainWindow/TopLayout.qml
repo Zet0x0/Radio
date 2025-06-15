@@ -8,31 +8,7 @@ import Radio.Shared
 
 Control {
     contentItem: RowLayout {
-        Image {
-            id: stationImage
-
-            Layout.preferredHeight: 96
-            Layout.preferredWidth: 96
-            cache: false
-            fillMode: Image.PreserveAspectCrop
-            source: Player.station.imageUrl
-
-            sourceSize {
-                height: height
-                width: width
-            }
-
-            Image {
-                anchors.fill: parent
-                fillMode: Image.PreserveAspectCrop
-                source: "qrc:/zet0x0.github.io/icons/applicationIcon.svg"
-                visible: stationImage.status !== Image.Ready
-
-                sourceSize {
-                    height: height
-                    width: width
-                }
-            }
+        StationImage {
         }
 
         ColumnLayout {
@@ -85,14 +61,9 @@ Control {
                 Layout.fillHeight: true
             }
 
-            Label {
+            NowPlayingLabel {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
-                elide: Label.ElideMiddle
-                enabled: !Player.station.invalid && !!Player.nowPlaying
-                font: StyleProperties.fonts_mainWindow_nowPlayingLabel
-                text: (Player.station.invalid) ? qsTr("Nothing to play, browse for stations below") : (Player.nowPlaying || qsTr("No song information available"))
-                textFormat: Text.PlainText
             }
 
             Item {
@@ -102,41 +73,14 @@ Control {
             RowLayout {
                 Layout.fillWidth: true
 
-                Button {
-                    Layout.preferredHeight: StyleProperties.controls_iconButton_size
-                    Layout.preferredWidth: StyleProperties.controls_iconButton_size
-                    ToolTip.text: (checked) ? qsTr("Stop") : qsTr("Play")
-                    ToolTip.visible: hovered || visualFocus
-                    checked: Player.state === Player.LOADING || Player.state === Player.PLAYING
-                    display: Button.IconOnly
-                    enabled: !!Player.station.streamUrl
-                    icon.source: (checked) ? "qrc:/zet0x0.github.io/icons/stop.svg" : "/zet0x0.github.io/icons/play.svg"
-
-                    onClicked: {
-                        if (checked) {
-                            Player.stop();
-                        } else {
-                            Player.play();
-                        }
-                    }
+                PlayButton {
                 }
 
                 Item {
                     Layout.fillWidth: true
                 }
 
-                Button {
-                    Layout.preferredHeight: StyleProperties.controls_iconButton_size
-                    Layout.preferredWidth: StyleProperties.controls_iconButton_size
-                    ToolTip.text: (checked) ? qsTr("Unmute") : qsTr("Mute")
-                    ToolTip.visible: hovered || visualFocus
-                    checked: Player.muted
-                    display: Button.IconOnly
-                    icon.source: (checked) ? "qrc:/zet0x0.github.io/icons/mute.svg" : "qrc:/zet0x0.github.io/icons/unmute.svg"
-
-                    onClicked: {
-                        Player.setMuted(!checked);
-                    }
+                MuteButton {
                 }
 
                 VolumeSlider {

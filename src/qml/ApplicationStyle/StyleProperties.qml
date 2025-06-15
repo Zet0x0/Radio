@@ -25,6 +25,7 @@ QtObject {
     readonly property int controls_slider_horizontalSwapImplicitHeight: 4
     readonly property int controls_slider_horizontalSwapImplicitWidth: 200
     readonly property int controls_spacing: 5
+    readonly property int controls_stationImage_size: 96
     readonly property int controls_volumeSlider_padding: 3
 
     /* Fonts */
