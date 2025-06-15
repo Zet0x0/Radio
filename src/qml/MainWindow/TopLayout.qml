@@ -46,6 +46,8 @@ Control {
                 spacing: StyleProperties.controls_spacing
 
                 Label {
+                    id: stationNameLabel
+
                     elide: Label.ElideMiddle
                     text: (Player.station.invalid) ? qsTr("No station selected") : (Player.station.name || qsTr("Unnamed Station"))
                     textFormat: Text.PlainText
@@ -55,7 +57,9 @@ Control {
                 Label {
                     id: elapsedLabel
 
+                    anchors.baseline: stationNameLabel.baseline
                     enabled: false
+                    font: StyleProperties.fonts_mainWindow_elapsedLabel
                     text: {
                         const total = Player.elapsed;
 
@@ -84,13 +88,9 @@ Control {
                 Layout.fillWidth: true
                 elide: Label.ElideMiddle
                 enabled: !Player.station.invalid && !!Player.nowPlaying
-                font.bold: enabled
+                font: StyleProperties.fonts_mainWindow_nowPlayingLabel
                 text: (Player.station.invalid) ? qsTr("Nothing to play, browse for stations below") : (Player.nowPlaying || qsTr("No song information available"))
                 textFormat: Text.PlainText
-
-                Component.onCompleted: {
-                    font.pixelSize *= 1.2;
-                }
             }
 
             /* controls */

@@ -8,6 +8,7 @@ import QtQuick
  * but the linter, for whatever reason, does not recognize any
  * embedded properties in property `palette`, so there's that.
  */
+// TODO: maybe just make this a Cpp thing
 QtObject {
     /* Border */
     readonly property int border_width: 1
@@ -25,6 +26,19 @@ QtObject {
     readonly property int controls_slider_horizontalSwapImplicitWidth: 200
     readonly property int controls_slider_padding: 3
     readonly property int controls_spacing: 5
+
+    /* Fonts */
+    readonly property font fonts_application: ({
+            family: "Segoe UI Variable",
+            pointSize: 10
+        })
+    readonly property font fonts_mainWindow_elapsedLabel: ({
+            family: "Consolas"
+        })
+    readonly property font fonts_mainWindow_nowPlayingLabel: ({
+            pointSize: 12,
+            bold: true
+        })
 
     /* Palette */
     readonly property color palette_accent: "#a0f"

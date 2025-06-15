@@ -2,6 +2,7 @@
 
 import QtQuick
 import QtQuick.Controls
+import Radio.ApplicationStyle
 
 Window {
     id: window
@@ -26,6 +27,8 @@ Window {
 
     Menu {
         id: menu
+
+        font: StyleProperties.fonts_application // has to be explicitly specified here
 
         onClosed: {
             window.hide();
