@@ -38,7 +38,6 @@ Control {
             Layout.fillHeight: true
             Layout.fillWidth: true
 
-            /* other information */
             Row {
                 id: informationalRow
 
@@ -81,8 +80,10 @@ Control {
                 }
             }
 
-            /* now playing */
-            // TODO: fix this thingy not actually being so centered
+            Item {
+                Layout.fillHeight: true
+            }
+
             Label {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
@@ -93,7 +94,10 @@ Control {
                 textFormat: Text.PlainText
             }
 
-            /* controls */
+            Item {
+                Layout.fillHeight: true
+            }
+
             RowLayout {
                 Layout.fillWidth: true
 
