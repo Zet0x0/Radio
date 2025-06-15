@@ -21,12 +21,10 @@ Control {
                 Layout.fillWidth: true
                 spacing: StyleProperties.controls_spacing
 
-                Label {
+                ImportantLabel {
                     id: stationNameLabel
 
-                    elide: Label.ElideMiddle
                     text: (Player.station.invalid) ? qsTr("No station selected") : (Player.station.name || qsTr("Unnamed Station"))
-                    textFormat: Text.PlainText
                     width: Math.min(informationalRow.width - elapsedLabel.width - informationalRow.spacing, implicitWidth)
                 }
 

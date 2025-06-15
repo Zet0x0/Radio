@@ -1,6 +1,8 @@
 #include "utilities.h"
 
+#include <QClipboard>
 #include <QCursor>
+#include <QGuiApplication>
 
 Utilities *Utilities::instance()
 {
@@ -22,4 +24,9 @@ QPoint Utilities::getGlobalCursorPos()
 const char *Utilities::toCString(const QString &string)
 {
     return string.toUtf8().data();
+}
+
+void Utilities::copyToClipboard(const QString &text)
+{
+    qGuiApp->clipboard()->setText(text);
 }

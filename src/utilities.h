@@ -16,5 +16,7 @@ public:
     /* https://github.com/Zet0x0/SampleCustomSystemTray */
     Q_INVOKABLE QPoint getGlobalCursorPos();
 
-    static const char *toCString(const QString &string);
+    static const char *toCString(const QString &);
+
+    Q_INVOKABLE void copyToClipboard(const QString &);
 };
