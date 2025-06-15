@@ -93,14 +93,6 @@ void MpvEventManager::handleEvent(mpv_event *event)
                                         ? 0
                                         : *static_cast<qint64 *>(propertyData));
             }
-            else if (propertyName == "volume-max") /* maximum volume */
-            {
-                emit maxVolumeChanged(
-                    (propertyFormat == MPV_FORMAT_NONE)
-                        ? 0
-                        : static_cast<qint16>(
-                              *static_cast<qreal *>(propertyData)));
-            }
             else
             {
                 qCWarning(radioMpvEventManager)

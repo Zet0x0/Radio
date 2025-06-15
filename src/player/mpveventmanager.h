@@ -22,7 +22,6 @@ signals:
 
     void elapsedChanged(const qint64 &);
     void playerStateChanged(const Player::State &);
-    void maxVolumeChanged(const qint16 &);
 
     void errorOccurred(const int &);
     void logMessage(mpv_event_log_message *);

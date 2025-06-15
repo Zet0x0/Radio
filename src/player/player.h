@@ -26,7 +26,6 @@ class Player : public QObject
     Q_PROPERTY(
         qint16 volume READ volume WRITE setVolume NOTIFY volumeChanged FINAL)
     Q_PROPERTY(bool muted READ muted WRITE setMuted NOTIFY mutedChanged FINAL)
-    Q_PROPERTY(qint16 maxVolume READ maxVolume NOTIFY maxVolumeChanged FINAL)
 
 public:
     enum State
@@ -56,8 +55,6 @@ public:
     bool muted() const;
     Q_INVOKABLE void setMuted(const bool &);
 
-    qint16 maxVolume() const;
-
     Q_INVOKABLE void play();
     Q_INVOKABLE void stop();
 
@@ -70,7 +67,6 @@ signals:
     void stateChanged();
     void volumeChanged();
     void mutedChanged();
-    void maxVolumeChanged();
 
 private:
     Mpv *m_mpv = Mpv::instance();
@@ -83,11 +79,9 @@ private:
     Player::State m_state = Player::State::STOPPED;
     qint16 m_volume = 100;
     bool m_muted = false;
-    qint16 m_maxVolume = 100;
 
     Player();
 
     void setElapsed(const qint64 &);
     void setState(const Player::State &);
-    void setMaxVolume(const qint16 &);
 };

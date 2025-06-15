@@ -117,11 +117,6 @@ void Player::setMuted(const bool &newMuted)
     emit mutedChanged();
 }
 
-qint16 Player::maxVolume() const
-{
-    return m_maxVolume;
-}
-
 void Player::play()
 {
     m_mpv->play(m_station->streamUrl());
@@ -149,10 +144,6 @@ Player::Player()
             &MpvEventManager::playerStateChanged,
             this,
             &Player::setState);
-    connect(mpvEventManager,
-            &MpvEventManager::maxVolumeChanged,
-            this,
-            &Player::setMaxVolume);
 
     // TODO: remove this when done testing
     setStation(
@@ -184,16 +175,4 @@ void Player::setState(const Player::State &newState)
     m_state = newState;
 
     emit stateChanged();
-}
-
-void Player::setMaxVolume(const qint16 &newMaxVolume)
-{
-    if (m_maxVolume == newMaxVolume)
-    {
-        return;
-    }
-
-    m_maxVolume = newMaxVolume;
-
-    emit maxVolumeChanged();
 }
