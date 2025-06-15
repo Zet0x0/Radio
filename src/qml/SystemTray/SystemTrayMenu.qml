@@ -5,9 +5,12 @@ import QtQuick.Controls
 import Radio.ApplicationStyle
 import Radio.Shared
 import QtQuick.Layouts
+import Radio.MainWindow
 
 Window {
     id: window
+
+    required property MainWindow applicationWindow
 
     function popup(position) {
         /*
@@ -20,6 +23,15 @@ Window {
 
         show();
         menu.popup();
+    }
+
+    function showOrHideMainWindow() {
+        if (applicationWindow.visible) {
+            applicationWindow.hide();
+        } else {
+            applicationWindow.show();
+            applicationWindow.requestActivate();
+        }
     }
 
     color: "#00000000" /* make the window transparent to support menus with rounded edges */
@@ -63,6 +75,17 @@ Window {
                     VolumeSlider {
                     }
                 }
+            }
+        }
+
+        MenuSeparator {
+        }
+
+        MenuItem {
+            text: (window.applicationWindow.visible) ? qsTr("Hide Main Window") : qsTr("Show Main Window")
+
+            onTriggered: {
+                window.showOrHideMainWindow();
             }
         }
 

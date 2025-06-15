@@ -5,10 +5,8 @@ import Qt.labs.platform as Labs
 
 import Radio.Cpp.Utilities
 import Radio.Cpp.Player
-import Radio.MainWindow
 
 Labs.SystemTrayIcon {
-    required property MainWindow applicationWindow
     required property SystemTrayMenu systemTrayMenu
 
     icon.source: "qrc:/zet0x0.github.io/icons/applicationIconBackground.svg"
@@ -25,12 +23,7 @@ Labs.SystemTrayIcon {
             }
         case Labs.SystemTrayIcon.Trigger:
             {
-                if (applicationWindow.visible) {
-                    applicationWindow.hide();
-                } else {
-                    applicationWindow.show();
-                    applicationWindow.requestActivate();
-                }
+                systemTrayMenu.showOrHideMainWindow();
 
                 break;
             }
