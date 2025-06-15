@@ -142,6 +142,7 @@ Control {
                 Slider {
                     ToolTip.text: qsTr("Volume: %0%").arg(value)
                     ToolTip.visible: hovered || visualFocus || pressed
+                    padding: StyleProperties.controls_volumeSlider_padding
                     palette.accent: (Player.muted) ? disabledPalette.accent : activePalette.accent
                     stepSize: 1
                     to: Player.maxVolume

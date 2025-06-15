@@ -6,7 +6,7 @@ T.Slider {
 
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset, implicitHandleHeight + topPadding + bottomPadding)
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset, implicitHandleWidth + leftPadding + rightPadding)
-    padding: StyleProperties.controls_slider_padding
+    padding: StyleProperties.controls_padding
 
     background: Rectangle {
         color: StyleProperties.palette_darkerAccent
