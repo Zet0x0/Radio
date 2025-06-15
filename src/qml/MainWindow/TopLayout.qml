@@ -74,7 +74,7 @@ Control {
 
                         formattedString += Utilities.zeroPad(minutes) + ":" + Utilities.zeroPad(seconds);
 
-                        return qsTr("%0 elapsed").arg(formattedString);
+                        return qsTr("%0", "elapsed").arg(formattedString);
                     }
                     visible: !Player.station.invalid && Player.state === Player.PLAYING
                 }
