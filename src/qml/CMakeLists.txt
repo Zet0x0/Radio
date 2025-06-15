@@ -15,3 +15,4 @@ qt_add_qml_module(
 add_subdirectory(MainWindow)
 add_subdirectory(SystemTray)
 add_subdirectory(ApplicationStyle)
+add_subdirectory(Shared)
