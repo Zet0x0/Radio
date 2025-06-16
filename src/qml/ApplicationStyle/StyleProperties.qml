@@ -63,7 +63,7 @@ QtObject {
     readonly property color palette_menu_modalShadow: "#00000080"
     readonly property color palette_menu_modelessShadow: "#0000001f"
     readonly property color palette_stationImage_stationLoadingIndicatorBackground: "#000"
-    readonly property color palette_stationImage_stationLoadingIndicatorText: "#a0f"
+    readonly property color palette_stationImage_stationLoadingIndicatorText: "#fff"
     readonly property color palette_text: "#a0f"
     readonly property color palette_textLink: "#d47fff"
 }
