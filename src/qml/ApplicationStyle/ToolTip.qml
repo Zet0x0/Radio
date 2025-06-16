@@ -21,10 +21,9 @@ T.ToolTip {
             width: StyleProperties.border_width
         }
     }
-    contentItem: Text {
-        color: StyleProperties.palette_text
+    contentItem: Label {
         font: control.font
         text: control.text
-        wrapMode: Text.Wrap
+        wrapMode: Label.Wrap
     }
 }
