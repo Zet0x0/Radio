@@ -150,7 +150,7 @@ Player::Player()
         new Station("test station",
                     "https://cdn-images.dzcdn.net/images/cover/"
                     "1fc4079b43b72e6c422dec12caae2407/0x1900-000000-80-0-0.jpg",
-                    "https://stream.zeno.fm/z6nrb967wqjvv"));
+                    "https://stream.rcs.revma.com/1a6hdnzbebuvv"));
 }
 
 void Player::setElapsed(const qint64 &newElapsed)
