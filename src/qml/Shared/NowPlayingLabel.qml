@@ -1,5 +1,4 @@
 import QtQuick
-import QtQuick.Controls
 import Radio.Cpp.Player
 import Radio.ApplicationStyle
 
