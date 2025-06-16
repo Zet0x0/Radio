@@ -26,6 +26,10 @@ QtObject {
     readonly property int controls_slider_horizontalSwapImplicitWidth: 200
     readonly property int controls_spacing: 5
     readonly property int controls_stationImage_size: 96
+    readonly property var controls_stationImage_stationLoadingIndicatorArray: ["010010", "001100", "100101", "111010", "111101", "010111", "101011", "111000", "110011", "110101"]
+    readonly property real controls_stationImage_stationLoadingIndicatorBackgroundOpacity: 0.75
+    readonly property bool controls_stationImage_stationLoadingIndicatorBounceBack: false
+    readonly property int controls_stationImage_stationLoadingIndicatorInterval: 80
     readonly property int controls_volumeSlider_padding: 3
 
     /* Fonts */
@@ -39,6 +43,10 @@ QtObject {
     readonly property font fonts_mainWindow_nowPlayingLabel: ({
             pointSize: 12,
             bold: true
+        })
+    readonly property font fonts_stationImage_stationLoadingIndicator: ({
+            family: "Consolas",
+            pointSize: 12
         })
 
     /* Palette */
@@ -54,6 +62,8 @@ QtObject {
     readonly property color palette_lighterText: Qt.lighter(palette_text)
     readonly property color palette_menu_modalShadow: "#00000080"
     readonly property color palette_menu_modelessShadow: "#0000001f"
+    readonly property color palette_stationImage_stationLoadingIndicatorBackground: "#000"
+    readonly property color palette_stationImage_stationLoadingIndicatorText: "#a0f"
     readonly property color palette_text: "#a0f"
     readonly property color palette_textLink: "#d47fff"
 }
