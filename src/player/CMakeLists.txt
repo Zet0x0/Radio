@@ -1,7 +1,13 @@
 qt_add_library(Radio_Cpp_Player STATIC)
 
 set_target_properties(Radio_Cpp_Player PROPERTIES AUTOMOC ON)
-target_link_libraries(Radio_Cpp_Player PRIVATE Qt6::Quick)
+target_link_libraries(
+    Radio_Cpp_Player
+    PRIVATE
+        Qt6::Qml
+        Qt6::Core
+        libmpv-2
+)
 
 qt_add_qml_module(
     Radio_Cpp_Player

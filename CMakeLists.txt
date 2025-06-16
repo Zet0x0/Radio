@@ -14,10 +14,10 @@ set(QT_QML_GENERATE_QMLLS_INI ON)
 find_package(
     Qt6 REQUIRED
     COMPONENTS
-        Core
         Gui
+        Core
         Quick
-        QuickControls2
+        Qml
 )
 
 qt_standard_project_setup(REQUIRES 6.8)
@@ -36,12 +36,9 @@ target_link_libraries(
     Radio
     PRIVATE
         # Qt
-        Qt6::Core
         Qt6::Gui
-        Qt6::Quick
-        Qt6::QuickControls2
-        # External
-        libmpv-2
+        Qt6::Core
+        Qt6::Qml
         # Our QML plugins
         Radio_Mainplugin
         Radio_MainWindowplugin

@@ -1,7 +1,6 @@
 qt_add_library(Radio_MainWindow STATIC)
 
 set_target_properties(Radio_MainWindow PROPERTIES AUTOMOC ON)
-target_link_libraries(Radio_MainWindow PRIVATE Qt6::Quick)
 
 qt_add_qml_module(
     Radio_MainWindow

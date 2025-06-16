@@ -4,7 +4,6 @@
 #include "station.h"
 
 #include <QQmlEngine>
-#include <QtQmlIntegration/qqmlintegration.h>
 
 Q_DECLARE_LOGGING_CATEGORY(radioPlayer)
 
@@ -75,7 +74,7 @@ private:
 
     QString m_nowPlaying;
 
-    qint64 m_elapsed;
+    qint64 m_elapsed = 0;
     Player::State m_state = Player::State::STOPPED;
     qint16 m_volume = 100;
     bool m_muted = false;

@@ -1,7 +1,6 @@
 qt_add_library(Radio_ApplicationStyle STATIC)
 
 set_target_properties(Radio_ApplicationStyle PROPERTIES AUTOMOC ON)
-target_link_libraries(Radio_ApplicationStyle PRIVATE Qt6::Quick)
 
 set_source_files_properties(
     StyleProperties.qml PROPERTIES QT_QML_SINGLETON_TYPE TRUE

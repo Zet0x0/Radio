@@ -1,7 +1,6 @@
 qt_add_library(Radio_Shared STATIC)
 
 set_target_properties(Radio_Shared PROPERTIES AUTOMOC ON)
-target_link_libraries(Radio_Shared PRIVATE Qt6::Quick)
 
 qt_add_qml_module(
     Radio_Shared

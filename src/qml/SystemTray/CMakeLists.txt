@@ -1,7 +1,6 @@
 qt_add_library(Radio_SystemTray STATIC)
 
 set_target_properties(Radio_SystemTray PROPERTIES AUTOMOC ON)
-target_link_libraries(Radio_SystemTray PRIVATE Qt6::Quick)
 
 qt_add_qml_module(
     Radio_SystemTray
