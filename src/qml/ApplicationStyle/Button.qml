@@ -11,16 +11,16 @@ T.Button {
     spacing: StyleProperties.controls_spacing
 
     background: Rectangle {
-        color: (control.enabled) ? ((control.checked || control.highlighted || control.down) ? StyleProperties.palette_accent : ((control.visualFocus || control.hovered) ? StyleProperties.palette_activeFocusBackground : StyleProperties.palette_background)) : ((control.highlighted) ? StyleProperties.palette_darkerAccent : StyleProperties.palette_background)
+        color: (control.enabled) ? ((control.checked || control.highlighted || control.down) ? StyleProperties.palette_accent : ((control.visualFocus || control.hovered) ? StyleProperties.palette_activeFocusBackground : StyleProperties.palette_background)) : ((control.highlighted) ? StyleProperties.palette_accent_darker : StyleProperties.palette_background)
         visible: (control.flat && control.enabled && control.hovered) || !control.flat || control.down || control.checked || control.highlighted || control.visualFocus
 
         border {
-            color: (control.enabled) ? (((control.hovered && (control.checked || control.highlighted || control.down)) || control.visualFocus) ? StyleProperties.palette_activeAccent : StyleProperties.palette_accent) : StyleProperties.palette_darkerAccent
+            color: (control.enabled) ? (((control.hovered && (control.checked || control.highlighted || control.down)) || control.visualFocus) ? StyleProperties.palette_accent_active : StyleProperties.palette_accent) : StyleProperties.palette_accent_darker
             width: StyleProperties.border_width
         }
     }
     contentItem: IconLabel {
-        color: (control.enabled) ? ((control.checked || control.highlighted || control.down) ? StyleProperties.palette_activeText : ((control.visualFocus || control.hovered) ? StyleProperties.palette_lighterText : StyleProperties.palette_text)) : ((control.highlighted) ? StyleProperties.palette_text : StyleProperties.palette_darkerText)
+        color: (control.enabled) ? ((control.checked || control.highlighted || control.down) ? StyleProperties.palette_text_active : ((control.visualFocus || control.hovered) ? StyleProperties.palette_text_lighter : StyleProperties.palette_text)) : ((control.highlighted) ? StyleProperties.palette_text : StyleProperties.palette_text_darker)
         display: control.display
         font: control.font
         icon: control.icon
@@ -30,7 +30,7 @@ T.Button {
     }
 
     icon {
-        color: (control.enabled) ? ((control.checked || control.highlighted || control.down) ? StyleProperties.palette_activeAccent : ((control.visualFocus || control.hovered) ? StyleProperties.palette_lighterAccent : StyleProperties.palette_accent)) : ((control.highlighted) ? StyleProperties.palette_accent : StyleProperties.palette_darkerAccent)
+        color: (control.enabled) ? ((control.checked || control.highlighted || control.down) ? StyleProperties.palette_accent_active : ((control.visualFocus || control.hovered) ? StyleProperties.palette_accent_lighter : StyleProperties.palette_accent)) : ((control.highlighted) ? StyleProperties.palette_accent : StyleProperties.palette_accent_darker)
         height: StyleProperties.controls_button_iconSize
         width: StyleProperties.controls_button_iconSize
     }

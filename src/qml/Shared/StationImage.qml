@@ -33,14 +33,14 @@ Image {
         visible: Player.state === Player.LOADING
 
         background: Rectangle {
-            color: StyleProperties.palette_stationImage_stationLoadingIndicatorBackground
-            opacity: StyleProperties.controls_stationImage_stationLoadingIndicatorBackgroundOpacity
+            color: StyleProperties.palette_stationImage_stationLoadingIndicator_background
+            opacity: StyleProperties.controls_stationImage_stationLoadingIndicator_backgroundOpacity
         }
         contentItem: AnimatedLabel {
-            bounceBack: StyleProperties.controls_stationImage_stationLoadingIndicatorBounceBack
-            frameInterval: StyleProperties.controls_stationImage_stationLoadingIndicatorInterval
-            frames: StyleProperties.controls_stationImage_stationLoadingIndicatorArray
-            textColor: StyleProperties.palette_stationImage_stationLoadingIndicatorText
+            bounceBack: StyleProperties.controls_stationImage_stationLoadingIndicator_bounceBack
+            frameInterval: StyleProperties.controls_stationImage_stationLoadingIndicator_interval
+            frames: StyleProperties.controls_stationImage_stationLoadingIndicator_frames
+            textColor: StyleProperties.palette_stationImage_stationLoadingIndicator_text
             textFont: StyleProperties.fonts_stationImage_stationLoadingIndicator
         }
     }

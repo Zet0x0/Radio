@@ -33,7 +33,7 @@ Control {
 
                     anchors.baseline: stationNameLabel.baseline
                     enabled: false
-                    font: StyleProperties.fonts_mainWindow_elapsedLabel
+                    font: StyleProperties.fonts_elapsedLabel
                     text: {
                         const total = Player.elapsed;
 

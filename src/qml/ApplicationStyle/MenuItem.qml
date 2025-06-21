@@ -15,7 +15,7 @@ T.MenuItem {
     topInset: 0
 
     arrow: ColorImage {
-        color: (control.enabled) ? ((control.checked || control.down) ? StyleProperties.palette_activeAccent : ((control.visualFocus || control.hovered) ? StyleProperties.palette_lighterAccent : StyleProperties.palette_accent)) : StyleProperties.palette_darkerAccent
+        color: (control.enabled) ? ((control.checked || control.down) ? StyleProperties.palette_accent_active : ((control.visualFocus || control.hovered) ? StyleProperties.palette_accent_lighter : StyleProperties.palette_accent)) : StyleProperties.palette_accent_darker
         mirror: control.mirrored
         source: (!control.subMenu) ? "" : "qrc:/zet0x0.github.io/icons/chevronRight.svg"
         visible: !!control.subMenu
@@ -32,7 +32,7 @@ T.MenuItem {
         visible: control.down || control.checked || (control.hovered && control.enabled) || control.visualFocus
 
         border {
-            color: (control.enabled) ? (((control.hovered && (control.checked || control.down)) || control.visualFocus) ? StyleProperties.palette_activeAccent : StyleProperties.palette_accent) : StyleProperties.palette_darkerAccent
+            color: (control.enabled) ? (((control.hovered && (control.checked || control.down)) || control.visualFocus) ? StyleProperties.palette_accent_active : StyleProperties.palette_accent) : StyleProperties.palette_accent_darker
             width: StyleProperties.border_width
         }
     }
@@ -41,7 +41,7 @@ T.MenuItem {
         readonly property real indicatorPadding: (control.checkable && control.indicator) ? control.indicator.width + control.spacing : 0
 
         alignment: Qt.AlignLeft
-        color: (control.enabled) ? ((control.checked || control.down) ? StyleProperties.palette_activeText : ((control.visualFocus || control.hovered) ? StyleProperties.palette_lighterText : StyleProperties.palette_text)) : StyleProperties.palette_darkerText
+        color: (control.enabled) ? ((control.checked || control.down) ? StyleProperties.palette_text_active : ((control.visualFocus || control.hovered) ? StyleProperties.palette_text_lighter : StyleProperties.palette_text)) : StyleProperties.palette_text_darker
         display: control.display
         font: control.font
         icon: control.icon
@@ -52,7 +52,7 @@ T.MenuItem {
         text: control.text
     }
     indicator: ColorImage {
-        color: (control.enabled) ? ((control.checked || control.down) ? StyleProperties.palette_activeAccent : ((control.visualFocus || control.hovered) ? StyleProperties.palette_lighterAccent : StyleProperties.palette_accent)) : StyleProperties.palette_darkerAccent
+        color: (control.enabled) ? ((control.checked || control.down) ? StyleProperties.palette_accent_active : ((control.visualFocus || control.hovered) ? StyleProperties.palette_accent_lighter : StyleProperties.palette_accent)) : StyleProperties.palette_accent_darker
         source: (control.checked) ? "qrc:/zet0x0.github.io/icons/check.svg" : "qrc:/zet0x0.github.io/icons/cross.svg"
         visible: control.checkable
         x: (control.mirrored) ? control.width - width - control.rightPadding : control.leftPadding
@@ -65,7 +65,7 @@ T.MenuItem {
     }
 
     icon {
-        color: (control.enabled) ? ((control.checked || control.down) ? StyleProperties.palette_activeAccent : ((control.visualFocus || control.hovered) ? StyleProperties.palette_lighterAccent : StyleProperties.palette_accent)) : StyleProperties.palette_darkerAccent
+        color: (control.enabled) ? ((control.checked || control.down) ? StyleProperties.palette_accent_active : ((control.visualFocus || control.hovered) ? StyleProperties.palette_accent_lighter : StyleProperties.palette_accent)) : StyleProperties.palette_accent_darker
         height: StyleProperties.controls_menuItem_iconSize
         width: StyleProperties.controls_menuItem_iconSize
     }
