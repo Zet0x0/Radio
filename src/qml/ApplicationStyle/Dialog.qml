@@ -31,6 +31,8 @@ T.Dialog {
         topPadding: StyleProperties.controls_padding
 
         contentItem: ColumnLayout {
+            spacing: StyleProperties.controls_spacing
+
             Separator {
                 Layout.fillWidth: true
             }
