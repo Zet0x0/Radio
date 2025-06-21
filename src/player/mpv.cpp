@@ -151,10 +151,6 @@ Mpv::Mpv()
     MpvEventManager *eventManager = MpvEventManager::instance();
 
     connect(eventManager,
-            &MpvEventManager::errorOccurred,
-            this,
-            &Mpv::handleError);
-    connect(eventManager,
             &MpvEventManager::logMessage,
             this,
             &Mpv::handleLogMessage);

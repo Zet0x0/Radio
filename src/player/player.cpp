@@ -132,6 +132,14 @@ Player::Player()
     MpvEventManager *mpvEventManager = MpvEventManager::instance();
 
     connect(mpvEventManager,
+            &MpvEventManager::playbackErrorOccurred,
+            this,
+            [](const int &errorCode)
+            {
+                // TODO
+            });
+
+    connect(mpvEventManager,
             &MpvEventManager::nowPlayingChanged,
             this,
             &Player::setNowPlaying);

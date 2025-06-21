@@ -49,12 +49,14 @@ void MpvEventManager::handleEvent(mpv_event *event)
             switch (endFileReason)
             {
                 case MPV_END_FILE_REASON_ERROR:
+                {
+                    emit playbackErrorOccurred(endFile->error);
+
+                    break;
+                }
                 case MPV_END_FILE_REASON_EOF:
                 {
-                    emit errorOccurred(
-                        (endFileReason == MPV_END_FILE_REASON_ERROR)
-                            ? endFile->error
-                            : MPV_ERROR_NOTHING_TO_PLAY);
+                    emit playbackErrorOccurred(MPV_ERROR_NOTHING_TO_PLAY);
 
                     break;
                 }
