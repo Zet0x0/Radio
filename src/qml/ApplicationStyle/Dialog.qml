@@ -6,11 +6,12 @@ import Radio.Shared
 T.Dialog {
     id: control
 
+    bottomPadding: StyleProperties.controls_spacing
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset, implicitContentHeight + topPadding + bottomPadding + ((implicitHeaderHeight > 0) ? implicitHeaderHeight + spacing : 0) + ((implicitFooterHeight > 0) ? implicitFooterHeight + spacing : 0))
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset, implicitContentWidth + leftPadding + rightPadding, implicitHeaderWidth, implicitFooterWidth)
-    leftPadding: StyleProperties.controls_padding + StyleProperties.border_width
     margins: StyleProperties.controls_margins
-    rightPadding: StyleProperties.controls_padding + StyleProperties.border_width
+    padding: StyleProperties.controls_padding + StyleProperties.border_width
+    topPadding: StyleProperties.controls_spacing
 
     T.Overlay.modal: Rectangle {
         color: StyleProperties.palette_dialog_modal
@@ -28,7 +29,7 @@ T.Dialog {
     }
     footer: Control {
         padding: StyleProperties.controls_padding + StyleProperties.border_width
-        topPadding: StyleProperties.controls_padding
+        topPadding: 0
 
         contentItem: ColumnLayout {
             spacing: StyleProperties.controls_spacing
@@ -64,7 +65,7 @@ T.Dialog {
         }
     }
     header: Control {
-        bottomPadding: StyleProperties.controls_padding
+        bottomPadding: 0
         padding: StyleProperties.controls_padding + StyleProperties.border_width
         visible: !!control.title
 
