@@ -83,4 +83,7 @@ private:
 
     void setElapsed(const qint64 &);
     void setState(const Player::State &);
+
+signals:
+    void playbackErrorOccurred(const int &errorCode, QPrivateSignal);
 };

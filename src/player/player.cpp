@@ -119,14 +119,22 @@ void Player::setMuted(const bool &newMuted)
 
 void Player::play()
 {
-    // TODO: error handling
-    m_mpv->play(m_station->streamUrl());
+    const int result = m_mpv->play(m_station->streamUrl());
+
+    if (result != MPV_ERROR_SUCCESS)
+    {
+        emit playbackErrorOccurred(result, QPrivateSignal());
+    }
 }
 
 void Player::stop()
 {
-    // TODO: error handling
-    m_mpv->stop();
+    const int result = m_mpv->stop();
+
+    if (result != MPV_ERROR_SUCCESS)
+    {
+        emit playbackErrorOccurred(result, QPrivateSignal());
+    }
 }
 
 Player::Player()
@@ -135,6 +143,20 @@ Player::Player()
 
     connect(mpvEventManager,
             &MpvEventManager::playbackErrorOccurred,
+            this,
+            [this](const int &errorCode)
+            {
+                emit playbackErrorOccurred(errorCode, QPrivateSignal());
+            });
+    connect(m_mpv,
+            &Mpv::initializationErrorOccurred,
+            this,
+            [](const int &errorCode)
+            {
+                // TODO: error handling
+            });
+    connect(this,
+            &Player::playbackErrorOccurred,
             this,
             [](const int &errorCode)
             {
@@ -154,14 +176,6 @@ Player::Player()
             &MpvEventManager::playerStateChanged,
             this,
             &Player::setState);
-
-    connect(m_mpv,
-            &Mpv::initializationErrorOccurred,
-            this,
-            [](const int &errorCode)
-            {
-                // TODO: error handling
-            });
 
     // TODO: remove this when done testing
     setStation(
