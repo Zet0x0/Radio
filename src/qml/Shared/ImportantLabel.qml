@@ -10,23 +10,19 @@ import Radio.Cpp.Utilities
 Label {
     id: control
 
+    property bool toolTipEnabled: true
+
     ToolTip.text: text
     ToolTip.visible: truncated && hoverHandler.hovered
     elide: Label.ElideMiddle
     textFormat: Label.PlainText
 
-    ContextMenu.menu: Menu {
-        MenuItem {
-            text: qsTr("Copy")
-
-            onTriggered: {
-                Utilities.copyToClipboard(control.text);
-            }
-        }
+    ContextMenu.menu: CopyContextMenu {
     }
 
     HoverHandler {
         id: hoverHandler
 
+        enabled: control.toolTipEnabled
     }
 }
