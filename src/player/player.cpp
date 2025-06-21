@@ -119,11 +119,13 @@ void Player::setMuted(const bool &newMuted)
 
 void Player::play()
 {
+    // TODO: error handling
     m_mpv->play(m_station->streamUrl());
 }
 
 void Player::stop()
 {
+    // TODO: error handling
     m_mpv->stop();
 }
 
@@ -136,7 +138,7 @@ Player::Player()
             this,
             [](const int &errorCode)
             {
-                // TODO
+                // TODO: error handling
             });
 
     connect(mpvEventManager,
@@ -152,6 +154,14 @@ Player::Player()
             &MpvEventManager::playerStateChanged,
             this,
             &Player::setState);
+
+    connect(m_mpv,
+            &Mpv::initializationErrorOccurred,
+            this,
+            [](const int &errorCode)
+            {
+                // TODO: error handling
+            });
 
     // TODO: remove this when done testing
     setStation(

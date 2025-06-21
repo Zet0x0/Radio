@@ -16,8 +16,8 @@ public:
 
     static mpv_handle *mpvHandle();
 
-    bool play(const QString &url);
-    bool stop();
+    int play(const QString &url);
+    int stop();
 
     bool setVolume(const qint16 &);
     bool setMuted(const bool &);
@@ -26,11 +26,6 @@ public:
     int getProperty(const QString &name, QVariant *result);
 
 private slots:
-    /*
-     * Returns true if errorCode != MPV_ERROR_SUCCESS and it was handled
-     * accordingly, false otherwise
-     */
-    bool handleError(const int &errorCode);
     void handleLogMessage(mpv_event_log_message *);
 
 private:
@@ -39,6 +34,11 @@ private:
 
     Mpv();
 
+    /*
+     * Returns true if errorCode != MPV_ERROR_SUCCESS and it was handled
+     * accordingly, false otherwise
+     */
+    bool handleInitializationError(const int &errorCode);
     int create();
     int requestLogMessages();
     int initialize();
@@ -46,4 +46,7 @@ private:
     int command(const QVariant &args, QVariant *result = nullptr);
 
     int observeProperty(const QString &name, const mpv_format &format);
+
+signals:
+    void initializationErrorOccurred(const int &errorCode);
 };

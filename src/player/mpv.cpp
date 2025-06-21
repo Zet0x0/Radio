@@ -26,14 +26,14 @@ mpv_handle *Mpv::mpvHandle()
     return instance()->m_mpvHandle;
 }
 
-bool Mpv::play(const QString &url)
+int Mpv::play(const QString &url)
 {
-    return !handleError(command(QStringList({"loadfile", url})));
+    return command(QStringList({"loadfile", url}));
 }
 
-bool Mpv::stop()
+int Mpv::stop()
 {
-    return !handleError(command(QStringList({"stop"})));
+    return command(QStringList({"stop"}));
 }
 
 bool Mpv::setVolume(const qint16 &volume)
@@ -85,15 +85,14 @@ int Mpv::getProperty(const QString &name, QVariant *result)
     return errorCode;
 }
 
-/* TODO: implement this properly, ui-wise too */
-bool Mpv::handleError(const int &errorCode)
+bool Mpv::handleInitializationError(const int &errorCode)
 {
     if (errorCode == MPV_ERROR_SUCCESS)
     {
         return false;
     }
 
-    qDebug() << mpv_error_string(errorCode);
+    emit initializationErrorOccurred(errorCode);
 
     return true;
 }
@@ -141,7 +140,7 @@ void Mpv::handleLogMessage(mpv_event_log_message *logMessage)
 
 Mpv::Mpv()
 {
-    if (handleError(create()))
+    if (handleInitializationError(create()))
     {
         return;
     }
@@ -162,7 +161,7 @@ Mpv::Mpv()
             &MpvEventManager::listenToEvents);
     m_eventManagerThread.start();
 
-    if (handleError(initialize()))
+    if (handleInitializationError(initialize()))
     {
         return;
     }

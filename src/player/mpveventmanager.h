@@ -23,7 +23,7 @@ signals:
     void elapsedChanged(const qint64 &);
     void playerStateChanged(const Player::State &);
 
-    void playbackErrorOccurred(const int &);
+    void playbackErrorOccurred(const int &errorCode);
     void logMessage(mpv_event_log_message *);
 
 private:
