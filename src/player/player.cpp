@@ -147,10 +147,7 @@ Player::Player()
 
     // TODO: remove this when done testing
     setStation(
-        new Station("test station",
-                    "https://cdn-images.dzcdn.net/images/cover/"
-                    "1fc4079b43b72e6c422dec12caae2407/0x1900-000000-80-0-0.jpg",
-                    "https://stream.rcs.revma.com/1a6hdnzbebuvv"));
+        new Station("", "", "https://stream.rcs.revma.com/1a6hdnzbebuvv"));
 }
 
 void Player::setElapsed(const qint64 &newElapsed)
