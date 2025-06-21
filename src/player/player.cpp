@@ -131,10 +131,19 @@ void Player::stop()
 {
     const int result = m_mpv->stop();
 
-    if (result != MPV_ERROR_SUCCESS)
+    if (result == MPV_ERROR_SUCCESS)
     {
-        emit playbackErrorOccurred(result, QPrivateSignal());
+        return;
     }
+
+    qCCritical(radioPlayer)
+        << "the stop command mysteriously failed with error code" << result;
+
+    emit messageDialogRequested(
+        tr("Command Failed"),
+        tr("The stop command (somehow) failed:\n\n%0 (code %1)")
+            .arg(mpv_error_string(result), QString::number(result)),
+        false);
 }
 
 Player::Player()
@@ -151,16 +160,33 @@ Player::Player()
     connect(m_mpv,
             &Mpv::initializationErrorOccurred,
             this,
-            [](const int &errorCode)
+            [this](const int &errorCode)
             {
-                // TODO: error handling
+                qCCritical(radioPlayer)
+                    << "mpv failed to initialize with error code" << errorCode;
+
+                emit messageDialogRequested(
+                    tr("Initialization Error"),
+                    tr("MPV failed to initialize:\n\n%0 (code %1)")
+                        .arg(mpv_error_string(errorCode),
+                             QString::number(errorCode)),
+                    true);
             });
     connect(this,
             &Player::playbackErrorOccurred,
             this,
-            [](const int &errorCode)
+            [this](const int &errorCode)
             {
-                // TODO: error handling
+                qCCritical(radioPlayer)
+                    << "station playback failed with error code" << errorCode;
+
+                emit messageDialogRequested(
+                    tr("Playback Error"),
+                    tr("An error has occurred trying to play the "
+                       "station:\n\n%0 (code %1)")
+                        .arg(mpv_error_string(errorCode),
+                             QString::number(errorCode)),
+                    false);
             });
 
     connect(mpvEventManager,
