@@ -10,6 +10,8 @@ Button Button.qml
 Label Label.qml
 Slider Slider.qml
 
+Dialog.qml
+DialogButtonBox.qml
 Menu.qml
 MenuItem.qml
 MenuSeparator.qml

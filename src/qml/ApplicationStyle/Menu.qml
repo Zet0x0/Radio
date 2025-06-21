@@ -20,10 +20,10 @@ T.Menu {
     padding: StyleProperties.controls_padding + StyleProperties.border_width
 
     T.Overlay.modal: Rectangle {
-        color: StyleProperties.palette_menu_modalShadow
+        color: StyleProperties.palette_menu_modal
     }
     T.Overlay.modeless: Rectangle {
-        color: StyleProperties.palette_menu_modelessShadow
+        color: StyleProperties.palette_menu_modeless
     }
     background: Rectangle {
         color: StyleProperties.palette_background

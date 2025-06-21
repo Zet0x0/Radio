@@ -69,7 +69,7 @@ signals:
 
     void messageDialogRequested(const QString &title,
                                 const QString &message,
-                                const bool &optionToExit);
+                                const bool &exitOnClose);
 
 private:
     Mpv *m_mpv = Mpv::instance();

@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
             qCCritical(radioMain)
                 << "qml object creation failed for url" << url;
 
-            QGuiApplication::exit(-1);
+            QGuiApplication::exit(1);
         },
         Qt::QueuedConnection);
 

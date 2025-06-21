@@ -37,6 +37,9 @@ QtObject {
             family: "Segoe UI Variable",
             pointSize: 10
         })
+    readonly property font fonts_dialog_titleLabel: ({
+            bold: true
+        })
     readonly property font fonts_elapsedLabel: ({
             family: "Consolas"
         })
@@ -56,8 +59,10 @@ QtObject {
     readonly property color palette_accent_lighter: Qt.lighter(palette_accent)
     readonly property color palette_activeFocusBackground: "#55007f"
     readonly property color palette_background: "#000"
-    readonly property color palette_menu_modalShadow: "#00000080"
-    readonly property color palette_menu_modelessShadow: "#0000001f"
+    readonly property color palette_dialog_modal: Qt.rgba(0.0, 0.0, 0.0, 0.5)
+    readonly property color palette_dialog_modeless: Qt.rgba(0.0, 0.0, 0.0, 0.5)
+    readonly property color palette_menu_modal: Qt.rgba(0.0, 0.0, 0.0, 0.5)
+    readonly property color palette_menu_modeless: Qt.rgba(0.0, 0.0, 0.0, 0.5)
     readonly property color palette_stationImage_stationLoadingIndicator_background: "#000"
     readonly property color palette_stationImage_stationLoadingIndicator_text: "#fff"
     readonly property color palette_text: "#a0f"
