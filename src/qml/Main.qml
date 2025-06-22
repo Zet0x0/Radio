@@ -21,6 +21,9 @@ MainWindow {
             });
 
             dialog.open();
+
+            applicationWindow.show();
+            applicationWindow.requestActivate();
         }
 
         target: Player
