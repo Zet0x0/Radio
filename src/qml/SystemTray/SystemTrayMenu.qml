@@ -47,14 +47,18 @@ Window {
                     Layout.alignment: Qt.AlignHCenter
                 }
 
-                NowPlayingLabel {
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                    horizontalAlignment: Qt.AlignHCenter
-                    systemTray: true
+                Control {
+                    implicitWidth: controlLayout.width
+
+                    contentItem: NowPlayingLabel {
+                        horizontalAlignment: Qt.AlignHCenter
+                        systemTray: true
+                    }
                 }
 
                 RowLayout {
+                    id: controlLayout
+
                     PlayButton {
                         systemTray: true
                         systemTrayMenu: menu
