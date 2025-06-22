@@ -35,6 +35,8 @@ Window {
 
         font: StyleProperties.fonts_application // has to be explicitly specified here
 
+        margins: 0 // NOTE: values above 0 make the menu have a stroke and shrink to 0 pixels
+
         onClosed: {
             window.hide();
         }

@@ -15,7 +15,7 @@ T.Menu {
     }
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset, implicitContentHeight + topPadding + bottomPadding)
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset, implicitContentWidth + leftPadding + rightPadding)
-    margins: 0 // NOTE: values above 0 make the menu have a stroke and shrink to 0 pixels
+    margins: StyleProperties.controls_margins
     overlap: StyleProperties.controls_menu_overlap
     padding: StyleProperties.controls_padding + StyleProperties.border_width
 
