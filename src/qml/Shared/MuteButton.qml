@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls
+import Radio.ApplicationStyle
 import Radio.Cpp.Player
 
 IconButton {
