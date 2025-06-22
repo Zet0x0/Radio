@@ -107,7 +107,12 @@ void MpvEventManager::handleEvent(mpv_event *event)
 
         case MPV_EVENT_LOG_MESSAGE:
         {
-            emit logMessage(static_cast<mpv_event_log_message *>(eventData));
+            const mpv_event_log_message *logMessage_
+                = static_cast<mpv_event_log_message *>(eventData);
+
+            emit logMessage(logMessage_->log_level,
+                            logMessage_->prefix,
+                            logMessage_->text);
 
             break;
         }

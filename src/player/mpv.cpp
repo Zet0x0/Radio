@@ -6,10 +6,8 @@
 
 #include <QVariant>
 
-/* a class function wouldn't work to get rid of this macro */
-#define printMpvLogMessage(debug, logMessage)                      \
-    debug.noquote().nospace() << '[' << logMessage->prefix << "] " \
-                              << QString(logMessage->text).trimmed()
+#define printMpvLogMessage(debug, prefix, text) \
+    debug.noquote().nospace() << '[' << prefix << "] " << text.trimmed()
 
 Q_LOGGING_CATEGORY(radioMpv, "radio.mpv")
 Q_LOGGING_CATEGORY(mpv, "mpv")
@@ -137,31 +135,33 @@ int Mpv::initialize()
     return MPV_ERROR_SUCCESS;
 }
 
-void Mpv::handleLogMessage(mpv_event_log_message *logMessage)
+void Mpv::handleLogMessage(const mpv_log_level &logLevel,
+                           const QString &prefix,
+                           const QString &text)
 {
-    switch (logMessage->log_level)
+    switch (logLevel)
     {
         case MPV_LOG_LEVEL_FATAL:
         {
-            printMpvLogMessage(qCFatal(mpv), logMessage);
+            printMpvLogMessage(qCFatal(mpv), prefix, text);
 
             break;
         }
         case MPV_LOG_LEVEL_ERROR:
         {
-            printMpvLogMessage(qCCritical(mpv), logMessage);
+            printMpvLogMessage(qCCritical(mpv), prefix, text);
 
             break;
         }
         case MPV_LOG_LEVEL_WARN:
         {
-            printMpvLogMessage(qCWarning(mpv), logMessage);
+            printMpvLogMessage(qCWarning(mpv), prefix, text);
 
             break;
         }
         case MPV_LOG_LEVEL_DEBUG:
         {
-            printMpvLogMessage(qCDebug(mpv), logMessage);
+            printMpvLogMessage(qCDebug(mpv), prefix, text);
 
             break;
         }
@@ -171,7 +171,7 @@ void Mpv::handleLogMessage(mpv_event_log_message *logMessage)
         case MPV_LOG_LEVEL_TRACE:
         default:
         {
-            printMpvLogMessage(qCInfo(mpv), logMessage);
+            printMpvLogMessage(qCInfo(mpv), prefix, text);
 
             break;
         }

@@ -28,7 +28,9 @@ public:
     int initialize();
 
 private slots:
-    void handleLogMessage(mpv_event_log_message *);
+    void handleLogMessage(const mpv_log_level &,
+                          const QString &prefix,
+                          const QString &text);
 
 private:
     mpv_handle *m_mpvHandle;

@@ -24,7 +24,9 @@ signals:
     void playerStateChanged(const Player::State &);
 
     void playbackErrorOccurred(const int &errorCode);
-    void logMessage(mpv_event_log_message *);
+    void logMessage(const mpv_log_level &,
+                    const QString &prefix,
+                    const QString &text);
 
 private:
     void handleEvent(mpv_event *);
