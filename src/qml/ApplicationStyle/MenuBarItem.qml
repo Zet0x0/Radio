@@ -23,20 +23,6 @@ T.MenuBarItem {
 
         Rectangle {
             color: (parent as Rectangle).color
-            height: StyleProperties.border_width
-
-            anchors {
-                left: parent.left
-                leftMargin: StyleProperties.border_width
-                right: parent.right
-                rightMargin: StyleProperties.border_width
-                top: parent.top
-            }
-        }
-
-        Rectangle {
-            color: (parent as Rectangle).color
-            height: StyleProperties.border_width
 
             anchors {
                 bottom: parent.bottom
@@ -44,6 +30,7 @@ T.MenuBarItem {
                 leftMargin: StyleProperties.border_width
                 right: parent.right
                 rightMargin: StyleProperties.border_width
+                top: parent.top
             }
         }
     }
