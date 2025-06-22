@@ -16,6 +16,7 @@ QtObject {
     readonly property int controls_button_iconSize: 24
     readonly property int controls_iconButton_size: 32
     readonly property int controls_margins: 5
+    readonly property int controls_menuBarItem_iconSize: 20
     readonly property int controls_menuItem_iconSize: 20
     readonly property int controls_menu_overlap: 1
     readonly property int controls_padding: 5

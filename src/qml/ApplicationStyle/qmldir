@@ -16,4 +16,7 @@ Menu.qml
 MenuItem.qml
 MenuSeparator.qml
 
+MenuBar.qml
+MenuBarItem.qml
+
 import QtQuick.Controls.Basic auto
