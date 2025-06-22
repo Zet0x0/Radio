@@ -85,16 +85,56 @@ int Mpv::getProperty(const QString &name, QVariant *result)
     return errorCode;
 }
 
-bool Mpv::handleInitializationError(const int &errorCode)
+int Mpv::initialize()
 {
-    if (errorCode == MPV_ERROR_SUCCESS)
+    if (m_initialized)
     {
-        return false;
+        qCWarning(radioMpv)
+            << "attempted to do Mpv::initialize while m_initialized is true";
+
+        return MPV_ERROR_GENERIC;
     }
 
-    emit initializationErrorOccurred(errorCode);
+    const int createHandleResult = createHandle();
 
-    return true;
+    if (createHandleResult != MPV_ERROR_SUCCESS)
+    {
+        return createHandleResult;
+    }
+
+    requestLogMessages();
+
+    MpvEventManager *eventManager = MpvEventManager::instance();
+
+    connect(eventManager,
+            &MpvEventManager::logMessage,
+            this,
+            &Mpv::handleLogMessage);
+
+    eventManager->moveToThread(&m_eventManagerThread);
+    connect(&m_eventManagerThread,
+            &QThread::started,
+            eventManager,
+            &MpvEventManager::listenToEvents);
+    m_eventManagerThread.start();
+
+    const int initializeHandleResult = initializeHandle();
+
+    if (initializeHandleResult != MPV_ERROR_SUCCESS)
+    {
+        return initializeHandleResult;
+    }
+
+    setProperty("title", Utilities::toCString(tr("Radio")));
+    setProperty("vid", "no");
+    setProperty("sid", "no");
+
+    observeProperty("media-title", MPV_FORMAT_STRING); /* nowPlaying */
+    observeProperty("time-pos", MPV_FORMAT_INT64);     /* elapsed */
+
+    m_initialized = true;
+
+    return MPV_ERROR_SUCCESS;
 }
 
 void Mpv::handleLogMessage(mpv_event_log_message *logMessage)
@@ -138,43 +178,7 @@ void Mpv::handleLogMessage(mpv_event_log_message *logMessage)
     }
 }
 
-Mpv::Mpv()
-{
-    if (handleInitializationError(create()))
-    {
-        return;
-    }
-
-    requestLogMessages();
-
-    MpvEventManager *eventManager = MpvEventManager::instance();
-
-    connect(eventManager,
-            &MpvEventManager::logMessage,
-            this,
-            &Mpv::handleLogMessage);
-
-    eventManager->moveToThread(&m_eventManagerThread);
-    connect(&m_eventManagerThread,
-            &QThread::started,
-            eventManager,
-            &MpvEventManager::listenToEvents);
-    m_eventManagerThread.start();
-
-    if (handleInitializationError(initialize()))
-    {
-        return;
-    }
-
-    setProperty("title", Utilities::toCString(tr("Radio")));
-    setProperty("vid", "no");
-    setProperty("sid", "no");
-
-    observeProperty("media-title", MPV_FORMAT_STRING); /* nowPlaying */
-    observeProperty("time-pos", MPV_FORMAT_INT64);     /* elapsed */
-}
-
-int Mpv::create()
+int Mpv::createHandle()
 {
     m_mpvHandle = mpv_create();
     const int errorCode = (m_mpvHandle) ? MPV_ERROR_SUCCESS : MPV_ERROR_NOMEM;
@@ -203,7 +207,7 @@ int Mpv::requestLogMessages()
     return errorCode;
 }
 
-int Mpv::initialize()
+int Mpv::initializeHandle()
 {
     const int errorCode = mpv_initialize(m_mpvHandle);
 

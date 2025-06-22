@@ -26,6 +26,9 @@ class Player : public QObject
         qint16 volume READ volume WRITE setVolume NOTIFY volumeChanged FINAL)
     Q_PROPERTY(bool muted READ muted WRITE setMuted NOTIFY mutedChanged FINAL)
 
+    Q_PROPERTY(bool initialized READ initialized WRITE setInitialized NOTIFY
+                   initializedChanged FINAL)
+
 public:
     enum State
     {
@@ -57,6 +60,10 @@ public:
     Q_INVOKABLE void play();
     Q_INVOKABLE void stop();
 
+    Q_INVOKABLE void initialize();
+
+    bool initialized() const;
+
 signals:
     void stationChanged();
 
@@ -83,11 +90,15 @@ private:
     qint16 m_volume = 100;
     bool m_muted = false;
 
-    Player();
+    bool m_initialized = false;
 
     void setElapsed(const qint64 &);
     void setState(const Player::State &);
 
+    void setInitialized(const bool &newInitialized);
+
 signals:
     void playbackErrorOccurred(const int &errorCode, QPrivateSignal);
+
+    void initializedChanged();
 };

@@ -6,6 +6,12 @@ import QtQml
 MainWindow {
     id: applicationWindow
 
+    enabled: Player.initialized
+
+    Component.onCompleted: {
+        Player.initialize();
+    }
+
     Connections {
         function onMessageDialogRequested(title, message, exitOnClose) {
             var component = Qt.createComponent("Radio.Shared", "MessageDialog", Component.PreferSynchronous, applicationWindow);

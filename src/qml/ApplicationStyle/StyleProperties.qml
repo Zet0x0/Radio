@@ -25,6 +25,7 @@ QtObject {
     readonly property int controls_slider_implicitHeight: 4
     readonly property int controls_slider_implicitWidth: 200
     readonly property int controls_spacing: 5
+    readonly property real controls_stationImage_disabledOpacity: 0.5
     readonly property int controls_stationImage_size: 96
     readonly property real controls_stationImage_stationLoadingIndicator_backgroundOpacity: 0.75
     readonly property bool controls_stationImage_stationLoadingIndicator_bounceBack: false
@@ -63,6 +64,7 @@ QtObject {
     readonly property color palette_dialog_modeless: Qt.rgba(0.0, 0.0, 0.0, 0.5)
     readonly property color palette_menu_modal: Qt.rgba(0.0, 0.0, 0.0, 0.5)
     readonly property color palette_menu_modeless: Qt.rgba(0.0, 0.0, 0.0, 0.5)
+    readonly property color palette_stationImage_disabled: "#000"
     readonly property color palette_stationImage_stationLoadingIndicator_background: "#000"
     readonly property color palette_stationImage_stationLoadingIndicator_text: "#fff"
     readonly property color palette_text: "#a0f"

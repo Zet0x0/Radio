@@ -25,6 +25,8 @@ public:
     int setProperty(const QString &name, const QVariant &value);
     int getProperty(const QString &name, QVariant *result);
 
+    int initialize();
+
 private slots:
     void handleLogMessage(mpv_event_log_message *);
 
@@ -32,21 +34,13 @@ private:
     mpv_handle *m_mpvHandle;
     QThread m_eventManagerThread;
 
-    Mpv();
+    bool m_initialized = false;
 
-    /*
-     * Returns true if errorCode != MPV_ERROR_SUCCESS and it was handled
-     * accordingly, false otherwise
-     */
-    bool handleInitializationError(const int &errorCode);
-    int create();
+    int createHandle();
     int requestLogMessages();
-    int initialize();
+    int initializeHandle();
 
     int command(const QVariant &args, QVariant *result = nullptr);
 
     int observeProperty(const QString &name, const mpv_format &format);
-
-signals:
-    void initializationErrorOccurred(const int &errorCode);
 };

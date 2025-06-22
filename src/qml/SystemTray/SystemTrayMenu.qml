@@ -40,6 +40,8 @@ Window {
         }
 
         Control {
+            enabled: window.applicationWindow.enabled
+
             contentItem: ColumnLayout {
                 StationImage {
                     Layout.alignment: Qt.AlignHCenter

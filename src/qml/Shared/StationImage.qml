@@ -44,4 +44,11 @@ Image {
             textFont: StyleProperties.fonts_stationImage_stationLoadingIndicator
         }
     }
+
+    Rectangle {
+        anchors.fill: parent
+        color: StyleProperties.palette_stationImage_disabled
+        opacity: StyleProperties.controls_stationImage_disabledOpacity
+        visible: !Player.initialized
+    }
 }

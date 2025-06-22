@@ -146,8 +146,33 @@ void Player::stop()
         false);
 }
 
-Player::Player()
+void Player::initialize()
 {
+    if (m_initialized)
+    {
+        qCWarning(radioPlayer)
+            << "attempted to do Player::initialize while m_initialized is true";
+
+        return;
+    }
+
+    const int mpvInitializationResult = m_mpv->initialize();
+
+    if (mpvInitializationResult != MPV_ERROR_SUCCESS)
+    {
+        qCCritical(radioPlayer) << "mpv failed to initialize with error code"
+                                << mpvInitializationResult;
+
+        emit messageDialogRequested(
+            tr("Initialization Error"),
+            tr("MPV failed to initialize:\n\n%0 (code %1)")
+                .arg(mpv_error_string(mpvInitializationResult),
+                     QString::number(mpvInitializationResult)),
+            true);
+
+        return;
+    }
+
     MpvEventManager *mpvEventManager = MpvEventManager::instance();
 
     connect(mpvEventManager,
@@ -156,21 +181,6 @@ Player::Player()
             [this](const int &errorCode)
             {
                 emit playbackErrorOccurred(errorCode, QPrivateSignal());
-            });
-    connect(m_mpv,
-            &Mpv::initializationErrorOccurred,
-            this,
-            [this](const int &errorCode)
-            {
-                qCCritical(radioPlayer)
-                    << "mpv failed to initialize with error code" << errorCode;
-
-                emit messageDialogRequested(
-                    tr("Initialization Error"),
-                    tr("MPV failed to initialize:\n\n%0 (code %1)")
-                        .arg(mpv_error_string(errorCode),
-                             QString::number(errorCode)),
-                    true);
             });
     connect(this,
             &Player::playbackErrorOccurred,
@@ -206,6 +216,13 @@ Player::Player()
     // TODO: remove this when done testing
     setStation(
         new Station("", "", "https://stream.rcs.revma.com/1a6hdnzbebuvv"));
+
+    setInitialized(true);
+}
+
+bool Player::initialized() const
+{
+    return m_initialized;
 }
 
 void Player::setElapsed(const qint64 &newElapsed)
@@ -230,4 +247,16 @@ void Player::setState(const Player::State &newState)
     m_state = newState;
 
     emit stateChanged();
+}
+
+void Player::setInitialized(const bool &newInitialized)
+{
+    if (m_initialized == newInitialized)
+    {
+        return;
+    }
+
+    m_initialized = newInitialized;
+
+    emit initializedChanged();
 }
