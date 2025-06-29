@@ -9,27 +9,25 @@ T.MenuBar {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset, implicitContentHeight + topPadding + bottomPadding)
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset, implicitContentWidth + leftPadding + rightPadding)
 
-    contentItem: Control {
-        contentItem: ColumnLayout {
-            spacing: 0
+    contentItem: ColumnLayout {
+        spacing: 0
 
-            Control {
-                Layout.fillWidth: true
-                leftPadding: StyleProperties.controls_padding
-                rightPadding: StyleProperties.controls_padding
+        Control {
+            Layout.fillWidth: true
+            leftPadding: StyleProperties.controls_padding
+            rightPadding: StyleProperties.controls_padding
 
-                contentItem: Row {
-                    spacing: StyleProperties.controls_spacing
+            contentItem: Row {
+                spacing: StyleProperties.controls_spacing
 
-                    Repeater {
-                        model: control.contentModel
-                    }
+                Repeater {
+                    model: control.contentModel
                 }
             }
+        }
 
-            Separator {
-                Layout.fillWidth: true
-            }
+        Separator {
+            Layout.fillWidth: true
         }
     }
     delegate: MenuBarItem {
