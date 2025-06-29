@@ -10,6 +10,9 @@ qt_add_qml_module(
         MainWindow.qml
         TopLayout.qml
         BottomLayout.qml
+        ApplicationFooter.qml
+        ApplicationMenuBar.qml
+        ApplicationLayout.qml
     RESOURCE_PREFIX /zet0x0.github.io/qml/imports
     OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/Radio/MainWindow"
 )
