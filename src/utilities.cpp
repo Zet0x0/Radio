@@ -72,9 +72,9 @@ void Utilities::handleLogMessage(QtMsgType type,
     }
 
     emit instance() -> logMessage(
-        QString("**[%0]** %1%2")
+        QString("<b>[%0]</b> %1%2")
             .arg(typeString,
                  (context.category) ? QString("%0: ").arg(context.category)
                                     : QString(),
-                 message));
+                 message.toHtmlEscaped()));
 }

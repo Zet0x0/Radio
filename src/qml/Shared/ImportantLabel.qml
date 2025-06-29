@@ -5,7 +5,6 @@
 import QtQuick
 import QtQuick.Controls
 import Radio.ApplicationStyle
-import Radio.Cpp.Utilities
 
 Label {
     id: control

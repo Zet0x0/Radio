@@ -27,7 +27,7 @@ ApplicationWindow {
                 Layout.fillWidth: true
                 padding: StyleProperties.controls_padding
                 text: qsTr("Something should appear here...")
-                textFormat: Label.MarkdownText
+                textFormat: Label.StyledText
             }
         }
 
