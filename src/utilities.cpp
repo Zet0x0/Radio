@@ -30,3 +30,51 @@ void Utilities::copyToClipboard(const QString &text)
 {
     qGuiApp->clipboard()->setText(text);
 }
+
+void Utilities::handleLogMessage(QtMsgType type,
+                                 const QMessageLogContext &context,
+                                 const QString &message)
+{
+    QString typeString;
+
+    switch (type)
+    {
+        case QtDebugMsg:
+        {
+            typeString = tr("DEBUG");
+
+            break;
+        }
+        case QtWarningMsg:
+        {
+            typeString = tr("WARNING");
+
+            break;
+        }
+        case QtCriticalMsg:
+        {
+            typeString = tr("CRITICAL");
+
+            break;
+        }
+        case QtFatalMsg:
+        {
+            typeString = tr("FATAL");
+
+            break;
+        }
+        case QtInfoMsg:
+        {
+            typeString = tr("INFO");
+
+            break;
+        }
+    }
+
+    emit instance() -> logMessage(
+        QString("**[%0]** %1%2")
+            .arg(typeString,
+                 (context.category) ? QString("%0: ").arg(context.category)
+                                    : QString(),
+                 message));
+}

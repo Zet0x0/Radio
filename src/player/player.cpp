@@ -67,6 +67,8 @@ void Player::setNowPlaying(QString newNowPlaying)
                            ? tr("Radio")
                            : tr("%0 – Radio").arg(m_nowPlaying));
 
+    qCInfo(radioPlayer) << "nowPlaying changed:" << m_nowPlaying;
+
     emit nowPlayingChanged();
 }
 
@@ -218,6 +220,8 @@ void Player::initialize()
         new Station("", "", "https://stream.rcs.revma.com/1a6hdnzbebuvv"));
 
     setInitialized(true);
+
+    qCInfo(radioPlayer) << "initialized";
 }
 
 bool Player::initialized() const
@@ -245,6 +249,8 @@ void Player::setState(const Player::State &newState)
     }
 
     m_state = newState;
+
+    qCInfo(radioPlayer) << "new state:" << m_state;
 
     emit stateChanged();
 }

@@ -19,4 +19,11 @@ public:
     static const char *toCString(const QString &);
 
     Q_INVOKABLE void copyToClipboard(const QString &);
+
+    static void handleLogMessage(QtMsgType,
+                                 const QMessageLogContext &,
+                                 const QString &message);
+
+signals:
+    void logMessage(const QString &formattedMessage);
 };

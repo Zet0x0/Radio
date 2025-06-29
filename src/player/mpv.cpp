@@ -132,6 +132,8 @@ int Mpv::initialize()
 
     m_initialized = true;
 
+    qCInfo(radioMpv) << "initialized";
+
     return MPV_ERROR_SUCCESS;
 }
 

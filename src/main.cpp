@@ -7,8 +7,28 @@
 
 Q_LOGGING_CATEGORY(radioMain, "radio.main")
 
+QtMessageHandler originalLogMessageHandler = nullptr;
+
+void handleLogMessage(QtMsgType type,
+                      const QMessageLogContext &context,
+                      const QString &message)
+{
+    Utilities::handleLogMessage(type, context, message);
+
+    if (originalLogMessageHandler)
+    {
+        (*originalLogMessageHandler)(type, context, message);
+    }
+}
+
 int main(int argc, char *argv[])
 {
+    qSetMessagePattern(
+        "[%{if-debug}DEBUG%{endif}%{if-info}INFO%{endif}%{if-warning}WARNING%{"
+        "endif}%{if-critical}CRITICAL%{endif}%{if-fatal}FATAL%{endif}] "
+        "%{if-category}%{category}: %{endif}%{message}");
+    originalLogMessageHandler = qInstallMessageHandler(handleLogMessage);
+
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine qmlEngine;
 
