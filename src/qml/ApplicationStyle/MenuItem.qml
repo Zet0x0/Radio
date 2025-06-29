@@ -20,7 +20,7 @@ T.MenuItem {
         source: (!control.subMenu) ? "" : "qrc:/zet0x0.github.io/icons/chevronRight.svg"
         visible: !!control.subMenu
         x: (control.mirrored) ? control.leftPadding : control.width - width - control.rightPadding
-        y: control.topPadding + (control.availableHeight - height) / 2
+        y: control.topPadding + Math.floor((control.availableHeight - height) / 2)
 
         sourceSize {
             height: StyleProperties.controls_menuItem_iconSize
@@ -56,7 +56,7 @@ T.MenuItem {
         source: (control.checked) ? "qrc:/zet0x0.github.io/icons/check.svg" : "qrc:/zet0x0.github.io/icons/cross.svg"
         visible: control.checkable
         x: (control.mirrored) ? control.width - width - control.rightPadding : control.leftPadding
-        y: control.topPadding + (control.availableHeight - height) / 2
+        y: control.topPadding + Math.floor((control.availableHeight - height) / 2)
 
         sourceSize {
             height: StyleProperties.controls_menuItem_iconSize

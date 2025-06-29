@@ -14,8 +14,8 @@ T.Slider {
         implicitHeight: (control.horizontal) ? StyleProperties.controls_slider_implicitHeight : StyleProperties.controls_slider_implicitWidth
         implicitWidth: (control.horizontal) ? StyleProperties.controls_slider_implicitWidth : StyleProperties.controls_slider_implicitHeight
         width: (control.horizontal) ? control.availableWidth : implicitWidth
-        x: control.leftPadding + ((control.horizontal) ? 0 : (control.availableWidth - width) / 2)
-        y: control.topPadding + ((control.horizontal) ? (control.availableHeight - height) / 2 : 0)
+        x: control.leftPadding + ((control.horizontal) ? 0 : Math.floor((control.availableWidth - width) / 2))
+        y: control.topPadding + ((control.horizontal) ? Math.floor((control.availableHeight - height) / 2) : 0)
 
         border {
             color: StyleProperties.palette_accent_active
@@ -38,8 +38,8 @@ T.Slider {
         color: (control.enabled) ? ((control.pressed) ? StyleProperties.palette_accent : ((control.visualFocus || control.hovered) ? StyleProperties.palette_activeFocusBackground : StyleProperties.palette_background)) : StyleProperties.palette_background
         implicitHeight: (control.horizontal) ? StyleProperties.controls_slider_handleHeight : StyleProperties.controls_slider_handleWidth
         implicitWidth: (control.horizontal) ? StyleProperties.controls_slider_handleWidth : StyleProperties.controls_slider_handleHeight
-        x: control.leftPadding + ((control.horizontal) ? control.visualPosition * (control.availableWidth - width) : (control.availableWidth - width) / 2)
-        y: control.topPadding + ((control.horizontal) ? (control.availableHeight - height) / 2 : control.visualPosition * (control.availableHeight - height))
+        x: control.leftPadding + ((control.horizontal) ? control.visualPosition * (control.availableWidth - width) : Math.floor((control.availableWidth - width) / 2))
+        y: control.topPadding + ((control.horizontal) ? Math.floor((control.availableHeight - height) / 2) : control.visualPosition * (control.availableHeight - height))
 
         border {
             color: (control.enabled) ? ((control.pressed || control.visualFocus) ? StyleProperties.palette_accent_active : StyleProperties.palette_accent) : StyleProperties.palette_accent_darker
