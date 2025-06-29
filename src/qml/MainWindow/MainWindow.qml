@@ -25,6 +25,7 @@ ApplicationWindow {
                 id: footerLabel
 
                 Layout.fillWidth: true
+                font: StyleProperties.fonts_mainWindow_footerLabel
                 padding: StyleProperties.controls_padding
                 text: qsTr("Something should appear here...")
                 textFormat: Label.StyledText

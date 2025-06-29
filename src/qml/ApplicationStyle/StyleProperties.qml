@@ -45,6 +45,9 @@ QtObject {
     readonly property font fonts_elapsedLabel: ({
             family: "Consolas"
         })
+    readonly property font fonts_mainWindow_footerLabel: ({
+            family: "Consolas"
+        })
     readonly property font fonts_nowPlayingLabel: ({
             pointSize: 12,
             bold: true
