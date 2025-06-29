@@ -117,6 +117,29 @@ void MpvEventManager::handleEvent(mpv_event *event)
             break;
         }
 
+        /*
+         * events that don't require much handling other than a simple log
+         * message
+         */
+        case MPV_EVENT_IDLE:
+        {
+            qCInfo(radioMpv) << "instance entered idle mode";
+
+            break;
+        }
+        case MPV_EVENT_AUDIO_RECONFIG:
+        {
+            qCInfo(radioMpv) << "audio reconfigured";
+
+            break;
+        }
+        case MPV_EVENT_PLAYBACK_RESTART:
+        {
+            qCInfo(radioMpv) << "playback reinitialized";
+
+            break;
+        }
+
         default:
         {
             qCWarning(radioMpvEventManager)
