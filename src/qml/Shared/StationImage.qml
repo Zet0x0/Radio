@@ -3,7 +3,7 @@ import Radio.Cpp.Player
 import Radio.ApplicationStyle
 
 Image {
-    id: stationImage
+    id: control
 
     cache: false
     fillMode: Image.PreserveAspectCrop
@@ -20,7 +20,7 @@ Image {
         anchors.fill: parent
         fillMode: Image.PreserveAspectCrop
         source: "qrc:/zet0x0.github.io/icons/applicationIcon.svg"
-        visible: stationImage.status !== Image.Ready
+        visible: control.status !== Image.Ready
 
         sourceSize {
             height: height
@@ -49,6 +49,6 @@ Image {
         anchors.fill: parent
         color: StyleProperties.palette_stationImage_disabled
         opacity: StyleProperties.controls_stationImage_disabledOpacity
-        visible: !Player.initialized
+        visible: !control.enabled
     }
 }
