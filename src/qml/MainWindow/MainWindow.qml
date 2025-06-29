@@ -16,6 +16,7 @@ ApplicationWindow {
     footer: ApplicationFooter {
     }
     menuBar: ApplicationMenuBar {
+        mpvUnrestricted: applicationWindow.enabled
     }
 
     Component.onCompleted: {
