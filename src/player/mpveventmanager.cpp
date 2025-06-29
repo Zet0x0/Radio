@@ -30,13 +30,13 @@ void MpvEventManager::handleEvent(mpv_event *event)
     {
         case MPV_EVENT_START_FILE:
         {
-            emit playerStateChanged(Player::State::LOADING);
+            emit playerStateChanged(Player::LOADING);
 
             break;
         }
         case MPV_EVENT_FILE_LOADED:
         {
-            emit playerStateChanged(Player::State::PLAYING);
+            emit playerStateChanged(Player::PLAYING);
 
             break;
         }
@@ -67,7 +67,7 @@ void MpvEventManager::handleEvent(mpv_event *event)
                 }
             }
 
-            emit playerStateChanged(Player::State::STOPPED);
+            emit playerStateChanged(Player::STOPPED);
 
             break;
         }
