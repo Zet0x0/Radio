@@ -25,5 +25,5 @@ public:
                                  const QString &message);
 
 signals:
-    void logMessage(const QString &formattedMessage);
+    void logMessage(const QString &);
 };

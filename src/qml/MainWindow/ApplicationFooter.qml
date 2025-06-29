@@ -20,13 +20,12 @@ Control {
             font: StyleProperties.fonts_mainWindow_footerLabel
             padding: StyleProperties.controls_padding
             text: qsTr("Something should appear here...")
-            textFormat: Label.StyledText
         }
     }
 
     Connections {
-        function onLogMessage(formattedLogMessage) {
-            footerLabel.text = formattedLogMessage;
+        function onLogMessage(message) {
+            footerLabel.text = message;
         }
 
         target: Utilities

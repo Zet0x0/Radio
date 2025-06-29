@@ -35,46 +35,5 @@ void Utilities::handleLogMessage(QtMsgType type,
                                  const QMessageLogContext &context,
                                  const QString &message)
 {
-    QString typeString;
-
-    switch (type)
-    {
-        case QtDebugMsg:
-        {
-            typeString = tr("DEBUG");
-
-            break;
-        }
-        case QtWarningMsg:
-        {
-            typeString = tr("WARNING");
-
-            break;
-        }
-        case QtCriticalMsg:
-        {
-            typeString = tr("CRITICAL");
-
-            break;
-        }
-        case QtFatalMsg:
-        {
-            typeString = tr("FATAL");
-
-            break;
-        }
-        case QtInfoMsg:
-        {
-            typeString = tr("INFO");
-
-            break;
-        }
-    }
-
-    emit instance() -> logMessage(
-        QString("<b>[%0]</b> %1%2")
-            .arg(typeString,
-                 (context.category) ? QString("%0: ").arg(context.category)
-                                    : QString(),
-                 message.toHtmlEscaped()));
+    emit instance() -> logMessage(qFormatLogMessage(type, context, message));
 }
