@@ -14,6 +14,5 @@ Slider {
 
     onMoved: {
         Player.setVolume(value);
-        Player.setMuted(false);
     }
 }

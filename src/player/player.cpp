@@ -94,6 +94,19 @@ void Player::setVolume(const qint16 &newVolume)
         return;
     }
 
+    if (newVolume > 0)
+    {
+        setMuted(false);
+
+        if (m_muted)
+        {
+            qCWarning(radioPlayer) << "volume was not set to" << newVolume
+                                   << "because muted didn't change to false";
+
+            return;
+        }
+    }
+
     if (m_mpv->setVolume(newVolume))
     {
         m_volume = newVolume;
