@@ -17,7 +17,7 @@ T.MenuItem {
     arrow: ColorImage {
         color: (control.enabled) ? ((control.checked || control.down) ? StyleProperties.palette_accent_active : ((control.visualFocus || control.hovered) ? StyleProperties.palette_accent_lighter : StyleProperties.palette_accent)) : StyleProperties.palette_accent_darker
         mirror: control.mirrored
-        source: (!control.subMenu) ? "" : "qrc:/zet0x0.github.io/icons/chevronRight.svg"
+        source: "qrc:/zet0x0.github.io/icons/chevronRight.svg"
         visible: !!control.subMenu
         x: (control.mirrored) ? control.leftPadding : control.width - width - control.rightPadding
         y: control.topPadding + Math.floor((control.availableHeight - height) / 2)
