@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import Radio.Cpp.Player
+import Radio.Cpp.Utilities
 
 MenuBar {
     id: control
@@ -22,6 +23,19 @@ MenuBar {
             enabled: control.mainLayoutEnabled
             shortcut: "Ctrl+V"
             text: qsTr("Open Location from &Clipboard")
+        }
+
+        MenuSeparator {
+        }
+
+        Action {
+            enabled: control.mainLayoutEnabled && !Player.station.invalid
+            shortcut: "Ctrl+C"
+            text: qsTr("Copy Stream URL to Clipboard")
+
+            onTriggered: {
+                Utilities.copyToClipboard(Player.station.streamUrl);
+            }
         }
 
         MenuSeparator {
