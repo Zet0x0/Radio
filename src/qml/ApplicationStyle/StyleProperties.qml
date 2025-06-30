@@ -32,7 +32,7 @@ QtObject {
     readonly property bool controls_stationImage_stationLoadingIndicator_bounceBack: false
     readonly property var controls_stationImage_stationLoadingIndicator_frames: ["010010", "001100", "100101", "111010", "111101", "010111", "101011", "111000", "110011", "110101"]
     readonly property int controls_stationImage_stationLoadingIndicator_interval: 80
-    readonly property int controls_volumeSlider_padding: 3
+    readonly property int controls_volumeSlider_verticalPadding: 3
 
     /* Fonts */
     readonly property font fonts_application: ({
