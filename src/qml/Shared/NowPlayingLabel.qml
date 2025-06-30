@@ -7,6 +7,6 @@ ImportantLabel {
 
     enabled: !Player.station.invalid && !!Player.nowPlaying
     font: StyleProperties.fonts_nowPlayingLabel
-    text: (Player.station.invalid) ? qsTr("Nothing to play, browse for stations below") : (Player.nowPlaying || qsTr("No song information available"))
+    text: (Player.station.invalid) ? qsTr("Nothing to play, browse for stations below") : (((Player.state === Player.PLAYING) ? Player.nowPlaying : "") || qsTr("No song information available"))
     visible: (systemTray && !Player.station.invalid) || !systemTray
 }
