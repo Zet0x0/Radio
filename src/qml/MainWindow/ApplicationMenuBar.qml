@@ -55,24 +55,35 @@ MenuBar {
         }
     }
 
-    // TODO
     Menu {
         enabled: control.mainLayoutEnabled
         title: qsTr("&Audio")
 
         Action {
-            text: qsTr("&Increase Volume") // disabled if at 100
+            enabled: Player.volume !== 100
+            text: qsTr("&Increase Volume")
 
+            onTriggered: {
+                Player.setVolume(Math.min(Player.volume + 5, 100));
+            }
         }
 
         Action {
-            text: qsTr("&Decrease Volume") // disabled if at 0
+            enabled: Player.volume !== 0
+            text: qsTr("&Decrease Volume")
 
+            onTriggered: {
+                Player.setVolume(Math.max(Player.volume - 5, 0));
+            }
         }
 
         Action {
             shortcut: "Ctrl+M"
-            text: qsTr("&Mute") // qsTr("&Unmute") if muted
+            text: (Player.muted) ? qsTr("&Unmute") : qsTr("&Mute")
+
+            onTriggered: {
+                Player.setMuted(!Player.muted);
+            }
         }
     }
 
