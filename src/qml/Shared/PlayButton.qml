@@ -9,7 +9,7 @@ IconButton {
 
     ToolTip.text: (checked) ? qsTr("Stop") : qsTr("Play")
     ToolTip.visible: hovered || visualFocus
-    checked: Player.state === Player.LOADING || Player.state === Player.PLAYING
+    checked: Player.state !== Player.STOPPED
     enabled: !!Player.station.streamUrl
     icon.source: (checked) ? "qrc:/zet0x0.github.io/icons/stop.svg" : "/zet0x0.github.io/icons/play.svg"
 

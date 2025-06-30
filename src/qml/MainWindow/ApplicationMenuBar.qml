@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls
+import Radio.Cpp.Player
 
 MenuBar {
     id: control
@@ -36,14 +37,21 @@ MenuBar {
         }
     }
 
-    // TODO
     Menu {
         enabled: control.mainLayoutEnabled
         title: qsTr("&Playback")
 
         Action {
             shortcut: "Ctrl+P"
-            text: qsTr("&Play") // qsTr("&Stop") if playing or loading
+            text: (Player.state === Player.STOPPED) ? qsTr("&Play") : qsTr("&Stop")
+
+            onTriggered: {
+                if (Player.state === Player.STOPPED) {
+                    Player.play();
+                } else {
+                    Player.stop();
+                }
+            }
         }
     }
 
