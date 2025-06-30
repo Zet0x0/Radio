@@ -4,7 +4,7 @@ import Radio.Cpp.Utilities
 Menu {
     id: control
 
-    MenuItem {
+    Action {
         text: qsTr("Copy")
 
         onTriggered: {

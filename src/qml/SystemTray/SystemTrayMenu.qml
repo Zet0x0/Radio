@@ -80,7 +80,7 @@ Window {
         MenuSeparator {
         }
 
-        MenuItem {
+        Action {
             text: qsTr("Show Main Window")
 
             onTriggered: {
@@ -92,7 +92,7 @@ Window {
         MenuSeparator {
         }
 
-        MenuItem {
+        Action {
             text: qsTr("Quit Radio")
 
             onTriggered: {
@@ -108,7 +108,7 @@ Window {
          * the application window with the menu open, the menu doesn't close;
          * it's just yet another bug Qt doesn't want to fix (QTBUG-33481)
          */
-        MenuItem {
+        Action {
             text: qsTr("Hide Menu")
         }
     }
