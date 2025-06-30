@@ -1,22 +1,24 @@
+import QtQuick
 import QtQuick.Controls
 
 MenuBar {
     id: control
 
-    required property bool mpvUnrestricted
+    required property bool mainLayoutEnabled
 
-    // TODO
     Menu {
         title: qsTr("&Media")
 
+        // TODO
         Action {
-            enabled: control.mpvUnrestricted
+            enabled: control.mainLayoutEnabled
             shortcut: "Ctrl+O"
-            text: qsTr("&Open Stream...")
+            text: qsTr("&Open Location...")
         }
 
+        // TODO
         Action {
-            enabled: control.mpvUnrestricted
+            enabled: control.mainLayoutEnabled
             shortcut: "Ctrl+V"
             text: qsTr("Open Location from &Clipboard")
         }
@@ -27,12 +29,16 @@ MenuBar {
         Action {
             shortcut: "Ctrl+Q"
             text: qsTr("&Quit")
+
+            onTriggered: {
+                Qt.quit();
+            }
         }
     }
 
     // TODO
     Menu {
-        enabled: control.mpvUnrestricted
+        enabled: control.mainLayoutEnabled
         title: qsTr("&Playback")
 
         Action {
@@ -43,7 +49,7 @@ MenuBar {
 
     // TODO
     Menu {
-        enabled: control.mpvUnrestricted
+        enabled: control.mainLayoutEnabled
         title: qsTr("&Audio")
 
         Action {
