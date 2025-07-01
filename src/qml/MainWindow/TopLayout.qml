@@ -9,8 +9,6 @@ import Radio.Shared
 Control {
     contentItem: RowLayout {
         StationImage {
-            Layout.preferredHeight: StyleProperties.controls_stationImage_size
-            Layout.preferredWidth: StyleProperties.controls_stationImage_size
         }
 
         ColumnLayout {

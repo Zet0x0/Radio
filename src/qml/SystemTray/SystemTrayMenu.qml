@@ -47,8 +47,6 @@ Window {
             contentItem: ColumnLayout {
                 StationImage {
                     Layout.alignment: Qt.AlignHCenter
-                    Layout.preferredHeight: StyleProperties.controls_stationImage_size
-                    Layout.preferredWidth: StyleProperties.controls_stationImage_size
                 }
 
                 Control {
