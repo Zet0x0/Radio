@@ -31,7 +31,7 @@ MenuBar {
         Action {
             enabled: control.mainLayoutEnabled && !Player.station.invalid
             shortcut: "Ctrl+C"
-            text: qsTr("Copy Stream URL to Clipboard")
+            text: qsTr("Copy Stream &URL to Clipboard")
 
             onTriggered: {
                 Utilities.copyToClipboard(Player.station.streamUrl);
