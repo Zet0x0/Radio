@@ -65,7 +65,7 @@ void Player::setNowPlaying(QString newNowPlaying)
     m_mpv->setProperty("title",
                        (m_nowPlaying.isEmpty())
                            ? tr("Radio")
-                           : tr("%0 – Radio").arg(m_nowPlaying));
+                           : tr("%0 - Radio").arg(m_nowPlaying));
 
     qCInfo(radioPlayer) << "nowPlaying changed:" << m_nowPlaying;
 

@@ -12,7 +12,7 @@ Labs.SystemTrayIcon {
     required property SystemTrayMenu systemTrayMenu
 
     icon.source: "qrc:/zet0x0.github.io/icons/applicationIconBackground.svg"
-    tooltip: (!Player.station.invalid && !!Player.nowPlaying) ? qsTr("%0 – Radio").arg(Player.nowPlaying) : qsTr("Radio")
+    tooltip: (!Player.station.invalid && !!Player.nowPlaying) ? qsTr("%0 - Radio").arg(Player.nowPlaying) : qsTr("Radio")
     visible: true
 
     onActivated: reason => {
