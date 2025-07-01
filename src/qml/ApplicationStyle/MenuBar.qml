@@ -14,8 +14,7 @@ T.MenuBar {
 
         Control {
             Layout.fillWidth: true
-            leftPadding: StyleProperties.controls_padding
-            rightPadding: StyleProperties.controls_padding
+            horizontalPadding: StyleProperties.controls_padding
 
             contentItem: Row {
                 spacing: StyleProperties.controls_spacing

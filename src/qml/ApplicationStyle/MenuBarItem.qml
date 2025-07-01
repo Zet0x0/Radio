@@ -5,12 +5,11 @@ import QtQuick.Controls.impl
 T.MenuBarItem {
     id: control
 
-    bottomPadding: StyleProperties.controls_padding
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset, implicitContentHeight + topPadding + bottomPadding, implicitIndicatorHeight + topPadding + bottomPadding)
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset, implicitContentWidth + leftPadding + rightPadding)
     padding: StyleProperties.controls_padding + StyleProperties.border_width
     spacing: StyleProperties.controls_spacing
-    topPadding: StyleProperties.controls_padding
+    verticalPadding: StyleProperties.controls_padding
 
     background: Rectangle {
         color: (control.enabled) ? ((control.checked || control.down || control.highlighted && control.menu.visible) ? StyleProperties.palette_accent : ((control.visualFocus || control.hovered) ? StyleProperties.palette_activeFocusBackground : StyleProperties.palette_background)) : StyleProperties.palette_background
