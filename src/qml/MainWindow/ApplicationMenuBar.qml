@@ -56,15 +56,22 @@ MenuBar {
         title: qsTr("&Playback")
 
         Action {
+            enabled: Player.state === Player.STOPPED
             shortcut: "Ctrl+P"
-            text: (Player.state === Player.STOPPED) ? qsTr("&Play") : qsTr("&Stop")
+            text: qsTr("&Play")
 
             onTriggered: {
-                if (Player.state === Player.STOPPED) {
-                    Player.play();
-                } else {
-                    Player.stop();
-                }
+                Player.play();
+            }
+        }
+
+        Action {
+            enabled: Player.state !== Player.STOPPED
+            shortcut: "Ctrl+P"
+            text: qsTr("&Stop")
+
+            onTriggered: {
+                Player.stop();
             }
         }
     }
@@ -92,11 +99,22 @@ MenuBar {
         }
 
         Action {
+            enabled: !Player.muted
             shortcut: "Ctrl+M"
-            text: (Player.muted) ? qsTr("&Unmute") : qsTr("&Mute")
+            text: qsTr("&Mute")
 
             onTriggered: {
-                Player.setMuted(!Player.muted);
+                Player.setMuted(true);
+            }
+        }
+
+        Action {
+            enabled: Player.muted
+            shortcut: "Ctrl+M"
+            text: qsTr("&Unmute")
+
+            onTriggered: {
+                Player.setMuted(false);
             }
         }
     }
