@@ -27,6 +27,7 @@ QtObject {
     readonly property int controls_slider_implicitWidth: 200
     readonly property int controls_spacing: 5
     readonly property real controls_stationImage_disabledOpacity: 0.5
+    readonly property int controls_stationImage_padding: 5
     readonly property int controls_stationImage_size: 96
     readonly property real controls_stationImage_stationLoadingIndicator_backgroundOpacity: 0.75
     readonly property bool controls_stationImage_stationLoadingIndicator_bounceBack: false

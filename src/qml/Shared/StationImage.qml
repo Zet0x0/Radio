@@ -5,7 +5,7 @@ import Radio.ApplicationStyle
 Control {
     implicitHeight: StyleProperties.controls_stationImage_size
     implicitWidth: StyleProperties.controls_stationImage_size
-    padding: StyleProperties.border_width
+    padding: StyleProperties.controls_stationImage_padding + StyleProperties.border_width
 
     background: Rectangle {
         color: StyleProperties.palette_background
