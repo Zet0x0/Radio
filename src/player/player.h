@@ -74,10 +74,6 @@ signals:
     void volumeChanged();
     void mutedChanged();
 
-    void messageDialogRequested(const QString &title,
-                                const QString &message,
-                                const bool &exitOnClose);
-
 private:
     Mpv *m_mpv = Mpv::instance();
 

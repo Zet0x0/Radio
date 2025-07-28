@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import Radio.ApplicationStyle
 import Radio.Cpp.Player
-import Radio
+import Radio.Cpp.Utilities
 
 ApplicationWindow {
     id: applicationWindow
@@ -25,11 +25,26 @@ ApplicationWindow {
     }
 
     Connections {
-        function onMessageDialogRequested(title, message, exitOnClose) {
-            Utilities.showMessageDialog(applicationWindow, title, message, exitOnClose);
+        function onMessageDialogRequested(title, message, quitOnClose) {
+            var component = Qt.createComponent("Radio.Shared", "MessageDialog", Component.PreferSynchronous, applicationWindow);
+
+            if (component.status !== Component.Ready) {
+                return;
+            }
+
+            var dialog = component.createObject(applicationWindow, {
+                title: title,
+                message: message,
+                quitOnClose: quitOnClose
+            });
+
+            dialog.open();
+
+            applicationWindow.show();
+            applicationWindow.requestActivate();
         }
 
-        target: Player
+        target: DialogController
     }
 
     ApplicationLayout {

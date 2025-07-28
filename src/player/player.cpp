@@ -1,5 +1,6 @@
 #include "player.h"
 
+#include "../dialogcontroller.h"
 #include "mpveventmanager.h"
 
 Q_LOGGING_CATEGORY(radioPlayer, "radio.player")
@@ -154,7 +155,7 @@ void Player::stop()
     qCCritical(radioPlayer)
         << "the stop command mysteriously failed with error code" << result;
 
-    emit messageDialogRequested(
+    DialogController::requestMessageDialog(
         tr("Command Failed"),
         tr("The stop command (somehow) failed:\n\n%0 (code %1)")
             .arg(mpv_error_string(result), QString::number(result)),
@@ -178,7 +179,7 @@ void Player::initialize()
         qCCritical(radioPlayer) << "mpv failed to initialize with error code"
                                 << mpvInitializationResult;
 
-        emit messageDialogRequested(
+        DialogController::requestMessageDialog(
             tr("Initialization Error"),
             tr("MPV failed to initialize:\n\n%0 (code %1)")
                 .arg(mpv_error_string(mpvInitializationResult),
@@ -205,7 +206,7 @@ void Player::initialize()
                 qCCritical(radioPlayer)
                     << "station playback failed with error code" << errorCode;
 
-                emit messageDialogRequested(
+                DialogController::requestMessageDialog(
                     tr("Playback Error"),
                     tr("An error has occurred trying to play the "
                        "station:\n\n%0 (code %1)")

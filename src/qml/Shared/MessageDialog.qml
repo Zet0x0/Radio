@@ -4,8 +4,8 @@ import QtQuick.Controls
 ModalDialog {
     id: control
 
-    property bool exitOnClose: false
     required property string message
+    property bool quitOnClose: false
 
     standardButtons: Dialog.Close
 
@@ -15,7 +15,7 @@ ModalDialog {
     }
 
     onClosed: {
-        if (exitOnClose) {
+        if (quitOnClose) {
             Qt.exit(2);
         }
     }
