@@ -23,3 +23,13 @@ void DialogController::requestAboutDialog()
 {
     emit instance() -> aboutDialogRequested();
 }
+
+void DialogController::requestMessagesDialog()
+{
+    emit instance() -> messagesDialogRequested();
+}
+
+void DialogController::requestSettingsDialog()
+{
+    emit instance() -> settingsDialogRequested();
+}

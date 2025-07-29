@@ -17,6 +17,8 @@ public:
                                                  const bool &quitOnClose);
 
     Q_INVOKABLE static void requestAboutDialog();
+    Q_INVOKABLE static void requestMessagesDialog();
+    Q_INVOKABLE static void requestSettingsDialog();
 
 signals:
     void messageDialogRequested(const QString &title,
@@ -24,4 +26,6 @@ signals:
                                 const bool &quitOnClose);
 
     void aboutDialogRequested();
+    void messagesDialogRequested();
+    void settingsDialogRequested();
 };

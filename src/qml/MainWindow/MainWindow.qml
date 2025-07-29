@@ -49,6 +49,16 @@ ApplicationWindow {
             applicationWindow.requestActivate();
         }
 
+        // TODO
+        function onMessagesDialogRequested() {
+            console.warn("messages dialog requested, but that doesn't exist, yet...");
+        }
+
+        // TODO
+        function onSettingsDialogRequested() {
+            console.warn("settings dialog requested, but that doesn't exist, yet...");
+        }
+
         target: DialogController
     }
 

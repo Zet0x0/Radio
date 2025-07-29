@@ -119,13 +119,16 @@ MenuBar {
         }
     }
 
-    // TODO
     Menu {
         title: qsTr("&Tools")
 
         Action {
             shortcut: "Ctrl+L"
             text: qsTr("&Messages")
+
+            onTriggered: {
+                DialogController.requestMessagesDialog();
+            }
         }
 
         MenuSeparator {
@@ -133,7 +136,11 @@ MenuBar {
 
         Action {
             shortcut: "Ctrl+S"
-            text: qsTr("&Preferences")
+            text: qsTr("&Settings")
+
+            onTriggered: {
+                DialogController.requestSettingsDialog();
+            }
         }
     }
 
