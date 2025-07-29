@@ -4,11 +4,13 @@ import QtQuick.Templates as T
 T.DialogButtonBox {
     id: control
 
-    alignment: (count === 1) ? Qt.AlignRight : undefined
+    alignment: Qt.AlignRight
     contentWidth: (contentItem as ListView)?.contentWidth
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset, implicitContentHeight + topPadding + bottomPadding)
-    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset, ((control.count === 1) ? implicitContentWidth * 2 : implicitContentWidth) + leftPadding + rightPadding)
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset, implicitContentWidth + leftPadding + rightPadding)
+    padding: StyleProperties.controls_padding + StyleProperties.border_width
     spacing: StyleProperties.controls_spacing
+    topPadding: StyleProperties.controls_padding
 
     contentItem: ListView {
         boundsBehavior: Flickable.StopAtBounds

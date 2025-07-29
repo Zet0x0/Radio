@@ -1,16 +1,16 @@
 import QtQuick
 import QtQuick.Templates as T
-import QtQuick.Layouts
 import Radio.Shared
 
 T.Dialog {
     id: control
 
+    horizontalPadding: StyleProperties.controls_padding + StyleProperties.border_width
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset, implicitContentHeight + topPadding + bottomPadding + ((implicitHeaderHeight > 0) ? implicitHeaderHeight + spacing : 0) + ((implicitFooterHeight > 0) ? implicitFooterHeight + spacing : 0))
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset, implicitContentWidth + leftPadding + rightPadding, implicitHeaderWidth, implicitFooterWidth)
     margins: StyleProperties.controls_margins
-    padding: StyleProperties.controls_padding + StyleProperties.border_width
-    verticalPadding: StyleProperties.controls_spacing
+    spacing: StyleProperties.controls_separator_height
+    verticalPadding: StyleProperties.controls_padding
 
     T.Overlay.modal: Rectangle {
         color: StyleProperties.palette_dialog_modal
@@ -25,63 +25,34 @@ T.Dialog {
             color: StyleProperties.palette_accent
             width: StyleProperties.border_width
         }
-    }
-    footer: Control {
-        padding: StyleProperties.controls_padding + StyleProperties.border_width
-        topPadding: 0
 
-        contentItem: ColumnLayout {
-            spacing: StyleProperties.controls_spacing
+        Separator {
+            visible: control.header.visible
+            width: control.availableWidth
+            x: control.leftPadding
+            y: control.header?.height
+        }
 
-            Separator {
-                Layout.fillWidth: true
-            }
-
-            DialogButtonBox {
-                Layout.fillWidth: true
-                standardButtons: control.standardButtons
-                visible: count > 0
-
-                onAccepted: {
-                    control.accept();
-                }
-                onApplied: {
-                    control.applied();
-                }
-                onDiscarded: {
-                    control.discarded();
-                }
-                onHelpRequested: {
-                    control.helpRequested();
-                }
-                onRejected: {
-                    control.reject();
-                }
-                onReset: {
-                    control.reset();
-                }
-            }
+        Separator {
+            visible: control.footer.visible
+            width: control.availableWidth
+            x: control.leftPadding
+            y: control.footer?.y - control.spacing
         }
     }
+    footer: DialogButtonBox {
+        visible: count > 0
+    }
     header: Control {
-        bottomPadding: 0
+        bottomPadding: StyleProperties.controls_padding
         padding: StyleProperties.controls_padding + StyleProperties.border_width
-        visible: !!control.title
+        visible: parent?.parent === T.Overlay.overlay && control.title
 
-        contentItem: ColumnLayout {
-            spacing: StyleProperties.controls_spacing
-
-            Label {
-                Layout.fillWidth: true
-                elide: Label.ElideRight
-                font: StyleProperties.fonts_dialog_titleLabel
-                horizontalAlignment: Qt.AlignHCenter
-                text: control.title
-            }
-
-            Separator {
-                Layout.fillWidth: true
-            }
+        contentItem: Label {
+            elide: Label.ElideRight
+            font: StyleProperties.fonts_dialog_titleLabel
+            horizontalAlignment: Qt.AlignHCenter
+            text: control.title
         }
     }
 }
