@@ -137,12 +137,15 @@ MenuBar {
         }
     }
 
-    // TODO
     Menu {
         title: qsTr("&Help")
 
         Action {
             text: qsTr("&About")
+
+            onTriggered: {
+                DialogController.requestAboutDialog();
+            }
         }
     }
 }

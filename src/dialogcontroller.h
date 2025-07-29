@@ -16,8 +16,12 @@ public:
                                                  const QString &message,
                                                  const bool &quitOnClose);
 
+    Q_INVOKABLE static void requestAboutDialog();
+
 signals:
     void messageDialogRequested(const QString &title,
                                 const QString &message,
                                 const bool &quitOnClose);
+
+    void aboutDialogRequested();
 };

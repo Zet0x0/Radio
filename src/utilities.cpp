@@ -3,6 +3,7 @@
 #include <QClipboard>
 #include <QCursor>
 #include <QGuiApplication>
+#include <mpv/client.h>
 
 Utilities *Utilities::instance()
 {
@@ -36,4 +37,17 @@ void Utilities::handleLogMessage(QtMsgType type,
                                  const QString &message)
 {
     emit instance() -> logMessage(qFormatLogMessage(type, context, message));
+}
+
+QString Utilities::getVersionSummary()
+{
+    const unsigned long rawLibMpvVersion = mpv_client_api_version();
+    const QString libMpvVersion = QString("%0.%1").arg(
+        QString::number((rawLibMpvVersion >> 16) & 0xFFFF),
+        QString::number(rawLibMpvVersion & 0xFFFF));
+
+    return tr("Radio: %0 / libmpv: %1 / Qt: %2")
+        .arg(QCoreApplication::applicationVersion(),
+             libMpvVersion,
+             QT_VERSION_STR);
 }

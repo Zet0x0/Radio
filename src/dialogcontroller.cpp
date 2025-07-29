@@ -18,3 +18,8 @@ void DialogController::requestMessageDialog(const QString &title,
 {
     emit instance() -> messageDialogRequested(title, message, quitOnClose);
 }
+
+void DialogController::requestAboutDialog()
+{
+    emit instance() -> aboutDialogRequested();
+}

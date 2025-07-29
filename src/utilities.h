@@ -24,6 +24,8 @@ public:
                                  const QMessageLogContext &,
                                  const QString &message);
 
+    Q_INVOKABLE QString getVersionSummary();
+
 signals:
     void logMessage(const QString &);
 };
