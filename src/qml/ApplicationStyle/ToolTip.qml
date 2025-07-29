@@ -7,7 +7,7 @@ T.ToolTip {
     closePolicy: T.Popup.CloseOnEscape | T.Popup.CloseOnPressOutsideParent | T.Popup.CloseOnReleaseOutsideParent
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset, implicitContentHeight + topPadding + bottomPadding)
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset, implicitContentWidth + leftPadding + rightPadding)
-    margins: StyleProperties.controls_margins + StyleProperties.border_width
+    margins: StyleProperties.controls_margins
     padding: StyleProperties.controls_padding + StyleProperties.border_width
     spacing: StyleProperties.controls_spacing
     x: (parent) ? Math.floor((parent.width - implicitWidth) / 2) : 0
