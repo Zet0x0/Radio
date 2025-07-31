@@ -35,6 +35,10 @@ QtObject {
     readonly property int controls_stationImage_stationLoadingIndicator_interval: 80
     readonly property int controls_volumeSlider_verticalPadding: 3
 
+    /* Dialogs */
+    readonly property int dialogs_aboutDialog_maximumWidth: 512
+    readonly property int dialogs_messageDialog_maximumWidth: 512
+
     /* Fonts */
     readonly property font fonts_application: ({
             family: "Segoe UI Variable",

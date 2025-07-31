@@ -8,6 +8,7 @@ import Radio.ApplicationStyle
 ModalDialog {
     id: control
 
+    maximumWidth: StyleProperties.dialogs_aboutDialog_maximumWidth
     title: qsTr("About Radio")
 
     contentItem: RowLayout {
