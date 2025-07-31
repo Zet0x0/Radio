@@ -6,7 +6,7 @@ import Radio.Shared
 T.MenuBar {
     id: control
 
-    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset, implicitContentHeight + topPadding + bottomPadding + StyleProperties.controls_separator_height) // HACK: without the +separator_height, the height is quite inaccurate
+    implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset, implicitContentHeight + topPadding + bottomPadding + StyleProperties.controls_separator_size) // HACK: without the +separator_size, the height is quite inaccurate
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset, implicitContentWidth + leftPadding + rightPadding)
 
     contentItem: ColumnLayout {

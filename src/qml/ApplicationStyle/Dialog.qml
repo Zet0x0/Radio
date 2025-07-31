@@ -9,7 +9,7 @@ T.Dialog {
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset, implicitContentHeight + topPadding + bottomPadding + ((implicitHeaderHeight > 0) ? implicitHeaderHeight + spacing : 0) + ((implicitFooterHeight > 0) ? implicitFooterHeight + spacing : 0))
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset, implicitContentWidth + leftPadding + rightPadding, implicitHeaderWidth, implicitFooterWidth)
     margins: StyleProperties.controls_margins
-    spacing: StyleProperties.controls_separator_height
+    spacing: StyleProperties.controls_separator_size
     verticalPadding: StyleProperties.controls_padding
 
     T.Overlay.modal: Rectangle {

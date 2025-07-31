@@ -20,7 +20,7 @@ QtObject {
     readonly property int controls_menuItem_iconSize: 20
     readonly property int controls_menu_overlap: 1
     readonly property int controls_padding: 5
-    readonly property int controls_separator_height: 1
+    readonly property int controls_separator_size: 1
     readonly property int controls_slider_handleHeight: 26
     readonly property int controls_slider_handleWidth: 10
     readonly property int controls_slider_implicitHeight: 4
