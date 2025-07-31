@@ -143,6 +143,12 @@ void Player::play()
     }
 }
 
+void Player::playFromUrl(const QString &url)
+{
+    setStation(new Station("Untitled Station", QString(), url));
+    play();
+}
+
 void Player::stop()
 {
     const int result = m_mpv->stop();

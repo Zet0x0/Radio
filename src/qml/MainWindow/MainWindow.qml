@@ -54,6 +54,11 @@ ApplicationWindow {
             console.warn("messages dialog requested, but that doesn't exist, yet...");
         }
 
+        function onOpenLocationDialogRequested(url) {
+            openLocationDialog.url = url;
+            openLocationDialog.open();
+        }
+
         // TODO
         function onSettingsDialogRequested() {
             console.warn("settings dialog requested, but that doesn't exist, yet...");
@@ -64,6 +69,11 @@ ApplicationWindow {
 
     AboutDialog {
         id: aboutDialog
+
+    }
+
+    OpenLocationDialog {
+        id: openLocationDialog
 
     }
 

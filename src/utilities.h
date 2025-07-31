@@ -14,17 +14,18 @@ public:
     static Utilities *create(QQmlEngine *, QJSEngine *);
 
     /* https://github.com/Zet0x0/SampleCustomSystemTray */
-    Q_INVOKABLE QPoint getGlobalCursorPos();
+    static Q_INVOKABLE QPoint getGlobalCursorPos();
 
     static const char *toCString(const QString &);
 
-    Q_INVOKABLE void copyToClipboard(const QString &);
+    static Q_INVOKABLE void copyToClipboard(const QString &);
+    static QString getClipboardText();
 
     static void handleLogMessage(QtMsgType,
                                  const QMessageLogContext &,
                                  const QString &message);
 
-    Q_INVOKABLE QString getVersionSummary();
+    static Q_INVOKABLE QString getVersionSummary();
 
 signals:
     void logMessage(const QString &);

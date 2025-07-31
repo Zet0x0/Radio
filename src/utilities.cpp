@@ -32,6 +32,11 @@ void Utilities::copyToClipboard(const QString &text)
     qGuiApp->clipboard()->setText(text);
 }
 
+QString Utilities::getClipboardText()
+{
+    return qGuiApp->clipboard()->text();
+}
+
 void Utilities::handleLogMessage(QtMsgType type,
                                  const QMessageLogContext &context,
                                  const QString &message)

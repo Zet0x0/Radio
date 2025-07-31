@@ -19,6 +19,8 @@ public:
     Q_INVOKABLE static void requestAboutDialog();
     Q_INVOKABLE static void requestMessagesDialog();
     Q_INVOKABLE static void requestSettingsDialog();
+    Q_INVOKABLE static void
+        requestOpenLocationDialog(const bool &pasteFromClipboard = false);
 
 signals:
     void messageDialogRequested(const QString &title,
@@ -28,4 +30,5 @@ signals:
     void aboutDialogRequested();
     void messagesDialogRequested();
     void settingsDialogRequested();
+    void openLocationDialogRequested(const QString &url = QString());
 };

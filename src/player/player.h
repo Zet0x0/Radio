@@ -58,6 +58,7 @@ public:
     Q_INVOKABLE void setMuted(const bool &);
 
     Q_INVOKABLE void play();
+    Q_INVOKABLE void playFromUrl(const QString &url);
     Q_INVOKABLE void stop();
 
     Q_INVOKABLE void initialize();

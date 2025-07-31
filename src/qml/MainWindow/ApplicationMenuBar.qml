@@ -11,18 +11,24 @@ MenuBar {
     Menu {
         title: qsTr("&Media")
 
-        // TODO
         Action {
             enabled: control.mainLayoutEnabled
             shortcut: "Ctrl+O"
             text: qsTr("&Open Location...")
+
+            onTriggered: {
+                DialogController.requestOpenLocationDialog();
+            }
         }
 
-        // TODO
         Action {
             enabled: control.mainLayoutEnabled
             shortcut: "Ctrl+V"
             text: qsTr("Open Location from &Clipboard")
+
+            onTriggered: {
+                DialogController.requestOpenLocationDialog(true);
+            }
         }
 
         MenuSeparator {

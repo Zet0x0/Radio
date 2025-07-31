@@ -15,6 +15,8 @@ qt_add_qml_module(
         utilities.cpp
         dialogcontroller.h
         dialogcontroller.cpp
+        urlvalidator.h
+        urlvalidator.cpp
     RESOURCE_PREFIX /zet0x0.github.io/qml/imports
     OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/Radio/Cpp/Utilities"
 )

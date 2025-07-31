@@ -38,6 +38,7 @@ QtObject {
     /* Dialogs */
     readonly property int dialogs_aboutDialog_maximumWidth: 512
     readonly property int dialogs_messageDialog_maximumWidth: 512
+    readonly property int dialogs_openLocationDialog_maximumWidth: 512
 
     /* Fonts */
     readonly property font fonts_application: ({
