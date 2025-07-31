@@ -2,10 +2,10 @@
 
 ## Building
 
-### Compiling requirements
+### Requirements
 
 -   MinGW >= 13.1.0 64-bit
 -   CMake >= 3.22
 -   Qt >= 6.9
--   `libmpv` directory with `libmpv-2.dll` file and `include/` directory
-    -   Get [here](https://mpv.io/installation/), from the file that has the word `dev` in its name, e.g. `mpv-dev-x86_64-v3-20250518-git-817372a.7z`
+-   libmpv >= 0.40.0 `libmpv` directory with the `libmpv-2.dll` file and the `include/` directory
+    -   [Get from here](https://mpv.io/installation)
