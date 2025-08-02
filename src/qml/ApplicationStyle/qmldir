@@ -9,6 +9,7 @@ ToolTip ToolTip.qml
 Button Button.qml
 Label Label.qml
 Slider Slider.qml
+TextField.qml
 
 Dialog.qml
 DialogButtonBox.qml
