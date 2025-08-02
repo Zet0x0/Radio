@@ -26,6 +26,7 @@ qt_add_qml_module(
         MenuBar.qml
         MenuBarItem.qml
         TextField.qml
+        Pane.qml
     RESOURCE_PREFIX /zet0x0.github.io/qml/imports
     OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/Radio/ApplicationStyle"
 )

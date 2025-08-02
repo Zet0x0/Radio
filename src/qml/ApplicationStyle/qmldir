@@ -1,14 +1,15 @@
 module Radio.ApplicationStyle
 
-Control Control.qml
+Control.qml
+Pane.qml
 
-ApplicationWindow ApplicationWindow.qml
+ApplicationWindow.qml
 
-ToolTip ToolTip.qml
+ToolTip.qml
 
-Button Button.qml
-Label Label.qml
-Slider Slider.qml
+Button.qml
+Label.qml
+Slider.qml
 TextField.qml
 
 Dialog.qml
