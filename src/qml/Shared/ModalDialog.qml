@@ -6,7 +6,7 @@ Dialog {
 
     closePolicy: Dialog.CloseOnEscape
     modal: true
-    width: Math.min(parent.width, maximumWidth, implicitWidth)
+    width: Math.max(Math.min(parent.width, maximumWidth, implicitWidth), implicitHeaderWidth, implicitFooterWidth)
     x: Math.floor((parent.width - width) / 2)
     y: Math.floor((parent.height - height) / 2)
 }
