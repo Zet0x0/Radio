@@ -7,9 +7,10 @@ Pane {
     implicitHeight: StyleProperties.controls_stationImage_size
     implicitWidth: StyleProperties.controls_stationImage_size
 
-    contentItem: Image {
+    Image {
         id: control
 
+        anchors.fill: parent
         cache: false
         fillMode: Image.PreserveAspectCrop
         source: Player.station.imageUrl
