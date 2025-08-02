@@ -1,20 +1,31 @@
-#include <windows.h>
+#if defined(__MINGW64__) || defined(__MINGW32__)
+	// MinGW-w64, MinGW
+	#if defined(__has_include) && __has_include(<winres.h>)
+		#include <winres.h>
+	#else
+		#include <afxres.h>
+		#include <winresrc.h>
+	#endif
+#else
+	// MSVC, Windows SDK
+	#include <winres.h>
+#endif
 
-IDI_ICON1 ICON "icons/application-icon.ico"
+IDI_ICON1 ICON ".\\icons\\application-icon.ico"
 
 VS_VERSION_INFO VERSIONINFO
     FILEVERSION 0, 1, 0, 0
     PRODUCTVERSION 0, 1, 0, 0
-    FILEFLAGS 0x2L
-    FILEFLAGSMASK 0x2L
-    FILEOS 0x4L
-    FILETYPE VFT_APP
+#ifdef _DEBUG
+    FILEFLAGS 0x1L
+#else
+    FILEFLAGS 0x0L
+#endif
+    FILEFLAGSMASK 0x3fL
+    FILEOS 0x40004L
+    FILETYPE 0x0L
     FILESUBTYPE 0x0L
 BEGIN
-    BLOCK "VarFileInfo"
-    BEGIN
-        VALUE "Translation", 0x409, 1200
-    END
     BLOCK "StringFileInfo"
     BEGIN
         BLOCK "040904b0"
@@ -25,5 +36,9 @@ BEGIN
             VALUE "ProductName", "Radio"
             VALUE "ProductVersion", "0.1.0.0"
         END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
     END
 END
