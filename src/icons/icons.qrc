@@ -9,5 +9,6 @@
         <file>chevronRight.svg</file>
         <file>check.svg</file>
         <file>cross.svg</file>
+        <file>openExternal.svg</file>
     </qresource>
 </RCC>
