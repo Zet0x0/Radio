@@ -45,7 +45,6 @@ ApplicationWindow {
 
             dialog.open();
 
-            applicationWindow.show();
             applicationWindow.requestActivate();
         }
 
