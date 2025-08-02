@@ -1,7 +1,7 @@
 import QtQuick.Controls
 
-Control {
-    contentItem: Button {
+Pane {
+    Label {
         text: "Bottom Layout Placeholder"
     }
 }

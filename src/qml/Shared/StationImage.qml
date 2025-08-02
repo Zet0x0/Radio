@@ -3,19 +3,10 @@ import Radio.Cpp.Player
 import Radio.ApplicationStyle
 import QtQuick.VectorImage
 
-Control {
+Pane {
     implicitHeight: StyleProperties.controls_stationImage_size
     implicitWidth: StyleProperties.controls_stationImage_size
-    padding: StyleProperties.controls_stationImage_padding + StyleProperties.border_width
 
-    background: Rectangle {
-        color: StyleProperties.palette_background
-
-        border {
-            color: (enabled) ? StyleProperties.palette_accent : StyleProperties.palette_accent_darker
-            width: StyleProperties.border_width
-        }
-    }
     contentItem: Image {
         id: control
 
