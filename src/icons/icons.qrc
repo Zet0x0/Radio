@@ -1,14 +1,14 @@
 <RCC>
     <qresource prefix="/zet0x0.github.io/icons">
-        <file>applicationIcon.svg</file>
-        <file>applicationIconBackground.svg</file>
+        <file>application-icon.svg</file>
+        <file>application-icon-background.svg</file>
         <file>play.svg</file>
         <file>stop.svg</file>
-        <file>mute.svg</file>
-        <file>unmute.svg</file>
-        <file>chevronRight.svg</file>
+        <file>speaker-x-mark.svg</file>
+        <file>speaker-wave.svg</file>
+        <file>chevron-right.svg</file>
         <file>check.svg</file>
-        <file>cross.svg</file>
-        <file>openExternal.svg</file>
+        <file>x-mark.svg</file>
+        <file>arrow-top-right-on-square.svg</file>
     </qresource>
 </RCC>

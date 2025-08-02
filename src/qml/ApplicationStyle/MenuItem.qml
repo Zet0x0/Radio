@@ -18,7 +18,7 @@ T.MenuItem {
     arrow: ColorImage {
         color: (control.enabled) ? ((control.checked || control.down) ? StyleProperties.palette_accent_active : ((control.visualFocus || control.hovered) ? StyleProperties.palette_accent_lighter : StyleProperties.palette_accent)) : StyleProperties.palette_accent_darker
         mirror: control.mirrored
-        source: (!control.subMenu) ? "" : "qrc:/zet0x0.github.io/icons/chevronRight.svg"
+        source: (!control.subMenu) ? "" : "qrc:/zet0x0.github.io/icons/chevron-right.svg"
         visible: !!control.subMenu
         x: (control.mirrored) ? control.leftPadding : control.width - width - control.rightPadding
         y: control.topPadding + Math.floor((control.availableHeight - height) / 2)
@@ -55,7 +55,7 @@ T.MenuItem {
     // NOTE: MenuItem gets all blurry if source is not an empty string, Qt bug!
     indicator: ColorImage {
         color: (control.enabled) ? ((control.checked || control.down) ? StyleProperties.palette_accent_active : ((control.visualFocus || control.hovered) ? StyleProperties.palette_accent_lighter : StyleProperties.palette_accent)) : StyleProperties.palette_accent_darker
-        source: (control.checkable) ? ((control.checked) ? "qrc:/zet0x0.github.io/icons/check.svg" : "qrc:/zet0x0.github.io/icons/cross.svg") : ""
+        source: (control.checkable) ? ((control.checked) ? "qrc:/zet0x0.github.io/icons/check.svg" : "qrc:/zet0x0.github.io/icons/x-mark.svg") : ""
         visible: control.checkable
         x: (control.mirrored) ? control.width - width - control.rightPadding : control.leftPadding
         y: control.topPadding + Math.floor((control.availableHeight - height) / 2)

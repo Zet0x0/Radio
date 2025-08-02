@@ -18,7 +18,7 @@ ModalDialog {
             Layout.preferredWidth: 96
             Layout.rowSpan: 2
             preferredRendererType: VectorImage.CurveRenderer
-            source: "qrc:/zet0x0.github.io/icons/applicationIcon.svg"
+            source: "qrc:/zet0x0.github.io/icons/application-icon.svg"
         }
 
         ColumnLayout {

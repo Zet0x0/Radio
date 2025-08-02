@@ -14,7 +14,7 @@ Pane {
         IconButton {
             ToolTip.text: qsTr("Visit the source's site")
             ToolTip.visible: hovered
-            icon.source: "qrc:/zet0x0.github.io/icons/openExternal.svg"
+            icon.source: "qrc:/zet0x0.github.io/icons/arrow-top-right-on-square.svg"
             implicitHeight: sourceSelect.height
 
             onClicked: {

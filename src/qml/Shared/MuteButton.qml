@@ -10,7 +10,7 @@ IconButton {
     ToolTip.text: (checked) ? qsTr("Unmute") : qsTr("Mute")
     ToolTip.visible: hovered || visualFocus
     checked: Player.muted
-    icon.source: (checked) ? "qrc:/zet0x0.github.io/icons/mute.svg" : "qrc:/zet0x0.github.io/icons/unmute.svg"
+    icon.source: (checked) ? "qrc:/zet0x0.github.io/icons/speaker-x-mark.svg" : "qrc:/zet0x0.github.io/icons/speaker-wave.svg"
 
     onClicked: {
         Player.setMuted(!checked);

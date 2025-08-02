@@ -24,7 +24,7 @@ Pane {
             anchors.fill: parent
             fillMode: Image.PreserveAspectCrop
             preferredRendererType: VectorImage.CurveRenderer
-            source: "qrc:/zet0x0.github.io/icons/applicationIcon.svg"
+            source: "qrc:/zet0x0.github.io/icons/application-icon.svg"
             visible: control.status !== Image.Ready
         }
 

@@ -10,7 +10,7 @@ Labs.SystemTrayIcon {
     required property MainWindow applicationWindow
     required property SystemTrayMenu systemTrayMenu
 
-    icon.source: "qrc:/zet0x0.github.io/icons/applicationIconBackground.svg"
+    icon.source: "qrc:/zet0x0.github.io/icons/application-icon-background.svg"
     tooltip: applicationWindow.title
     visible: true
 
