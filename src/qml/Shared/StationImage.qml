@@ -1,6 +1,7 @@
 import QtQuick
 import Radio.Cpp.Player
 import Radio.ApplicationStyle
+import QtQuick.VectorImage
 
 Control {
     implicitHeight: StyleProperties.controls_stationImage_size
@@ -27,16 +28,12 @@ Control {
             width: width
         }
 
-        Image {
+        VectorImage {
             anchors.fill: parent
             fillMode: Image.PreserveAspectCrop
+            preferredRendererType: VectorImage.CurveRenderer
             source: "qrc:/zet0x0.github.io/icons/applicationIcon.svg"
             visible: control.status !== Image.Ready
-
-            sourceSize {
-                height: height
-                width: width
-            }
         }
 
         Control {
