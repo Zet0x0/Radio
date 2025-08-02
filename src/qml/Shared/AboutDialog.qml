@@ -61,7 +61,7 @@ ModalDialog {
             }
 
             Button {
-                ToolTip.text: qsTr("Credits to Heroicons for most of the icons in the UI")
+                ToolTip.text: qsTr("Credits to Heroicons for most of the icons in the UI (v2.2.0)")
                 ToolTip.visible: hovered
                 text: qsTr("Visit Heroicons")
 
