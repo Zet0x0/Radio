@@ -10,6 +10,14 @@ ModalDialog {
 
     property alias url: urlTextField.text
 
+    function clear() {
+        urlTextField.clear();
+    }
+
+    function paste() {
+        urlTextField.paste();
+    }
+
     maximumWidth: StyleProperties.dialogs_openLocationDialog_maximumWidth
     title: qsTr("Open Location")
 
@@ -56,5 +64,9 @@ ModalDialog {
                 }
             }
         }
+    }
+
+    onOpened: {
+        urlTextField.selectAll();
     }
 }

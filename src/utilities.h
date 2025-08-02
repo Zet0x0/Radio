@@ -19,7 +19,6 @@ public:
     static const char *toCString(const QString &);
 
     static Q_INVOKABLE void copyToClipboard(const QString &);
-    static QString getClipboardText();
 
     static void handleLogMessage(QtMsgType,
                                  const QMessageLogContext &,

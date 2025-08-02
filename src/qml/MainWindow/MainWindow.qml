@@ -53,8 +53,13 @@ ApplicationWindow {
             console.warn("messages dialog requested, but that doesn't exist, yet...");
         }
 
-        function onOpenLocationDialogRequested(url) {
-            openLocationDialog.url = url;
+        function onOpenLocationDialogRequested(pasteFromClipboard) {
+            openLocationDialog.clear();
+
+            if (pasteFromClipboard) {
+                openLocationDialog.paste();
+            }
+
             openLocationDialog.open();
         }
 

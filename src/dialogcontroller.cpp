@@ -1,7 +1,5 @@
 #include "dialogcontroller.h"
 
-#include "utilities.h"
-
 DialogController *DialogController::instance()
 {
     static DialogController *instance = new DialogController;
@@ -38,6 +36,5 @@ void DialogController::requestSettingsDialog()
 
 void DialogController::requestOpenLocationDialog(const bool &pasteFromClipboard)
 {
-    emit instance() -> openLocationDialogRequested(
-        (pasteFromClipboard) ? Utilities::getClipboardText() : QString());
+    emit instance() -> openLocationDialogRequested(pasteFromClipboard);
 }

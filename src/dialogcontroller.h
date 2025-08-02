@@ -30,5 +30,5 @@ signals:
     void aboutDialogRequested();
     void messagesDialogRequested();
     void settingsDialogRequested();
-    void openLocationDialogRequested(const QString &url = QString());
+    void openLocationDialogRequested(const bool &pasteFromClipboard);
 };
