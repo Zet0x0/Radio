@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Templates as T
 
-// TODO: add context menu
 T.TextField {
     id: control
 
