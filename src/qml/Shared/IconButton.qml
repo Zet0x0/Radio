@@ -4,6 +4,6 @@ import Radio.ApplicationStyle
 
 Button {
     display: Button.IconOnly
-    implicitHeight: StyleProperties.controls_iconButton_size
-    implicitWidth: implicitHeight
+    implicitHeight: 32
+    implicitWidth: height
 }

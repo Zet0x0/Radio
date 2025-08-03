@@ -68,20 +68,27 @@ Control {
                 Layout.fillHeight: true
             }
 
-            RowLayout {
+            Control {
                 Layout.fillWidth: true
 
-                PlayButton {
-                }
+                contentItem: RowLayout {
+                    implicitHeight: StyleProperties.controls_topLayout_controlLayout_height
 
-                Item {
-                    Layout.fillWidth: true
-                }
+                    PlayButton {
+                        Layout.fillHeight: true
+                    }
 
-                MuteButton {
-                }
+                    Item {
+                        Layout.fillWidth: true
+                    }
 
-                VolumeSlider {
+                    MuteButton {
+                        Layout.fillHeight: true
+                    }
+
+                    VolumeSlider {
+                        Layout.fillHeight: true
+                    }
                 }
             }
         }
