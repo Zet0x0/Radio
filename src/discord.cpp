@@ -258,7 +258,7 @@ void Discord::processDataFromSocket()
     }
 }
 
-void Discord::setActivity(const QJsonObject &activity, const bool &force)
+void Discord::setActivity(const QJsonValue &activity, const bool &force)
 {
     if (activity == m_currentActivity && !force)
     {
@@ -275,7 +275,7 @@ void Discord::setActivity(const QJsonObject &activity, const bool &force)
     });
 }
 
-void Discord::setActivity(const QJsonObject &activity)
+void Discord::setActivity(const QJsonValue &activity)
 {
     instance()->setActivity(activity, false);
 }

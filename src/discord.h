@@ -40,7 +40,7 @@ private:
     QTimer *m_reconnectTimer = new QTimer(this);
     HandshakeState m_handshakeState = HANDSHAKE_INACTIVE;
 
-    QJsonObject m_currentActivity;
+    QJsonValue m_currentActivity;
 
     Discord();
     static Discord *instance();
@@ -52,7 +52,7 @@ private:
                      const OperationCode &operationCode = FRAME);
     void processDataFromSocket();
 
-    void setActivity(const QJsonObject &activity, const bool &force);
+    void setActivity(const QJsonValue &activity, const bool &force);
 
 public:
     // https://discord.com/developers/docs/events/gateway-events#activity-object-activity-types
@@ -66,5 +66,13 @@ public:
         COMPETING = 5
     };
 
-    static void setActivity(const QJsonObject &activity);
+    // https://discord.com/developers/docs/events/gateway-events#activity-object-status-display-types
+    enum StatusDisplayType
+    {
+        NAME = 0,
+        STATE = 1,
+        DETAILS = 2
+    };
+
+    static void setActivity(const QJsonValue &activity);
 };

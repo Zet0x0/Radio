@@ -4,6 +4,7 @@
 #include "station.h"
 
 #include <QQmlEngine>
+#include <QTimer>
 
 Q_DECLARE_LOGGING_CATEGORY(radioPlayer)
 
@@ -89,10 +90,17 @@ private:
 
     bool m_initialized = false;
 
+    QTimer *m_discordActivityTimer = new QTimer(this);
+    int m_startedListeningAt = -1;
+
+    Player();
+
     void setElapsed(const qint64 &);
     void setState(const Player::State &);
 
     void setInitialized(const bool &newInitialized);
+
+    void updateDiscordActivity();
 
 signals:
     void playbackErrorOccurred(const int &errorCode, QPrivateSignal);

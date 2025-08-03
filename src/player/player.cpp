@@ -1,7 +1,10 @@
 #include "player.h"
 
 #include "../dialogcontroller.h"
+#include "../discord.h"
 #include "mpveventmanager.h"
+
+#include <QJsonArray>
 
 Q_LOGGING_CATEGORY(radioPlayer, "radio.player")
 
@@ -145,7 +148,7 @@ void Player::play()
 
 void Player::playFromUrl(const QString &url)
 {
-    setStation(new Station(QString(), QString(), url));
+    setStation(new Station(QString(), QString(), url.trimmed()));
     play();
 }
 
@@ -253,6 +256,17 @@ bool Player::initialized() const
     return m_initialized;
 }
 
+Player::Player()
+{
+    connect(m_discordActivityTimer,
+            &QTimer::timeout,
+            this,
+            &Player::updateDiscordActivity);
+
+    m_discordActivityTimer->setInterval(1000);
+    m_discordActivityTimer->start();
+}
+
 void Player::setElapsed(const qint64 &newElapsed)
 {
     if (m_elapsed == newElapsed)
@@ -272,6 +286,15 @@ void Player::setState(const Player::State &newState)
         return;
     }
 
+    if (newState == PLAYING)
+    {
+        m_startedListeningAt = QDateTime::currentSecsSinceEpoch();
+    }
+    else
+    {
+        m_startedListeningAt = -1;
+    }
+
     m_state = newState;
 
     qCInfo(radioPlayer) << "new state:" << m_state;
@@ -289,4 +312,60 @@ void Player::setInitialized(const bool &newInitialized)
     m_initialized = newInitialized;
 
     emit initializedChanged();
+}
+
+void Player::updateDiscordActivity()
+{
+    if (m_state != PLAYING)
+    {
+        Discord::setActivity(QJsonValue());
+
+        return;
+    }
+
+    const QString stationName = m_station->name();
+    const QString stationImageUrl = m_station->imageUrl();
+
+    QJsonObject activity;
+
+    activity["type"] = Discord::LISTENING;
+    activity["timestamps"] = QJsonObject {
+        {"start", m_startedListeningAt}
+    };
+    activity["status_display_type"]
+        = (stationName.isEmpty()) ? Discord::NAME : Discord::DETAILS;
+    activity["details"]
+        = (stationName.isEmpty()) ? tr("Unnamed Station") : stationName;
+
+    if (!m_nowPlaying.isEmpty())
+    {
+        activity["state"] = m_nowPlaying;
+    }
+
+    if (!m_nowPlaying.isEmpty())
+    {
+        activity["state_url"]
+            = QUrl::fromUserInput(
+                  QString("https://google.com/search?q=site:shazam.com %0")
+                      .arg(m_nowPlaying))
+                  .toString(QUrl::FullyEncoded);
+    }
+
+    activity["assets"] = QJsonObject {
+        {"large_image",
+         (stationImageUrl.isEmpty())
+         ? "https://raw.githubusercontent.com/Zet0x0/Radio/refs/heads/"
+         "master/src/icons/discord/large-image.png"
+         : stationImageUrl                               },
+        {"small_image",
+         "https://raw.githubusercontent.com/Zet0x0/Radio/refs/heads/master/src/"
+         "icons/discord/small-image.png"                 },
+        { "small_text",                       tr("Radio")},
+        {  "small_url", "https://github.com/Zet0x0/Radio"}
+    };
+    activity["buttons"]
+        = QJsonArray {{QJsonObject {{"label", "Tune In (Browser)"},
+                                    {"url", m_station->streamUrl()}}}};
+
+    Discord::setActivity(activity);
 }
