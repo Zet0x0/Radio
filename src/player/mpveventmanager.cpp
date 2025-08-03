@@ -42,32 +42,15 @@ void MpvEventManager::handleEvent(mpv_event *event)
         }
         case MPV_EVENT_END_FILE:
         {
+            emit playerStateChanged(Player::STOPPED);
+
             mpv_event_end_file *endFile
                 = static_cast<mpv_event_end_file *>(eventData);
-            const mpv_end_file_reason endFileReason = endFile->reason;
 
-            switch (endFileReason)
+            if (endFile->reason == MPV_END_FILE_REASON_ERROR)
             {
-                case MPV_END_FILE_REASON_ERROR:
-                {
-                    emit playbackErrorOccurred(endFile->error);
-
-                    break;
-                }
-                case MPV_END_FILE_REASON_EOF:
-                {
-                    emit playbackErrorOccurred(MPV_ERROR_NOTHING_TO_PLAY);
-
-                    break;
-                }
-
-                default:
-                {
-                    break;
-                }
+                emit playbackErrorOccurred(endFile->error);
             }
-
-            emit playerStateChanged(Player::STOPPED);
 
             break;
         }
