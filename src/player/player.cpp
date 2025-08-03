@@ -321,49 +321,83 @@ void Player::updateDiscordActivity()
         return;
     }
 
-    const QString stationName = m_station->name();
-    const QString stationImageUrl = m_station->imageUrl();
-
     QJsonObject activity;
+
+    QString details = m_station->name();
+    QString state = m_nowPlaying;
+    QString largeImage = m_station->imageUrl();
+    const QString button0Url = m_station->streamUrl();
 
     activity["type"] = Discord::LISTENING;
     activity["timestamps"] = QJsonObject {
         {"start", m_startedListeningAt}
     };
     activity["status_display_type"]
-        = (stationName.isEmpty()) ? Discord::NAME : Discord::DETAILS;
-    activity["details"]
-        = (stationName.isEmpty()) ? tr("Unnamed Station") : stationName;
+        = (details.isEmpty()) ? Discord::NAME : Discord::DETAILS;
 
-    if (!m_nowPlaying.isEmpty())
+    if (details.isEmpty())
     {
-        activity["state"] = m_nowPlaying;
+        details = tr("Unnamed Station");
+    }
+    else
+    {
+        if (details.size() == 1)
+        {
+            details += "​";
+        }
+        else if (details.size() > 128)
+        {
+            details = details.first(64) + "…" + details.last(63);
+        }
     }
 
-    if (!m_nowPlaying.isEmpty())
+    activity["details"] = details;
+
+    if (!state.isEmpty())
     {
-        activity["state_url"]
-            = QUrl::fromUserInput(
-                  QString("https://google.com/search?q=site:shazam.com %0")
-                      .arg(m_nowPlaying))
+        const QString stateUrl
+            = QUrl(QString("https://google.com/search?q=site:shazam.com %0")
+                       .arg(QUrl::toPercentEncoding(state)))
                   .toString(QUrl::FullyEncoded);
+
+        if (state.size() == 1)
+        {
+            state += "​";
+        }
+        else if (state.size() > 128)
+        {
+            state = state.first(64) + "…" + state.last(63);
+        }
+
+        activity["state"] = state;
+
+        if (stateUrl.size() <= 256)
+        {
+            activity["state_url"] = stateUrl;
+        }
+    }
+
+    if (!QUrl(largeImage).isValid() || largeImage.size() > 300)
+    {
+        largeImage = "https://raw.githubusercontent.com/Zet0x0/Radio/refs/"
+                     "heads/master/src/icons/discord/large-image.png";
     }
 
     activity["assets"] = QJsonObject {
-        {"large_image",
-         (stationImageUrl.isEmpty())
-         ? "https://raw.githubusercontent.com/Zet0x0/Radio/refs/heads/"
-         "master/src/icons/discord/large-image.png"
-         : stationImageUrl                               },
+        {"large_image", largeImage                       },
         {"small_image",
          "https://raw.githubusercontent.com/Zet0x0/Radio/refs/heads/master/src/"
          "icons/discord/small-image.png"                 },
         { "small_text",                       tr("Radio")},
-        {  "small_url", "https://github.com/Zet0x0/Radio"}
+        {  "small_url", "https://github.com/Zet0x0/Radio"},
     };
-    activity["buttons"]
-        = QJsonArray {{QJsonObject {{"label", "Tune In (Browser)"},
-                                    {"url", m_station->streamUrl()}}}};
+
+    if (button0Url.size() <= 512)
+    {
+        activity["buttons"]
+            = QJsonArray {{QJsonObject {{"label", "Tune In (Browser)"},
+                                        {"url", button0Url}}}};
+    }
 
     Discord::setActivity(activity);
 }
