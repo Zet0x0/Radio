@@ -46,8 +46,6 @@ QString Player::nowPlaying() const
 
 void Player::setNowPlaying(QString newNowPlaying)
 {
-    newNowPlaying = newNowPlaying.trimmed();
-
     if (!newNowPlaying.isEmpty())
     {
         QVariant filename;
@@ -148,7 +146,7 @@ void Player::play()
 
 void Player::playFromUrl(const QString &url)
 {
-    setStation(new Station(QString(), QString(), url.trimmed()));
+    setStation(new Station(QString(), QString(), url));
     play();
 }
 

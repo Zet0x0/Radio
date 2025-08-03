@@ -6,7 +6,7 @@
 Station::Station(const QString &name,
                  const QString &imageUrl,
                  const QString &streamUrl)
-    : m_streamUrl(streamUrl)
+    : m_streamUrl(streamUrl.trimmed())
 {
     setName(name);
     setImageUrl(imageUrl);
@@ -75,8 +75,7 @@ bool Station::isInvalid() const
 
 void Station::updateSetInvalid()
 {
-    const bool newInvalid
-        = m_name.isEmpty() && m_imageUrl.isEmpty() && m_streamUrl.isEmpty();
+    const bool newInvalid = m_streamUrl.isEmpty();
 
     if (m_invalid == newInvalid)
     {
