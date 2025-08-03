@@ -35,6 +35,10 @@ ModalDialog {
 
             validator: UrlValidator {
             }
+
+            onAccepted: {
+                playButton.click();
+            }
         }
     }
     footer: Control {
@@ -47,7 +51,9 @@ ModalDialog {
             }
 
             Button {
-                enabled: urlTextField.length > 0
+                id: playButton
+
+                enabled: urlTextField.acceptableInput
                 text: qsTr("Play")
 
                 onClicked: {
