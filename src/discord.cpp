@@ -129,8 +129,8 @@ void Discord::handshake()
 
     sendMessage(
         {
-            {"client_id", "1401486054418022410"},
-            {        "v",                     1}
+            { "client_id", "1401486054418022410" },
+            { "v",         1                     }
     },
         HANDSHAKE);
 }
@@ -150,7 +150,7 @@ void Discord::sendMessage(QJsonObject message,
     const QByteArray payload
         = QJsonDocument(message).toJson(QJsonDocument::Compact);
     const MessageHeader messageHeader
-        = MessageHeader {operationCode, static_cast<quint32>(payload.size())};
+        = MessageHeader{ operationCode, static_cast<quint32>(payload.size()) };
 
     switch (m_socket->write(
         QByteArray::fromRawData(reinterpret_cast<const char *>(&messageHeader),
@@ -268,10 +268,10 @@ void Discord::setActivity(const QJsonValue &activity, const bool &force)
     m_currentActivity = activity;
 
     sendMessage({
-        { "cmd","SET_ACTIVITY"   },
-        {"args",
-         QJsonObject {{"pid", QCoreApplication::applicationPid()},
-         {"activity", activity}}}
+        { "cmd",  "SET_ACTIVITY"                  },
+        { "args",
+         QJsonObject{ { "pid", QCoreApplication::applicationPid() },
+                       { "activity", activity } } }
     });
 }
 

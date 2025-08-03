@@ -26,12 +26,12 @@ mpv_handle *Mpv::mpvHandle()
 
 int Mpv::play(const QString &url)
 {
-    return command(QStringList({"loadfile", url}));
+    return command(QStringList({ "loadfile", url }));
 }
 
 int Mpv::stop()
 {
-    return command(QStringList({"stop"}));
+    return command(QStringList({ "stop" }));
 }
 
 bool Mpv::setVolume(const qint16 &volume)

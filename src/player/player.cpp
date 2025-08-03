@@ -329,8 +329,8 @@ void Player::updateDiscordActivity()
     const QString button0Url = m_station->streamUrl();
 
     activity["type"] = Discord::LISTENING;
-    activity["timestamps"] = QJsonObject {
-        {"start", m_startedListeningAt}
+    activity["timestamps"] = QJsonObject{
+        { "start", m_startedListeningAt }
     };
     activity["status_display_type"]
         = (details.isEmpty()) ? Discord::NAME : Discord::DETAILS;
@@ -383,20 +383,20 @@ void Player::updateDiscordActivity()
                      "heads/master/src/icons/discord/large-image.png";
     }
 
-    activity["assets"] = QJsonObject {
-        {"large_image", largeImage                       },
-        {"small_image",
-         "https://raw.githubusercontent.com/Zet0x0/Radio/refs/heads/master/src/"
-         "icons/discord/small-image.png"                 },
-        { "small_text",                       tr("Radio")},
-        {  "small_url", "https://github.com/Zet0x0/Radio"},
+    activity["assets"] = QJsonObject{
+        { "large_image", largeImage                        },
+        { "small_image",
+         "https://raw.githubusercontent.com/Zet0x0/Radio/refs/heads/master/"
+          "src/icons/discord/small-image.png"              },
+        { "small_text",  tr("Radio")                       },
+        { "small_url",   "https://github.com/Zet0x0/Radio" },
     };
 
     if (button0Url.size() <= 512)
     {
         activity["buttons"]
-            = QJsonArray {{QJsonObject {{"label", "Tune In (Browser)"},
-                                        {"url", button0Url}}}};
+            = QJsonArray{ { QJsonObject{ { "label", "Tune In (Browser)" },
+                                         { "url", button0Url } } } };
     }
 
     Discord::setActivity(activity);
