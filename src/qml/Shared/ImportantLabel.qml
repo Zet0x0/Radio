@@ -13,7 +13,7 @@ Label {
 
     ToolTip.text: text
     ToolTip.visible: truncated && hoverHandler.hovered
-    elide: Label.ElideMiddle
+    elide: Label.ElideRight
     textFormat: Label.PlainText
 
     ContextMenu.menu: CopyContextMenu {
