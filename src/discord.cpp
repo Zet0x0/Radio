@@ -210,18 +210,20 @@ void Discord::processDataFromSocket()
         {
             case FRAME:
             {
-                if (m_handshakeState != HANDSHAKE_ACTIVE
-                    || message["cmd"] != "DISPATCH"
-                    || message["evt"] != "READY")
+                if (message["cmd"] == "DISPATCH" && message["evt"] == "READY"
+                    && m_handshakeState == HANDSHAKE_ACTIVE)
                 {
-                    break;
+                    qCInfo(radioDiscord)
+                        << "hands successfully shaken with discord";
+
+                    m_handshakeState = HANDSHAKE_COMPLETE;
+
+                    setActivity(m_currentActivity, true);
                 }
-
-                qCInfo(radioDiscord) << "handshake with discord succeeded";
-
-                m_handshakeState = HANDSHAKE_COMPLETE;
-
-                setActivity(m_currentActivity, true);
+                else if (message["evt"] == "ERROR")
+                {
+                    qCCritical(radioDiscord) << "error received:" << message;
+                }
 
                 break;
             }
