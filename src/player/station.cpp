@@ -5,6 +5,8 @@
 #include <QDebug>
 #include <QUrl>
 
+Q_LOGGING_CATEGORY(radioObjStation, "radio.obj.station")
+
 Station::Station(const QString &name,
                  const QString &imageUrl,
                  const QString &streamUrl)
@@ -45,9 +47,15 @@ QString Station::imageUrl() const
 
 void Station::setImageUrl(QString newImageUrl)
 {
-    const QUrl _newImageUrl = newImageUrl.trimmed();
-    newImageUrl
-        = (_newImageUrl.isValid()) ? _newImageUrl.toString() : QString();
+    newImageUrl = newImageUrl.trimmed();
+
+    if (!QUrl(newImageUrl).isValid())
+    {
+        qCWarning(radioObjStation)
+            << "imageUrl.isValid() returned false for" << newImageUrl;
+
+        return;
+    }
 
     if (m_imageUrl == newImageUrl)
     {

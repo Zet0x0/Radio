@@ -380,7 +380,7 @@ void Player::updateDiscordActivity()
         }
     }
 
-    if (!QUrl(largeImage).isValid() || largeImage.size() > 300)
+    if (largeImage.isEmpty() || largeImage.size() > 300)
     {
         largeImage = "https://raw.githubusercontent.com/Zet0x0/Radio/refs/"
                      "heads/master/src/icons/discord/large-image.png";
@@ -395,7 +395,7 @@ void Player::updateDiscordActivity()
         { "small_url",   "https://github.com/Zet0x0/Radio" },
     };
 
-    if (button0Url.size() <= 512)
+    if (QUrl(button0Url).isValid() && button0Url.size() <= 512)
     {
         activity["buttons"]
             = QJsonArray{ { QJsonObject{ { "label", "Tune In (Browser)" },

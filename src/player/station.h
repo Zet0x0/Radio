@@ -1,7 +1,10 @@
 #pragma once
 
+#include <QLoggingCategory>
 #include <QObject>
 #include <QtQmlIntegration/qqmlintegration.h>
+
+Q_DECLARE_LOGGING_CATEGORY(radioStation)
 
 class Station : public QObject
 {
