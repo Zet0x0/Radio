@@ -26,6 +26,8 @@ public:
 
     static Q_INVOKABLE QString getVersionSummary();
 
+    static QString escapeControlCharacters(QString);
+
 signals:
     void logMessage(const QString &);
 };

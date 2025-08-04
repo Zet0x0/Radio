@@ -1,5 +1,7 @@
 #include "station.h"
 
+#include "../utilities.h"
+
 #include <QDebug>
 #include <QUrl>
 
@@ -24,7 +26,7 @@ QString Station::name() const
 
 void Station::setName(QString newName)
 {
-    newName = newName.trimmed();
+    newName = Utilities::escapeControlCharacters(newName.trimmed());
 
     if (m_name == newName)
     {

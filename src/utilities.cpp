@@ -51,3 +51,11 @@ QString Utilities::getVersionSummary()
              libMpvVersion,
              QT_VERSION_STR);
 }
+
+QString Utilities::escapeControlCharacters(QString string)
+{
+    return string.replace('\r', "\\r")
+        .replace('\n', "\\n")
+        .replace('\t', "\\t")
+        .replace('\f', "\\f");
+}

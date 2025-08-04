@@ -2,6 +2,7 @@
 
 #include "../dialogcontroller.h"
 #include "../discord.h"
+#include "../utilities.h"
 #include "mpveventmanager.h"
 
 #include <QJsonArray>
@@ -46,6 +47,8 @@ QString Player::nowPlaying() const
 
 void Player::setNowPlaying(QString newNowPlaying)
 {
+    newNowPlaying = Utilities::escapeControlCharacters(newNowPlaying);
+
     if (!newNowPlaying.isEmpty())
     {
         QVariant filename;
