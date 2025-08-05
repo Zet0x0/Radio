@@ -336,7 +336,10 @@ void Player::updateDiscordActivity()
         { "start", m_startedListeningAt }
     };
     activity["status_display_type"]
-        = (details.isEmpty()) ? Discord::NAME : Discord::DETAILS;
+        = (details.isEmpty()) ? Discord::NAME
+                              : ((QDateTime::currentSecsSinceEpoch() % 180 < 60)
+                                     ? Discord::STATE
+                                     : Discord::DETAILS);
 
     if (details.isEmpty())
     {
