@@ -49,6 +49,11 @@ void Station::setImageUrl(QString newImageUrl)
 {
     newImageUrl = newImageUrl.trimmed();
 
+    if (newImageUrl.isEmpty())
+    {
+        return;
+    }
+
     if (!QUrl(newImageUrl).isValid())
     {
         qCWarning(radioObjStation)
