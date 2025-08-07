@@ -1,7 +1,6 @@
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick
-import Radio.Cpp.Utilities
 import Radio.ApplicationStyle
 import Radio.Cpp.Player
 
@@ -21,24 +20,15 @@ ModalDialog {
     maximumWidth: StyleProperties.dialogs_openLocationDialog_maximumWidth
     title: qsTr("Open Location")
 
-    contentItem: ColumnLayout {
-        Label {
-            text: qsTr("Enter the URL of the media you want to play:")
-        }
+    contentItem: TextField {
+        id: urlTextField
 
-        TextField {
-            id: urlTextField
+        Layout.fillWidth: true
+        focus: control.visible
+        placeholderText: qsTr("Enter a media URL here...")
 
-            Layout.fillWidth: true
-            focus: control.visible
-            placeholderText: qsTr("Enter URL here...")
-
-            validator: UrlValidator {
-            }
-
-            onAccepted: {
-                playButton.click();
-            }
+        onAccepted: {
+            playButton.click();
         }
     }
     footer: Control {
@@ -53,7 +43,7 @@ ModalDialog {
             Button {
                 id: playButton
 
-                enabled: urlTextField.acceptableInput
+                enabled: urlTextField.length > 0
                 text: qsTr("Play")
 
                 onClicked: {

@@ -1,6 +1,5 @@
 #include "dialogcontroller.h"
 #include "player/player.h"
-#include "urlvalidator.h"
 #include "utilities.h"
 
 #include <QGuiApplication>
@@ -62,7 +61,6 @@ int main(int argc, char *argv[])
                                  0,
                                  "DialogController",
                                  DialogController::instance());
-    qmlRegisterType<UrlValidator>("Radio.Cpp.Utilities", 1, 0, "UrlValidator");
     qmlRegisterSingletonInstance("Radio.Cpp.Player",
                                  1,
                                  0,

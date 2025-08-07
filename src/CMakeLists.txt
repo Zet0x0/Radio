@@ -15,8 +15,6 @@ qt_add_qml_module(
         utilities.cpp
         dialogcontroller.h
         dialogcontroller.cpp
-        urlvalidator.h
-        urlvalidator.cpp
         discord.h
         discord.cpp
     RESOURCE_PREFIX /zet0x0.github.io/qml/imports
