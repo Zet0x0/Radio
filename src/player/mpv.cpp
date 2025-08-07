@@ -143,12 +143,11 @@ void Mpv::handleLogMessage(const mpv_log_level &logLevel,
 {
     switch (logLevel)
     {
+        // libmpv does not seem to let us know if the situation is actually
+        // fatal and aborting or just as critical and powerless as
+        // MPV_LOG_LEVEL_ERROR, so we just make these two equal to one lesser
+        // powerful
         case MPV_LOG_LEVEL_FATAL:
-        {
-            printMpvLogMessage(qCFatal(mpv), prefix, text);
-
-            break;
-        }
         case MPV_LOG_LEVEL_ERROR:
         {
             printMpvLogMessage(qCCritical(mpv), prefix, text);
