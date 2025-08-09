@@ -16,8 +16,6 @@ Control {
             Layout.fillWidth: true
 
             Row {
-                id: informationalRow
-
                 Layout.fillWidth: true
                 spacing: StyleProperties.controls_spacing
 
@@ -25,7 +23,7 @@ Control {
                     id: stationNameLabel
 
                     text: (Player.station.invalid) ? qsTr("No station selected") : (Player.station.name || qsTr("Unnamed Station"))
-                    width: Math.min(informationalRow.width - ((elapsedLabel.visible) ? elapsedLabel.width + informationalRow.spacing : 0), implicitWidth)
+                    width: Math.min(parent.width - ((elapsedLabel.visible) ? elapsedLabel.width + parent.spacing : 0), implicitWidth)
                 }
 
                 Label {
