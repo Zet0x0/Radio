@@ -5,8 +5,7 @@ import Radio.Cpp.Player
 import Radio.Cpp.Utilities
 
 IconButton {
-    property bool systemTray: false
-    property Menu systemTrayMenu: null
+    property Menu menu: null
 
     ToolTip.text: qsTr("Google Search what's currently playing through Shazam's site")
     ToolTip.visible: hovered || visualFocus
@@ -16,8 +15,8 @@ IconButton {
     onClicked: {
         Qt.openUrlExternally(Utilities.getShazamLinkFor(Player.nowPlaying));
 
-        if (systemTray && !!systemTrayMenu) {
-            systemTrayMenu.dismiss();
+        if (!!menu) {
+            menu.dismiss();
         }
     }
 }

@@ -63,18 +63,15 @@ Window {
                     id: controlLayout
 
                     ShazamNowPlayingButton {
-                        systemTray: true
-                        systemTrayMenu: menu
+                        menu: menu
                     }
 
                     PlayButton {
-                        systemTray: true
-                        systemTrayMenu: menu
+                        menu: menu
                     }
 
                     MuteButton {
-                        systemTray: true
-                        systemTrayMenu: menu
+                        menu: menu
                     }
 
                     VolumeSlider {

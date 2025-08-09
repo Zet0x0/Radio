@@ -4,8 +4,7 @@ import Radio.ApplicationStyle
 import Radio.Cpp.Player
 
 IconButton {
-    property bool systemTray: false
-    property Menu systemTrayMenu: null
+    property Menu menu: null
 
     ToolTip.text: (checked) ? qsTr("Unmute") : qsTr("Mute")
     ToolTip.visible: hovered || visualFocus
@@ -15,8 +14,8 @@ IconButton {
     onClicked: {
         Player.setMuted(!checked);
 
-        if (systemTray && !!systemTrayMenu) {
-            systemTrayMenu.dismiss();
+        if (!!menu) {
+            menu.dismiss();
         }
     }
 }

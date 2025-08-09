@@ -4,8 +4,7 @@ import Radio.ApplicationStyle
 import Radio.Cpp.Player
 
 IconButton {
-    property bool systemTray: false
-    property Menu systemTrayMenu: null
+    property Menu menu: null
 
     ToolTip.text: (checked) ? qsTr("Stop") : qsTr("Play")
     ToolTip.visible: hovered || visualFocus
@@ -20,8 +19,8 @@ IconButton {
             Player.play();
         }
 
-        if (systemTray && !!systemTrayMenu) {
-            systemTrayMenu.dismiss();
+        if (!!menu) {
+            menu.dismiss();
         }
     }
 }
