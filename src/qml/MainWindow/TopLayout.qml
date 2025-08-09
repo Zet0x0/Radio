@@ -71,6 +71,10 @@ Control {
                 contentItem: RowLayout {
                     implicitHeight: StyleProperties.controls_topLayout_controlLayout_height
 
+                    ShazamNowPlayingButton {
+                        Layout.fillHeight: true
+                    }
+
                     PlayButton {
                         Layout.fillHeight: true
                     }

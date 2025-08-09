@@ -62,6 +62,11 @@ Window {
                 RowLayout {
                     id: controlLayout
 
+                    ShazamNowPlayingButton {
+                        systemTray: true
+                        systemTrayMenu: menu
+                    }
+
                     PlayButton {
                         systemTray: true
                         systemTrayMenu: menu

@@ -361,10 +361,7 @@ void Player::updateDiscordActivity()
 
     if (!state.isEmpty())
     {
-        const QString stateUrl
-            = QUrl(QString("https://google.com/search?q=site:shazam.com %0")
-                       .arg(QUrl::toPercentEncoding(state)))
-                  .toString(QUrl::FullyEncoded);
+        const QString stateUrl = Utilities::getShazamLinkFor(state);
 
         if (state.size() == 1)
         {

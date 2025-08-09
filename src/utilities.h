@@ -30,6 +30,8 @@ public:
 
     static QString escapeControlCharacters(QString);
 
+    Q_INVOKABLE static QString getShazamLinkFor(const QString &query);
+
 signals:
     void logMessage(const QString &);
 };

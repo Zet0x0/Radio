@@ -68,3 +68,10 @@ QString Utilities::escapeControlCharacters(QString string)
         .replace('\t', "\\t")
         .replace('\f', "\\f");
 }
+
+QString Utilities::getShazamLinkFor(const QString &query)
+{
+    return QUrl(QString("https://google.com/search?q=site:shazam.com %0")
+                    .arg(QUrl::toPercentEncoding(query)))
+        .toString(QUrl::FullyEncoded);
+}
