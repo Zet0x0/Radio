@@ -12,6 +12,8 @@ Control {
         }
 
         ColumnLayout {
+            id: rightLayout
+
             Layout.fillHeight: true
             Layout.fillWidth: true
 
@@ -55,15 +57,12 @@ Control {
 
             Item {
                 Layout.fillHeight: true
-            }
-
-            NowPlayingLabel {
-                Layout.fillHeight: true
                 Layout.fillWidth: true
-            }
 
-            Item {
-                Layout.fillHeight: true
+                NowPlayingLabel {
+                    width: Math.min(parent.width, implicitWidth)
+                    y: Math.floor((parent.height - height) / 2) - rightLayout.spacing
+                }
             }
 
             Control {
