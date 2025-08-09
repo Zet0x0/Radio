@@ -25,7 +25,7 @@ Control {
                     id: stationNameLabel
 
                     text: (Player.station.invalid) ? qsTr("No station selected") : (Player.station.name || qsTr("Unnamed Station"))
-                    width: Math.min(informationalRow.width - elapsedLabel.width - informationalRow.spacing, implicitWidth)
+                    width: Math.min(informationalRow.width - ((elapsedLabel.visible) ? elapsedLabel.width + informationalRow.spacing : 0), implicitWidth)
                 }
 
                 Label {
