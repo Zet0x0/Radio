@@ -21,10 +21,6 @@ ModalDialog {
         }
 
         ColumnLayout {
-            Item {
-                Layout.fillHeight: true
-            }
-
             Label {
                 Layout.fillWidth: true
                 text: qsTr("Radio is an open-source project to browse through and play online radio stations from the internet.")
