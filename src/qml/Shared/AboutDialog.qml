@@ -16,7 +16,6 @@ ModalDialog {
             Layout.alignment: Qt.AlignTop
             Layout.preferredHeight: 96
             Layout.preferredWidth: 96
-            Layout.rowSpan: 2
             preferredRendererType: VectorImage.CurveRenderer
             source: "qrc:/zet0x0.github.io/icons/application-icon.svg"
         }
@@ -36,8 +35,25 @@ ModalDialog {
                 text: qsTr("Copyright (c) 2025 Zet0x0")
             }
 
-            Item {
-                Layout.fillHeight: true
+            Separator {
+                Layout.fillWidth: true
+            }
+
+            Label {
+                text: qsTr(`The App: Radio v. %0 - <a href="https://github.com/Zet0x0/Radio">View Repository</a><br>
+                           UI: Qt v. %1 - <a href="https://qt.io">Visit qt.io</a><br>
+                           Player: libmpv v. %2 - <a href="https://mpv.io">Visit mpv.io</a><br>
+                           Icons: Tabler Icons v. 3.34.1 - <a href="https://tabler.io/icons">Visit Tabler Icons</a>`).arg(Qt.application.version).arg(Utilities.getQtVersion()).arg(Utilities.getLibMpvVersion())
+                textFormat: Label.RichText
+
+                onLinkActivated: link => {
+                    Qt.openUrlExternally(link);
+                }
+
+                HoverHandler {
+                    cursorShape: Qt.PointingHandCursor
+                    enabled: !!parent.hoveredLink
+                }
             }
         }
     }
@@ -48,31 +64,6 @@ ModalDialog {
         contentItem: RowLayout {
             Item {
                 Layout.fillWidth: true
-            }
-
-            Button {
-                ToolTip.text: qsTr("Includes the LICENSE file and everything else about the application's internals")
-                ToolTip.visible: hovered
-                text: qsTr("View Repository")
-
-                onClicked: {
-                    Qt.openUrlExternally("https://github.com/Zet0x0/Radio");
-                }
-            }
-
-            Button {
-                ToolTip.text: qsTr("Credits to Tabler for most of the icons in the UI (v3.34.1)")
-                ToolTip.visible: hovered
-                text: qsTr("Visit Tabler Icons")
-
-                onClicked: {
-                    Qt.openUrlExternally("https://tabler.io/icons");
-                }
-            }
-
-            Separator {
-                Layout.fillHeight: true
-                horizontal: false
             }
 
             Button {

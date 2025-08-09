@@ -24,6 +24,8 @@ public:
                                  const QMessageLogContext &,
                                  const QString &message);
 
+    static Q_INVOKABLE QString getLibMpvVersion();
+    static Q_INVOKABLE QString getQtVersion();
     static Q_INVOKABLE QString getVersionSummary();
 
     static QString escapeControlCharacters(QString);

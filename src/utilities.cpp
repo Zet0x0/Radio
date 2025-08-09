@@ -39,17 +39,26 @@ void Utilities::handleLogMessage(QtMsgType type,
     emit instance() -> logMessage(qFormatLogMessage(type, context, message));
 }
 
-QString Utilities::getVersionSummary()
+QString Utilities::getLibMpvVersion()
 {
     const unsigned long rawLibMpvVersion = mpv_client_api_version();
-    const QString libMpvVersion = QString("%0.%1").arg(
+
+    return QString("%0.%1").arg(
         QString::number((rawLibMpvVersion >> 16) & 0xFFFF),
         QString::number(rawLibMpvVersion & 0xFFFF));
+}
 
+QString Utilities::getQtVersion()
+{
+    return QT_VERSION_STR;
+}
+
+QString Utilities::getVersionSummary()
+{
     return tr("Radio: %0 / libmpv: %1 / Qt: %2")
         .arg(QCoreApplication::applicationVersion(),
-             libMpvVersion,
-             QT_VERSION_STR);
+             getLibMpvVersion(),
+             getQtVersion());
 }
 
 QString Utilities::escapeControlCharacters(QString string)
