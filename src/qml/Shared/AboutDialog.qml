@@ -61,12 +61,12 @@ ModalDialog {
             }
 
             Button {
-                ToolTip.text: qsTr("Credits to Heroicons for most of the icons in the UI (v2.2.0)")
+                ToolTip.text: qsTr("Credits to Tabler for most of the icons in the UI (v3.34.1)")
                 ToolTip.visible: hovered
-                text: qsTr("Visit Heroicons")
+                text: qsTr("Visit Tabler Icons")
 
                 onClicked: {
-                    Qt.openUrlExternally("https://heroicons.com");
+                    Qt.openUrlExternally("https://tabler.io/icons");
                 }
             }
 

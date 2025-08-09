@@ -11,7 +11,7 @@ IconButton {
     ToolTip.visible: hovered || visualFocus
     checked: Player.state !== Player.STOPPED
     enabled: !!Player.station.streamUrl
-    icon.source: (checked) ? "qrc:/zet0x0.github.io/icons/stop.svg" : "/zet0x0.github.io/icons/play.svg"
+    icon.source: (checked) ? "qrc:/zet0x0.github.io/icons/player-stop.svg" : "/zet0x0.github.io/icons/player-play.svg"
 
     onClicked: {
         if (checked) {

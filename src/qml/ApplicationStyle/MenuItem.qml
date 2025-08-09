@@ -55,7 +55,7 @@ T.MenuItem {
     // NOTE: MenuItem gets all blurry if source is not an empty string, Qt bug!
     indicator: ColorImage {
         color: (control.enabled) ? ((control.checked || control.down) ? StyleProperties.palette_accent_active : ((control.visualFocus || control.hovered) ? StyleProperties.palette_accent_lighter : StyleProperties.palette_accent)) : StyleProperties.palette_accent_darker
-        source: (control.checkable) ? ((control.checked) ? "qrc:/zet0x0.github.io/icons/check.svg" : "qrc:/zet0x0.github.io/icons/x-mark.svg") : ""
+        source: (control.checkable) ? ((control.checked) ? "qrc:/zet0x0.github.io/icons/check.svg" : "qrc:/zet0x0.github.io/icons/x.svg") : ""
         visible: control.checkable
         x: (control.mirrored) ? control.width - width - control.rightPadding : control.leftPadding
         y: control.topPadding + Math.floor((control.availableHeight - height) / 2)
