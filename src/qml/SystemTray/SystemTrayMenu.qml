@@ -50,11 +50,12 @@ Window {
                 }
 
                 Control {
-                    implicitWidth: controlLayout.width
+                    Layout.preferredWidth: controlLayout.width
 
                     contentItem: NowPlayingLabel {
-                        horizontalAlignment: Qt.AlignHCenter
                         systemTray: true
+                        width: Math.min(implicitWidth, parent.width)
+                        x: Math.floor((parent.width - width) / 2)
                     }
                 }
 
