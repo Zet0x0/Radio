@@ -401,7 +401,7 @@ void Player::updateDiscordActivity()
     if (QUrl(button0Url).isValid() && button0Url.size() <= 512)
     {
         activity["buttons"]
-            = QJsonArray{ { QJsonObject{ { "label", "Tune In (Browser)" },
+            = QJsonArray{ { QJsonObject{ { "label", tr("Tune In (Browser)") },
                                          { "url", button0Url } } } };
     }
 
