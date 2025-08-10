@@ -39,7 +39,7 @@ ModalDialog {
                 text: qsTr(`The App: Radio v. %0 - <a href="https://github.com/Zet0x0/Radio">View Repository</a><br>
                            UI: Qt v. %1 - <a href="https://qt.io">Visit qt.io</a><br>
                            Player: libmpv v. %2 - <a href="https://mpv.io">Visit mpv.io</a><br>
-                           Icons: Tabler Icons v. 3.34.1 - <a href="https://tabler.io/icons">Visit Tabler Icons</a>`).arg(Qt.application.version).arg(Utilities.getQtVersion()).arg(Utilities.getLibMpvVersion())
+                           Icons: Tabler Icons v. 3.34.1 - <a href="https://tabler.io/icons">Visit Tabler Icons</a>`).arg(Qt.application.version).arg(CppUtilities.getQtVersion()).arg(CppUtilities.getLibMpvVersion())
                 textFormat: Label.RichText
 
                 onLinkActivated: link => {
@@ -68,7 +68,7 @@ ModalDialog {
                 text: qsTr("Copy and Close")
 
                 onClicked: {
-                    Utilities.copyToClipboard(Utilities.getVersionSummary());
+                    CppUtilities.copyToClipboard(CppUtilities.getVersionSummary());
                     control.close();
                 }
             }

@@ -13,7 +13,7 @@ IconButton {
     icon.source: "qrc:/zet0x0.github.io/icons/brand-shazam.svg"
 
     onClicked: {
-        Qt.openUrlExternally(Utilities.getShazamLinkFor(Player.nowPlaying));
+        Qt.openUrlExternally(CppUtilities.getShazamLinkFor(Player.nowPlaying));
 
         if (!!menu) {
             menu.dismiss();

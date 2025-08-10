@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
     qmlRegisterSingletonInstance("Radio.Cpp.Utilities",
                                  1,
                                  0,
-                                 "Utilities",
+                                 "CppUtilities",
                                  utilities);
     qmlRegisterSingletonInstance("Radio.Cpp.Utilities",
                                  1,

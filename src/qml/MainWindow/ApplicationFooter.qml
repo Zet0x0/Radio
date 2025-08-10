@@ -38,6 +38,6 @@ Control {
             footerLabel.text = message;
         }
 
-        target: Utilities
+        target: CppUtilities
     }
 }

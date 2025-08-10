@@ -40,7 +40,7 @@ MenuBar {
             text: qsTr("Copy Stream &URL to Clipboard")
 
             onTriggered: {
-                Utilities.copyToClipboard(Player.station.streamUrl);
+                CppUtilities.copyToClipboard(Player.station.streamUrl);
             }
         }
 

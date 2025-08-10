@@ -18,7 +18,7 @@ Labs.SystemTrayIcon {
         switch (reason) {
         case Labs.SystemTrayIcon.Context:
             {
-                systemTrayMenu.popup(Utilities.getGlobalCursorPos());
+                systemTrayMenu.popup(CppUtilities.getGlobalCursorPos());
 
                 break;
             }

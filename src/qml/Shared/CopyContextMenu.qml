@@ -8,7 +8,7 @@ Menu {
         text: qsTr("Copy")
 
         onTriggered: {
-            Utilities.copyToClipboard((control.parent as Label).text);
+            CppUtilities.copyToClipboard((control.parent as Label).text);
         }
     }
 }
