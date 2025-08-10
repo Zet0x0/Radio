@@ -1,6 +1,8 @@
 qt_add_executable(
     ${CMAKE_PROJECT_NAME}
     main.cpp
+    discord.h
+    discord.cpp
     icons/icons.qrc
     qml/qml.qrc
     Radio.rc
@@ -15,8 +17,6 @@ qt_add_qml_module(
         utilities.cpp
         dialogcontroller.h
         dialogcontroller.cpp
-        discord.h
-        discord.cpp
     RESOURCE_PREFIX /zet0x0.github.io/qml/imports
     OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/Radio/Cpp/Utilities"
 )
