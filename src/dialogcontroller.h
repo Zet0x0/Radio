@@ -5,8 +5,8 @@
 class DialogController : public QObject
 {
     Q_OBJECT
-    QML_ELEMENT
     QML_SINGLETON
+    QML_ELEMENT
 
 public:
     static DialogController *instance();

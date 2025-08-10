@@ -24,6 +24,10 @@ void handleLogMessage(QtMsgType type,
 
 int main(int argc, char *argv[])
 {
+    Utilities *utilities
+        = Utilities::instance(); // HACK?: make sure the instance is created in
+                                 // OUR thread
+
     qSetMessagePattern(
         "[%{if-debug}DEBUG%{endif}%{if-info}INFO%{endif}%{if-warning}WARNING%{"
         "endif}%{if-critical}CRITICAL%{endif}%{if-fatal}FATAL%{endif}] "
@@ -55,7 +59,7 @@ int main(int argc, char *argv[])
                                  1,
                                  0,
                                  "Utilities",
-                                 Utilities::instance());
+                                 utilities);
     qmlRegisterSingletonInstance("Radio.Cpp.Utilities",
                                  1,
                                  0,

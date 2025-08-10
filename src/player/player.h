@@ -11,8 +11,8 @@ Q_DECLARE_LOGGING_CATEGORY(radioPlayer)
 class Player : public QObject
 {
     Q_OBJECT
-    QML_ELEMENT
     QML_SINGLETON
+    QML_ELEMENT
 
     Q_PROPERTY(Station *station READ station WRITE setStation NOTIFY
                    stationChanged FINAL)

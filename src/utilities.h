@@ -6,8 +6,8 @@
 class Utilities : public QObject
 {
     Q_OBJECT
-    QML_ELEMENT
     QML_SINGLETON
+    QML_ELEMENT
 
 public:
     static Utilities *instance();
