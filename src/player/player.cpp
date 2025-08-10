@@ -390,7 +390,7 @@ void Player::updateDiscordActivity()
         { "large_image", largeImage                        },
         { "small_image",
          "https://raw.githubusercontent.com/Zet0x0/Radio/refs/heads/master/"
-          "src/icons/discord/small-image.png"              },
+          "src/icons/discord/small-image.gif"              },
         { "small_text",  tr("Radio")                       },
         { "small_url",   "https://github.com/Zet0x0/Radio" },
     };
