@@ -51,7 +51,7 @@ Control {
 
                         return qsTr("%0", "elapsed").arg(formattedString);
                     }
-                    visible: !Player.station.invalid && Player.state === Player.PLAYING
+                    visible: Player.state === Player.PLAYING
                 }
             }
 
