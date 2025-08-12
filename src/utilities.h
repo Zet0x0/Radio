@@ -7,7 +7,7 @@ class Utilities : public QObject
 {
     Q_OBJECT
     QML_SINGLETON
-    QML_ELEMENT
+    QML_NAMED_ELEMENT(CppUtilities)
 
 public:
     static Utilities *instance();
