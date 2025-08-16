@@ -67,15 +67,6 @@ void Player::setNowPlaying(QString newNowPlaying)
 
     m_nowPlaying = newNowPlaying;
 
-    m_mpv->setProperty("title",
-                       (m_nowPlaying.isEmpty())
-                           ? tr("Radio")
-                           : tr("%0 - Radio").arg(m_nowPlaying));
-
-    m_discordActivityTimer->stop();
-    updateDiscordActivity();
-    m_discordActivityTimer->start();
-
     qCInfo(radioPlayer) << "nowPlaying changed:" << m_nowPlaying;
 
     emit nowPlayingChanged();
@@ -353,6 +344,54 @@ void Player::updateDiscordActivity()
 
 Player::Player()
 {
+    connect(this,
+            &Player::stateChanged,
+            this,
+            [this]
+            {
+                switch (m_state)
+                {
+                    case PLAYING:
+                    {
+                        m_startedListeningAt
+                            = QDateTime::currentSecsSinceEpoch();
+
+                        updateDiscordActivity();
+                        m_discordActivityTimer->start();
+
+                        break;
+                    }
+                    default:
+                    {
+                        m_discordActivityTimer->stop();
+                        updateDiscordActivity();
+
+                        m_startedListeningAt = -1;
+
+                        break;
+                    }
+                }
+            });
+    connect(this,
+            &Player::nowPlayingChanged,
+            this,
+            [this]
+            {
+                m_discordActivityTimer->stop();
+                updateDiscordActivity();
+                m_discordActivityTimer->start();
+            });
+    connect(this,
+            &Player::nowPlayingChanged,
+            this,
+            [this]
+            {
+                m_mpv->setProperty("title",
+                                   (m_nowPlaying.isEmpty())
+                                       ? tr("Radio")
+                                       : tr("%0 - Radio").arg(m_nowPlaying));
+            });
+
     connect(m_discordActivityTimer,
             &QTimer::timeout,
             this,
@@ -382,28 +421,6 @@ void Player::setState(const Player::State &newState)
     }
 
     m_state = newState;
-
-    switch (m_state)
-    {
-        case PLAYING:
-        {
-            m_startedListeningAt = QDateTime::currentSecsSinceEpoch();
-
-            updateDiscordActivity();
-            m_discordActivityTimer->start();
-
-            break;
-        }
-        default:
-        {
-            m_discordActivityTimer->stop();
-            updateDiscordActivity();
-
-            m_startedListeningAt = -1;
-
-            break;
-        }
-    }
 
     qCInfo(radioPlayer) << "new state:" << m_state;
 
