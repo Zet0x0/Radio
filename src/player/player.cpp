@@ -72,6 +72,10 @@ void Player::setNowPlaying(QString newNowPlaying)
                            ? tr("Radio")
                            : tr("%0 - Radio").arg(m_nowPlaying));
 
+    m_discordActivityTimer->stop();
+    updateDiscordActivity();
+    m_discordActivityTimer->start();
+
     qCInfo(radioPlayer) << "nowPlaying changed:" << m_nowPlaying;
 
     emit nowPlayingChanged();
@@ -257,64 +261,6 @@ bool Player::initialized() const
     return m_initialized;
 }
 
-Player::Player()
-{
-    connect(m_discordActivityTimer,
-            &QTimer::timeout,
-            this,
-            &Player::updateDiscordActivity);
-
-    m_discordActivityTimer->setInterval(1000);
-    m_discordActivityTimer->start();
-}
-
-void Player::setElapsed(const qint64 &newElapsed)
-{
-    if (m_elapsed == newElapsed)
-    {
-        return;
-    }
-
-    m_elapsed = newElapsed;
-
-    emit elapsedChanged();
-}
-
-void Player::setState(const Player::State &newState)
-{
-    if (m_state == newState)
-    {
-        return;
-    }
-
-    if (newState == PLAYING)
-    {
-        m_startedListeningAt = QDateTime::currentSecsSinceEpoch();
-    }
-    else
-    {
-        m_startedListeningAt = -1;
-    }
-
-    m_state = newState;
-
-    qCInfo(radioPlayer) << "new state:" << m_state;
-
-    emit stateChanged();
-}
-
-void Player::setInitialized(const bool &newInitialized)
-{
-    if (m_initialized == newInitialized)
-    {
-        return;
-    }
-
-    m_initialized = newInitialized;
-
-    emit initializedChanged();
-}
-
 void Player::updateDiscordActivity()
 {
     if (m_state != PLAYING)
@@ -337,8 +283,8 @@ void Player::updateDiscordActivity()
     };
     activity["status_display_type"]
         = (QDateTime::currentSecsSinceEpoch() % 180 < 60 && !state.isEmpty())
-                                     ? Discord::STATE
-               : (details.isEmpty()) ? Discord::NAME
+            ? Discord::STATE
+        : (details.isEmpty()) ? Discord::NAME
                               : Discord::DETAILS;
 
     if (details.isEmpty())
@@ -404,3 +350,75 @@ void Player::updateDiscordActivity()
 
     Discord::setActivity(activity);
 }
+
+Player::Player()
+{
+    connect(m_discordActivityTimer,
+            &QTimer::timeout,
+            this,
+            &Player::updateDiscordActivity);
+
+    m_discordActivityTimer->setInterval(
+        30000); // update every 30 seconds (or earlier, defined by code)
+}
+
+void Player::setElapsed(const qint64 &newElapsed)
+{
+    if (m_elapsed == newElapsed)
+    {
+        return;
+    }
+
+    m_elapsed = newElapsed;
+
+    emit elapsedChanged();
+}
+
+void Player::setState(const Player::State &newState)
+{
+    if (m_state == newState)
+    {
+        return;
+    }
+
+    m_state = newState;
+
+    switch (m_state)
+    {
+        case PLAYING:
+        {
+            m_startedListeningAt = QDateTime::currentSecsSinceEpoch();
+
+            updateDiscordActivity();
+            m_discordActivityTimer->start();
+
+            break;
+        }
+        default:
+        {
+            m_discordActivityTimer->stop();
+            updateDiscordActivity();
+
+            m_startedListeningAt = -1;
+
+            break;
+        }
+    }
+
+    qCInfo(radioPlayer) << "new state:" << m_state;
+
+    emit stateChanged();
+}
+
+void Player::setInitialized(const bool &newInitialized)
+{
+    if (m_initialized == newInitialized)
+    {
+        return;
+    }
+
+    m_initialized = newInitialized;
+
+    emit initializedChanged();
+}
+

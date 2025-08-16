@@ -66,6 +66,9 @@ public:
 
     bool initialized() const;
 
+private slots:
+    void updateDiscordActivity();
+
 signals:
     void stationChanged();
 
@@ -99,8 +102,6 @@ private:
     void setState(const Player::State &);
 
     void setInitialized(const bool &newInitialized);
-
-    void updateDiscordActivity();
 
 signals:
     void playbackErrorOccurred(const int &errorCode, QPrivateSignal);
