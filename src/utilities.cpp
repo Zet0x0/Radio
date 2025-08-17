@@ -55,7 +55,7 @@ QString Utilities::getQtVersion()
 
 QString Utilities::getVersionSummary()
 {
-    return tr("Radio: %0 / libmpv: %1 / Qt: %2")
+    return QString("Radio: %0 / libmpv: %1 / Qt: %2")
         .arg(QCoreApplication::applicationVersion(),
              getLibMpvVersion(),
              getQtVersion());
