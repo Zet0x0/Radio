@@ -7,7 +7,7 @@ import Radio.Cpp.Utilities
 IconButton {
     property Menu menu: null
 
-    ToolTip.text: qsTr("Google Search what's currently playing through Shazam's site")
+    ToolTip.text: qsTr("Google Search through Shazam's site what's currently playing")
     ToolTip.visible: hovered || visualFocus
     enabled: Player.state === Player.PLAYING && !!Player.nowPlaying
     icon.source: "qrc:/zet0x0.github.io/icons/brand-shazam.svg"

@@ -25,7 +25,7 @@ Pane {
         ComboBox {
             id: sourceSelect
 
-            ToolTip.text: qsTr("The source to show/search")
+            ToolTip.text: qsTr("The source to show & search")
             ToolTip.visible: hovered
             displayText: sources.get(currentIndex).name
             model: sources
