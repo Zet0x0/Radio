@@ -18,7 +18,7 @@ Pane {
             implicitHeight: sourceSelect.height
 
             onClicked: {
-                Qt.openUrlExternally(sources.get(sourceSelect.currentIndex).url);
+                Qt.openUrlExternally(sourceSelect.currentValue);
             }
         }
 
@@ -27,23 +27,14 @@ Pane {
 
             ToolTip.text: qsTr("The source to show & search")
             ToolTip.visible: hovered
-            displayText: sources.get(currentIndex).name
-            model: sources
-
-            delegate: ItemDelegate {
-                required property var modelData
-
-                text: modelData.name
-            }
-
-            ListModel {
-                id: sources
-
-                ListElement {
-                    name: qsTr("radio.garden")
+            model: [
+                {
+                    name: qsTr("radio.garden"),
                     url: "https://radio.garden"
                 }
-            }
+            ]
+            textRole: "name"
+            valueRole: "url"
         }
 
         TextField {
