@@ -3,6 +3,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls.impl
 import QtQuick.Templates as T
+import Radio.Shared
 
 T.ComboBox {
     id: control
@@ -11,17 +12,24 @@ T.ComboBox {
     implicitHeight: implicitBackgroundHeight + topInset + bottomInset
     implicitWidth: implicitBackgroundWidth + leftInset + rightInset
     padding: 0
-    spacing: StyleProperties.controls_spacing
+    spacing: StyleProperties.controls_separator_size
 
     background: Rectangle {
         color: (control.enabled) ? ((control.down) ? StyleProperties.palette_accent : ((control.visualFocus || control.hovered) ? StyleProperties.palette_activeFocusBackground : StyleProperties.palette_background)) : StyleProperties.palette_background
         implicitHeight: control.implicitContentHeight + control.topPadding + control.bottomPadding
-        implicitWidth: control.indicator.width + control.implicitContentWidth + control.leftPadding + control.rightPadding
+        implicitWidth: control.indicator.width + control.implicitContentWidth + control.leftPadding + control.rightPadding + control.spacing
         visible: (control.flat && control.enabled && control.hovered) || !control.flat || control.down || control.visualFocus
 
         border {
             color: (control.enabled) ? ((control.down || control.visualFocus) ? StyleProperties.palette_accent_active : StyleProperties.palette_accent) : StyleProperties.palette_accent_darker
             width: StyleProperties.border_width
+        }
+
+        Separator {
+            color: (parent as Rectangle).border.color
+            height: control.height
+            horizontal: false
+            x: (control.mirrored) ? (StyleProperties.border_width + control.indicator.width) : (control.width - StyleProperties.border_width - control.indicator.width)
         }
     }
     contentItem: T.TextField {
@@ -31,9 +39,9 @@ T.ComboBox {
         implicitHeight: contentHeight + topPadding + bottomPadding
         implicitWidth: contentWidth + leftPadding + rightPadding
         inputMethodHints: control.inputMethodHints
-        leftPadding: (control.mirrored) ? control.spacing : padding
+        leftPadding: (control.mirrored) ? StyleProperties.controls_padding : padding
         padding: StyleProperties.controls_padding + StyleProperties.border_width
-        rightPadding: (control.mirrored) ? padding : control.spacing
+        rightPadding: (control.mirrored) ? padding : StyleProperties.controls_padding
         text: control.displayText
         validator: control.validator
         verticalAlignment: Text.AlignVCenter
