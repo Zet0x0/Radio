@@ -20,7 +20,7 @@ T.ComboBox {
         visible: (control.flat && control.enabled && control.hovered) || !control.flat || control.down || control.visualFocus
 
         border {
-            color: (control.enabled) ? (((control.hovered && control.down) || control.visualFocus) ? StyleProperties.palette_accent_active : StyleProperties.palette_accent) : StyleProperties.palette_accent_darker
+            color: (control.enabled) ? ((control.down || control.visualFocus) ? StyleProperties.palette_accent_active : StyleProperties.palette_accent) : StyleProperties.palette_accent_darker
             width: StyleProperties.border_width
         }
     }
