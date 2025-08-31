@@ -55,7 +55,7 @@ Window {
                     contentItem: NowPlayingLabel {
                         systemTray: true
                         width: Math.min(implicitWidth, parent.width)
-                        x: Math.floor((parent.width - width) / 2)
+                        x: Math.floor((parent.width - Math.min(implicitWidth, width)) / 2)
                     }
                 }
 
