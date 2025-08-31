@@ -29,7 +29,7 @@ T.ComboBox {
             color: (parent as Rectangle).border.color
             height: control.height
             horizontal: false
-            x: (control.mirrored) ? (StyleProperties.border_width + control.indicator.width) : (control.width - StyleProperties.border_width - control.indicator.width)
+            x: (control.mirrored) ? (StyleProperties.border_width + control.indicator.width + control.spacing) : (control.width - StyleProperties.border_width - control.indicator.width - control.spacing)
         }
     }
     contentItem: T.TextField {
@@ -39,9 +39,9 @@ T.ComboBox {
         implicitHeight: contentHeight + topPadding + bottomPadding
         implicitWidth: contentWidth + leftPadding + rightPadding
         inputMethodHints: control.inputMethodHints
-        leftPadding: (control.mirrored) ? StyleProperties.controls_padding : padding
+        leftPadding: (control.mirrored) ? (StyleProperties.controls_padding + control.spacing) : padding
         padding: StyleProperties.controls_padding + StyleProperties.border_width
-        rightPadding: (control.mirrored) ? padding : StyleProperties.controls_padding
+        rightPadding: (control.mirrored) ? padding : (StyleProperties.controls_padding + control.spacing)
         text: control.displayText
         validator: control.validator
         verticalAlignment: Text.AlignVCenter
@@ -56,11 +56,11 @@ T.ComboBox {
     }
     indicator: ColorImage {
         color: (control.enabled) ? ((control.down) ? StyleProperties.palette_accent_active : ((control.visualFocus || control.hovered) ? StyleProperties.palette_accent_lighter : StyleProperties.palette_accent)) : (StyleProperties.palette_accent_darker)
-        height: control.height
+        height: control.height - StyleProperties.border_width * 2
         source: (control.popup.visible) ? "qrc:/zet0x0.github.io/icons/chevron-up.svg" : "qrc:/zet0x0.github.io/icons/chevron-down.svg"
-        width: control.height
-        x: (control.mirrored) ? 0 : (control.width - width)
-        y: Math.ceil((control.height - height) / 2)
+        width: control.height - StyleProperties.border_width * 2
+        x: (control.mirrored) ? StyleProperties.border_width : (control.width - StyleProperties.border_width - width)
+        y: StyleProperties.border_width
 
         sourceSize {
             height: height
