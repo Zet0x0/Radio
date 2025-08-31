@@ -11,5 +11,7 @@
         <file>x.svg</file>
         <file>external-link.svg</file>
         <file>brand-shazam.svg</file>
+        <file>chevron-down.svg</file>
+        <file>chevron-up.svg</file>
     </qresource>
 </RCC>

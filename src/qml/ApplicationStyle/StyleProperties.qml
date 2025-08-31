@@ -14,11 +14,18 @@ QtObject {
 
     /* Controls */
     readonly property int controls_button_iconSize: 24
+    readonly property int controls_itemDelegate_iconSize: 20
     readonly property int controls_margins: 5
     readonly property int controls_menuBarItem_iconSize: 20
     readonly property int controls_menuItem_iconSize: 20
     readonly property int controls_menu_overlap: 1
     readonly property int controls_padding: 5
+    readonly property real controls_scrollIndicator_opacity_active: 0.5
+    readonly property real controls_scrollIndicator_opacity_inactive: 0.0
+    readonly property int controls_scrollIndicator_padding: 3
+    readonly property int controls_scrollIndicator_pause_duration: 450
+    readonly property int controls_scrollIndicator_size: 3
+    readonly property int controls_scrollIndicator_switchToInactive_duration: 150
     readonly property int controls_separator_size: 1
     readonly property int controls_slider_handleHeight: 26
     readonly property int controls_slider_handleWidth: 10
@@ -74,6 +81,7 @@ QtObject {
     readonly property color palette_dialog_modeless: Qt.rgba(0.0, 0.0, 0.0, 0.5)
     readonly property color palette_menu_modal: Qt.rgba(0.0, 0.0, 0.0, 0.5)
     readonly property color palette_menu_modeless: Qt.rgba(0.0, 0.0, 0.0, 0.5)
+    readonly property color palette_scrollIndicator_color: "#fff"
     readonly property color palette_stationImage_disabled: "#000"
     readonly property color palette_stationImage_stationLoadingIndicator_background: "#000"
     readonly property color palette_stationImage_stationLoadingIndicator_text: "#fff"

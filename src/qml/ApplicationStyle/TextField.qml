@@ -6,7 +6,7 @@ T.TextField {
 
     color: StyleProperties.palette_text
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset, contentHeight + topPadding + bottomPadding, placeholder.implicitHeight + topPadding + bottomPadding)
-    implicitWidth: (implicitBackgroundWidth + leftInset + rightInset) || Math.max(contentWidth, placeholder.implicitWidth) + leftPadding + rightPadding
+    implicitWidth: (implicitBackgroundWidth + leftInset + rightInset) || (Math.max(contentWidth, placeholder.implicitWidth) + leftPadding + rightPadding)
     padding: StyleProperties.controls_padding + StyleProperties.border_width
     placeholderTextColor: StyleProperties.palette_text_darker
     selectedTextColor: StyleProperties.palette_text_active

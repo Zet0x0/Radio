@@ -3,8 +3,6 @@ import QtQuick.Layouts
 import QtQuick
 import Radio.Shared
 
-// TODO: add ComboBox to ApplicationStyle
-// TODO: add ItemDelegate to ApplicationStyle
 Pane {
     GridLayout {
         anchors.fill: parent
