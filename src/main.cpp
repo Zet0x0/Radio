@@ -51,12 +51,12 @@ int main(int argc, char *argv[])
         Qt::QueuedConnection);
 
     qmlEngine.addImportPath(":/zet0x0.github.io/qml/imports");
-    qmlRegisterSingletonInstance("Radio.Cpp.Utilities",
+    qmlRegisterSingletonInstance("Radio.Cpp",
                                  1,
                                  0,
                                  "CppUtilities",
                                  Utilities::instance());
-    qmlRegisterSingletonInstance("Radio.Cpp.Utilities",
+    qmlRegisterSingletonInstance("Radio.Cpp",
                                  1,
                                  0,
                                  "DialogController",

@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import Radio.Cpp.Player
-import Radio.Cpp.Utilities
+import Radio.Cpp
 
 MenuBar {
     id: control

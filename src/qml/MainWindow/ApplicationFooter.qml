@@ -2,7 +2,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Radio.Shared
 import Radio.ApplicationStyle
-import Radio.Cpp.Utilities
+import Radio.Cpp
 import QtQml
 import QtQuick
 

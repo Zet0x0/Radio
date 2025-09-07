@@ -1,5 +1,5 @@
 import QtQuick.Controls
-import Radio.Cpp.Utilities
+import Radio.Cpp
 
 Menu {
     id: control

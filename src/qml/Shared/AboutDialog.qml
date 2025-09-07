@@ -2,7 +2,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick
 import QtQuick.VectorImage
-import Radio.Cpp.Utilities
+import Radio.Cpp
 import Radio.ApplicationStyle
 
 ModalDialog {

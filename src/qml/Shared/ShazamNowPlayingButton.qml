@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import Radio.ApplicationStyle
 import Radio.Cpp.Player
-import Radio.Cpp.Utilities
+import Radio.Cpp
 
 IconButton {
     property Menu menu: null
