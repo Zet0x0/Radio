@@ -31,7 +31,7 @@ T.Button {
 
     icon {
         color: (control.enabled) ? ((control.checked || control.highlighted || control.down) ? StyleProperties.palette_accent_active : ((control.visualFocus || control.hovered) ? StyleProperties.palette_accent_lighter : StyleProperties.palette_accent)) : ((control.highlighted) ? StyleProperties.palette_accent : StyleProperties.palette_accent_darker)
-        height: StyleProperties.controls_button_iconSize
-        width: StyleProperties.controls_button_iconSize
+        height: control.height
+        width: control.height
     }
 }
