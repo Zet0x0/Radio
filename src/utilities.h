@@ -9,6 +9,9 @@ class Utilities : public QObject
     QML_SINGLETON
     QML_NAMED_ELEMENT(CppUtilities)
 
+private:
+    Utilities();
+
 public:
     static Utilities *instance();
     static Utilities *create(QQmlEngine *, QJSEngine *);

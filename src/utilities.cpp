@@ -5,6 +5,11 @@
 #include <QGuiApplication>
 #include <mpv/client.h>
 
+Utilities::Utilities()
+{
+    moveToThread(QCoreApplication::instance()->thread());
+}
+
 Utilities *Utilities::instance()
 {
     static Utilities *instance = new Utilities;
