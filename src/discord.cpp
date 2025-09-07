@@ -1,7 +1,7 @@
 #include "discord.h"
 
-#include <QCoreApplication>
 #include <QFile>
+#include <QGuiApplication>
 
 Q_LOGGING_CATEGORY(radioDiscord, "radio.discord")
 
@@ -272,7 +272,7 @@ void Discord::setActivity(const QJsonValue &activity, const bool &force)
     sendMessage({
         { "cmd",  "SET_ACTIVITY"                  },
         { "args",
-         QJsonObject{ { "pid", QCoreApplication::applicationPid() },
+         QJsonObject{ { "pid", QGuiApplication::applicationPid() },
                        { "activity", activity } } }
     });
 }

@@ -7,7 +7,7 @@
 
 Utilities::Utilities()
 {
-    moveToThread(QCoreApplication::instance()->thread());
+    moveToThread(QGuiApplication::instance()->thread());
 }
 
 Utilities *Utilities::instance()
@@ -61,7 +61,7 @@ QString Utilities::getQtVersion()
 QString Utilities::getVersionSummary()
 {
     return QString("Radio: %0 / libmpv: %1 / Qt: %2")
-        .arg(QCoreApplication::applicationVersion(),
+        .arg(QGuiApplication::applicationVersion(),
              getLibMpvVersion(),
              getQtVersion());
 }
