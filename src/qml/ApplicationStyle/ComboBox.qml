@@ -16,8 +16,8 @@ T.ComboBox {
 
     background: Rectangle {
         color: (control.enabled) ? ((control.down) ? StyleProperties.palette_accent : ((control.visualFocus || control.hovered) ? StyleProperties.palette_activeFocusBackground : StyleProperties.palette_background)) : StyleProperties.palette_background
-        implicitHeight: control.implicitContentHeight + control.topPadding + control.bottomPadding
-        implicitWidth: control.indicator.width + control.implicitContentWidth + control.leftPadding + control.rightPadding + control.spacing
+        implicitHeight: control.implicitContentHeight
+        implicitWidth: control.implicitContentWidth
         visible: (control.flat && control.enabled && control.hovered) || !control.flat || control.down || control.visualFocus
 
         border {
@@ -29,7 +29,7 @@ T.ComboBox {
             color: (parent as Rectangle).border.color
             height: control.height
             horizontal: false
-            x: (control.mirrored) ? (StyleProperties.border_width + control.indicator.width + control.spacing) : (control.width - StyleProperties.border_width - control.indicator.width - control.spacing)
+            x: (control.mirrored) ? (control.indicator.width - width) : control.indicator.x
         }
     }
     contentItem: T.TextField {
@@ -37,14 +37,22 @@ T.ComboBox {
         color: (control.enabled) ? ((control.down) ? StyleProperties.palette_text_active : ((control.visualFocus || control.hovered) ? StyleProperties.palette_text_lighter : StyleProperties.palette_text)) : StyleProperties.palette_text_darker
         enabled: false
         implicitHeight: contentHeight + topPadding + bottomPadding
-        implicitWidth: contentWidth + leftPadding + rightPadding
+        implicitWidth: textMetrics.width + leftPadding + rightPadding
         inputMethodHints: control.inputMethodHints
-        leftPadding: (control.mirrored) ? (StyleProperties.controls_padding + control.spacing) : padding
+        leftPadding: (control.mirrored) ? (StyleProperties.controls_padding + control.indicator.width) : padding
         padding: StyleProperties.controls_padding + StyleProperties.border_width
-        rightPadding: (control.mirrored) ? padding : (StyleProperties.controls_padding + control.spacing)
+        rightPadding: (control.mirrored) ? padding : (StyleProperties.controls_padding + control.indicator.width)
         text: control.displayText
         validator: control.validator
         verticalAlignment: Text.AlignVCenter
+
+        TextMetrics {
+            id: textMetrics
+
+            font: control.font
+            renderType: (control.contentItem as T.TextField).renderType
+            text: control.displayText
+        }
     }
     delegate: ItemDelegate {
         required property int index
@@ -54,17 +62,22 @@ T.ComboBox {
         highlighted: control.currentIndex === index
         text: model[control.textRole]
     }
-    indicator: ColorImage {
-        color: (control.enabled) ? ((control.down) ? StyleProperties.palette_accent_active : ((control.visualFocus || control.hovered) ? StyleProperties.palette_accent_lighter : StyleProperties.palette_accent)) : (StyleProperties.palette_accent_darker)
-        height: control.height - StyleProperties.border_width * 2
-        source: (control.popup.visible) ? "qrc:/zet0x0.github.io/icons/chevron-up.svg" : "qrc:/zet0x0.github.io/icons/chevron-down.svg"
-        width: control.height - StyleProperties.border_width * 2
-        x: (control.mirrored) ? StyleProperties.border_width : (control.width - StyleProperties.border_width - width)
-        y: StyleProperties.border_width
+    indicator: Control {
+        height: control.height
+        leftPadding: (control.mirrored) ? padding : (StyleProperties.controls_separator_size + StyleProperties.controls_comboBox_indicator_padding)
+        padding: StyleProperties.border_width + StyleProperties.controls_comboBox_indicator_padding
+        rightPadding: (control.mirrored) ? (StyleProperties.controls_separator_size + StyleProperties.controls_comboBox_indicator_padding) : padding
+        width: control.height
+        x: (control.mirrored) ? 0 : (control.width - width)
 
-        sourceSize {
-            height: height
-            width: width
+        contentItem: ColorImage {
+            color: (control.enabled) ? ((control.down) ? StyleProperties.palette_accent_active : ((control.visualFocus || control.hovered) ? StyleProperties.palette_accent_lighter : StyleProperties.palette_accent)) : (StyleProperties.palette_accent_darker)
+            source: (control.popup.visible) ? "qrc:/zet0x0.github.io/icons/chevron-up.svg" : "qrc:/zet0x0.github.io/icons/chevron-down.svg"
+
+            sourceSize {
+                height: height
+                width: width
+            }
         }
     }
     popup: T.Popup {

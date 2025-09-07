@@ -14,6 +14,7 @@ QtObject {
 
     /* Controls */
     readonly property int controls_button_iconSize: 24
+    readonly property int controls_comboBox_indicator_padding: 0
     readonly property int controls_itemDelegate_iconSize: 20
     readonly property int controls_margins: 5
     readonly property int controls_menuBarItem_iconSize: 20
