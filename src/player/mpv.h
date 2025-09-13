@@ -19,7 +19,7 @@ public:
     int play(const QString &url);
     int stop();
 
-    bool setVolume(const qint16 &);
+    bool setVolume(const quint16 &);
     bool setMuted(const bool &);
 
     int setProperty(const QString &name, const QVariant &value);

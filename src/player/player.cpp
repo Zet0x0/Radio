@@ -82,12 +82,12 @@ Player::State Player::state() const
     return m_state;
 }
 
-qint16 Player::volume() const
+quint16 Player::volume() const
 {
     return m_volume;
 }
 
-void Player::setVolume(const qint16 &newVolume)
+void Player::setVolume(const quint16 &newVolume)
 {
     if (m_volume == newVolume)
     {

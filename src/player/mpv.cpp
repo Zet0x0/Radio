@@ -34,7 +34,7 @@ int Mpv::stop()
     return command(QStringList({ "stop" }));
 }
 
-bool Mpv::setVolume(const qint16 &volume)
+bool Mpv::setVolume(const quint16 &volume)
 {
     return setProperty("volume", volume) == MPV_ERROR_SUCCESS;
 }

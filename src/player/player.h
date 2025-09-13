@@ -24,7 +24,7 @@ class Player : public QObject
                    elapsedChanged FINAL)
     Q_PROPERTY(Player::State state READ state NOTIFY stateChanged FINAL)
     Q_PROPERTY(
-        qint16 volume READ volume WRITE setVolume NOTIFY volumeChanged FINAL)
+        quint16 volume READ volume WRITE setVolume NOTIFY volumeChanged FINAL)
     Q_PROPERTY(bool muted READ muted WRITE setMuted NOTIFY mutedChanged FINAL)
 
     Q_PROPERTY(bool initialized READ initialized WRITE setInitialized NOTIFY
@@ -52,8 +52,8 @@ public:
 
     Player::State state() const;
 
-    qint16 volume() const;
-    Q_INVOKABLE void setVolume(const qint16 &);
+    quint16 volume() const;
+    Q_INVOKABLE void setVolume(const quint16 &);
 
     bool muted() const;
     Q_INVOKABLE void setMuted(const bool &);
@@ -88,7 +88,7 @@ private:
 
     qint64 m_elapsed = 0;
     Player::State m_state = Player::State::STOPPED;
-    qint16 m_volume = 100;
+    quint16 m_volume = 100;
     bool m_muted = false;
 
     bool m_initialized = false;
