@@ -9,22 +9,27 @@ class Settings : public QSettings
     QML_SINGLETON
     QML_ELEMENT
 
-    /* audio */
-    Q_PROPERTY(quint16 audioVolume READ audioVolume WRITE setAudioVolume NOTIFY
-                   audioVolumeChanged FINAL)
-    Q_PROPERTY(bool audioMuted READ audioMuted WRITE setAudioMuted NOTIFY
-                   audioMutedChanged FINAL)
+    // audio
+    /* audio/volume */ Q_PROPERTY(
+        quint16 audioVolume READ audioVolume WRITE setAudioVolume NOTIFY
+            audioVolumeChanged FINAL)
+    /* audio/muted */ Q_PROPERTY(
+        bool audioMuted READ audioMuted WRITE setAudioMuted NOTIFY
+            audioMutedChanged FINAL)
+    // ================================
 
-    /* discord integration */
-    Q_PROPERTY(int discordReconnectInterval READ discordReconnectInterval WRITE
-                   setDiscordReconnectInterval NOTIFY
-                       discordReconnectIntervalChanged FINAL)
-    Q_PROPERTY(
+    // discord integration
+    /* discord/reconnectInterval */ Q_PROPERTY(
+        int discordReconnectInterval READ discordReconnectInterval WRITE
+            setDiscordReconnectInterval NOTIFY discordReconnectIntervalChanged
+                FINAL)
+    /* discord/activityUpdateInterval */ Q_PROPERTY(
         int discordActivityUpdateInterval READ discordActivityUpdateInterval
             WRITE setDiscordActivityUpdateInterval NOTIFY
                 discordActivityUpdateIntervalChanged FINAL)
-    Q_PROPERTY(bool discordEnabled READ discordEnabled WRITE setDiscordEnabled
-                   NOTIFY discordEnabledChanged FINAL)
+    /* discord/enabled */ Q_PROPERTY(
+        bool discordEnabled READ discordEnabled WRITE setDiscordEnabled NOTIFY
+            discordEnabledChanged FINAL)
 
 private:
     Settings();
