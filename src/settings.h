@@ -1,5 +1,7 @@
 #pragma once
 
+#include "discord.h"
+
 #include <QQmlEngine>
 #include <QSettings>
 
@@ -30,6 +32,11 @@ class Settings : public QSettings
     /* discord/enabled */ Q_PROPERTY(
         bool discordEnabled READ discordEnabled WRITE setDiscordEnabled NOTIFY
             discordEnabledChanged FINAL)
+    /* discord/prioritizedStatusDisplayType */ Q_PROPERTY(
+        Discord::StatusDisplayType discordPrioritizedStatusDisplayType READ
+            discordPrioritizedStatusDisplayType WRITE
+                setDiscordPrioritizedStatusDisplayType NOTIFY
+                    discordPrioritizedStatusDisplayTypeChanged FINAL)
 
 private:
     Settings();
@@ -54,6 +61,11 @@ public:
     bool defaultDiscordEnabled() const;
     bool discordEnabled() const;
     void setDiscordEnabled(const bool &);
+    Discord::StatusDisplayType
+        defaultDiscordPrioritizedStatusDisplayType() const;
+    Discord::StatusDisplayType discordPrioritizedStatusDisplayType() const;
+    void setDiscordPrioritizedStatusDisplayType(
+        const Discord::StatusDisplayType &);
 
 signals:
     void audioVolumeChanged();
@@ -62,4 +74,5 @@ signals:
     void discordReconnectIntervalChanged();
     void discordActivityUpdateIntervalChanged();
     void discordEnabledChanged();
+    void discordPrioritizedStatusDisplayTypeChanged();
 };

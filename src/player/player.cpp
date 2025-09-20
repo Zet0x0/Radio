@@ -282,11 +282,35 @@ void Player::updateDiscordActivity()
     activity["timestamps"] = QJsonObject{
         { "start", m_startedListeningAt }
     };
-    activity["status_display_type"]
-        = (QDateTime::currentSecsSinceEpoch() % 180 < 60 && !state.isEmpty())
-            ? Discord::STATE
-        : (details.isEmpty()) ? Discord::NAME
-                              : Discord::DETAILS;
+
+    switch (Settings::instance()->discordPrioritizedStatusDisplayType())
+    {
+        case Discord::STATE:
+        {
+            activity["status_display_type"]
+                = (!state.isEmpty())
+                    ? Discord::STATE
+                    : ((!details.isEmpty()) ? Discord::DETAILS : Discord::NAME);
+
+            break;
+        }
+
+        case Discord::DETAILS:
+        {
+            activity["status_display_type"]
+                = (!details.isEmpty()) ? Discord::DETAILS : Discord::NAME;
+
+            break;
+        }
+
+        case Discord::NAME:
+        default:
+        {
+            activity["status_display_type"] = Discord::NAME;
+
+            break;
+        }
+    }
 
     if (details.isEmpty())
     {
@@ -412,6 +436,15 @@ Player::Player()
             this,
             &Player::updateDiscordActivity);
 
+    connect(settings,
+            &Settings::discordPrioritizedStatusDisplayTypeChanged,
+            this,
+            [this]
+            {
+                m_discordActivityTimer->stop();
+                updateDiscordActivity();
+                m_discordActivityTimer->start();
+            });
     connect(settings,
             &Settings::discordActivityUpdateIntervalChanged,
             m_discordActivityTimer,

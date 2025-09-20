@@ -142,3 +142,38 @@ void Settings::setDiscordEnabled(const bool &enabled)
 
     emit discordEnabledChanged();
 }
+
+Discord::StatusDisplayType
+    Settings::defaultDiscordPrioritizedStatusDisplayType() const
+{
+    return Discord::DETAILS;
+}
+
+Discord::StatusDisplayType Settings::discordPrioritizedStatusDisplayType() const
+{
+    const QVariant rawValue = value("discord/prioritizedStatusDisplayType");
+    Discord::StatusDisplayType result
+        = defaultDiscordPrioritizedStatusDisplayType();
+
+    if (contains("discord/prioritizedStatusDisplayType")
+        && rawValue.canConvert<Discord::StatusDisplayType>())
+    {
+        result = rawValue.value<Discord::StatusDisplayType>();
+    }
+
+    return result;
+}
+
+void Settings::setDiscordPrioritizedStatusDisplayType(
+    const Discord::StatusDisplayType &prioritizedStatusDisplayType)
+{
+    if (prioritizedStatusDisplayType == discordPrioritizedStatusDisplayType())
+    {
+        return;
+    }
+
+    setValue("discord/prioritizedStatusDisplayType",
+             prioritizedStatusDisplayType);
+
+    emit discordPrioritizedStatusDisplayTypeChanged();
+}
