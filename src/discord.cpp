@@ -1,5 +1,7 @@
 #include "discord.h"
 
+#include "settings.h"
+
 #include <QFile>
 #include <QGuiApplication>
 
@@ -7,6 +9,8 @@ Q_LOGGING_CATEGORY(radioDiscord, "radio.discord")
 
 Discord::Discord()
 {
+    Settings *settings = Settings::instance();
+
     QObject::connect(m_socket,
                      &QLocalSocket::readyRead,
                      this,
@@ -14,7 +18,7 @@ Discord::Discord()
     QObject::connect(m_socket,
                      &QLocalSocket::stateChanged,
                      this,
-                     [this](QLocalSocket::LocalSocketState state)
+                     [this, settings](QLocalSocket::LocalSocketState state)
                      {
                          qCInfo(radioDiscord) << "new socket state:" << state;
 
@@ -24,7 +28,10 @@ Discord::Discord()
                              {
                                  m_handshakeState = HANDSHAKE_INACTIVE;
 
-                                 m_reconnectTimer->start();
+                                 if (settings->discordEnabled())
+                                 {
+                                     m_reconnectTimer->start();
+                                 }
 
                                  break;
                              }
@@ -37,6 +44,7 @@ Discord::Discord()
 
                                  break;
                              }
+
                              default:
                              {
                                  break;
@@ -59,15 +67,39 @@ Discord::Discord()
                      [this]
                      {
                          if (m_socket->state()
-                             != QLocalSocket::UnconnectedState)
+                             == QLocalSocket::UnconnectedState)
                          {
-                             return;
+                             connect();
                          }
-
-                         connect();
                      });
 
-    m_reconnectTimer->setInterval(5000);
+    QObject::connect(settings,
+                     &Settings::discordEnabledChanged,
+                     this,
+                     [this, settings]
+                     {
+                         if (settings->discordEnabled())
+                         {
+                             if (m_socket->state()
+                                 == QLocalSocket::UnconnectedState)
+                             {
+                                 connect();
+                             }
+                         }
+                         else
+                         {
+                             m_socket->disconnectFromServer();
+                         }
+                     });
+    QObject::connect(settings,
+                     &Settings::discordReconnectIntervalChanged,
+                     m_reconnectTimer,
+                     [this, settings]
+                     {
+                         m_reconnectTimer->setInterval(
+                             settings->discordReconnectInterval());
+                     });
+    m_reconnectTimer->setInterval(settings->discordReconnectInterval());
 }
 
 Discord *Discord::instance()
@@ -85,7 +117,8 @@ bool Discord::pipeExists(const int &pipe)
 
 void Discord::connect()
 {
-    if (m_socket->state() != QLocalSocket::UnconnectedState)
+    if (m_socket->state() != QLocalSocket::UnconnectedState
+        || !Settings::instance()->discordEnabled())
     {
         return;
     }
@@ -230,7 +263,7 @@ void Discord::processDataFromSocket()
 
             case PING:
             {
-                sendMessage({}, PONG);
+                sendMessage(QJsonObject(), PONG);
 
                 break;
             }
@@ -280,5 +313,10 @@ void Discord::setActivity(const QJsonValue &activity, const bool &force)
 void Discord::setActivity(const QJsonValue &activity)
 {
     instance()->setActivity(activity, false);
+}
+
+void Discord::clearActivity()
+{
+    setActivity(QJsonValue());
 }
 

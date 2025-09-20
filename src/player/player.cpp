@@ -2,6 +2,7 @@
 
 #include "../dialogcontroller.h"
 #include "../discord.h"
+#include "../settings.h"
 #include "../utilities.h"
 #include "mpveventmanager.h"
 
@@ -110,6 +111,8 @@ void Player::setVolume(const quint16 &newVolume)
     if (m_mpv->setVolume(newVolume))
     {
         m_volume = newVolume;
+
+        Settings::instance()->setAudioVolume(newVolume);
     }
 
     emit volumeChanged();
@@ -128,6 +131,8 @@ void Player::setMuted(const bool &newMuted)
     }
 
     m_muted = newMuted;
+
+    Settings::instance()->setAudioMuted(newMuted);
 
     emit mutedChanged();
 }
@@ -234,6 +239,11 @@ void Player::initialize()
             this,
             &Player::setState);
 
+    Settings *settings = Settings::instance();
+
+    setVolume(settings->audioVolume());
+    setMuted(settings->audioMuted());
+
     // TODO: remove this when done testing
     setStation(new Station(
         "NRJ+",
@@ -256,7 +266,7 @@ void Player::updateDiscordActivity()
 {
     if (m_state != PLAYING)
     {
-        Discord::setActivity(QJsonValue());
+        Discord::clearActivity();
 
         return;
     }
@@ -344,10 +354,12 @@ void Player::updateDiscordActivity()
 
 Player::Player()
 {
+    Settings *settings = Settings::instance();
+
     connect(this,
             &Player::stateChanged,
             this,
-            [this]
+            [this, settings]
             {
                 switch (m_state)
                 {
@@ -356,15 +368,18 @@ Player::Player()
                         m_startedListeningAt
                             = QDateTime::currentSecsSinceEpoch();
 
-                        updateDiscordActivity();
-                        m_discordActivityTimer->start();
+                        if (settings->discordEnabled())
+                        {
+                            updateDiscordActivity();
+                            m_discordActivityTimer->start();
+                        }
 
                         break;
                     }
                     default:
                     {
                         m_discordActivityTimer->stop();
-                        updateDiscordActivity();
+                        Discord::clearActivity();
 
                         m_startedListeningAt = -1;
 
@@ -397,8 +412,16 @@ Player::Player()
             this,
             &Player::updateDiscordActivity);
 
+    connect(settings,
+            &Settings::discordActivityUpdateIntervalChanged,
+            m_discordActivityTimer,
+            [this, settings]
+            {
+                m_discordActivityTimer->setInterval(
+                    settings->discordActivityUpdateInterval());
+            });
     m_discordActivityTimer->setInterval(
-        30000); // update every 30 seconds (or earlier, defined by code)
+        settings->discordActivityUpdateInterval());
 }
 
 void Player::setElapsed(const qint64 &newElapsed)

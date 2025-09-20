@@ -1,5 +1,6 @@
 #include "dialogcontroller.h"
 #include "player/player.h"
+#include "settings.h"
 #include "utilities.h"
 
 #include <QGuiApplication>
@@ -61,6 +62,11 @@ int main(int argc, char *argv[])
                                  0,
                                  "DialogController",
                                  DialogController::instance());
+    qmlRegisterSingletonInstance("Radio.Cpp",
+                                 1,
+                                 0,
+                                 "Settings",
+                                 Settings::instance());
     qmlRegisterSingletonInstance("Radio.Cpp.Player",
                                  1,
                                  0,

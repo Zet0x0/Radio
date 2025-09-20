@@ -75,4 +75,5 @@ public:
     };
 
     static void setActivity(const QJsonValue &activity);
+    static void clearActivity();
 };
