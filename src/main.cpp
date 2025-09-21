@@ -33,10 +33,19 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine qmlEngine;
+    Settings *settings = Settings::instance();
 
     QLocale::setDefault(QLocale::c());
 
-    app.setQuitOnLastWindowClosed(false);
+    QObject::connect(settings,
+                     &Settings::appQuitOnWindowClosedChanged,
+                     &app,
+                     [&app, settings]
+                     {
+                         app.setQuitOnLastWindowClosed(
+                             settings->appQuitOnWindowClosed());
+                     });
+    app.setQuitOnLastWindowClosed(settings->appQuitOnWindowClosed());
 
     QObject::connect(
         &qmlEngine,

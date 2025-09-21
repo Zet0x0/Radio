@@ -38,6 +38,11 @@ class Settings : public QSettings
                 setDiscordPrioritizedStatusDisplayType NOTIFY
                     discordPrioritizedStatusDisplayTypeChanged FINAL)
 
+    // application
+    /* app/quitOnWindowClosed */ Q_PROPERTY(
+        bool appQuitOnWindowClosed READ appQuitOnWindowClosed WRITE
+            setAppQuitOnWindowClosed NOTIFY appQuitOnWindowClosedChanged FINAL)
+
 private:
     Settings();
 
@@ -67,6 +72,10 @@ public:
     void setDiscordPrioritizedStatusDisplayType(
         const Discord::StatusDisplayType &);
 
+    bool defaultAppQuitOnWindowClosed() const;
+    bool appQuitOnWindowClosed() const;
+    void setAppQuitOnWindowClosed(const bool &);
+
 signals:
     void audioVolumeChanged();
     void audioMutedChanged();
@@ -75,4 +84,6 @@ signals:
     void discordActivityUpdateIntervalChanged();
     void discordEnabledChanged();
     void discordPrioritizedStatusDisplayTypeChanged();
+
+    void appQuitOnWindowClosedChanged();
 };

@@ -177,3 +177,27 @@ void Settings::setDiscordPrioritizedStatusDisplayType(
 
     emit discordPrioritizedStatusDisplayTypeChanged();
 }
+
+bool Settings::defaultAppQuitOnWindowClosed() const
+{
+    return false;
+}
+
+bool Settings::appQuitOnWindowClosed() const
+{
+    return (contains("app/quitOnWindowClosed"))
+             ? value("app/quitOnWindowClosed").toBool()
+             : defaultAppQuitOnWindowClosed();
+}
+
+void Settings::setAppQuitOnWindowClosed(const bool &quitOnWindowClosed)
+{
+    if (quitOnWindowClosed == appQuitOnWindowClosed())
+    {
+        return;
+    }
+
+    setValue("app/quitOnWindowClosed", quitOnWindowClosed);
+
+    emit appQuitOnWindowClosedChanged();
+}
