@@ -135,6 +135,11 @@ void Player::setMuted(const bool &newMuted)
 
 void Player::play()
 {
+    if (m_station->isInvalid())
+    {
+        return;
+    }
+
     const int result = m_mpv->play(m_station->streamUrl());
 
     if (result != MPV_ERROR_SUCCESS)
@@ -240,6 +245,12 @@ void Player::initialize()
     setVolume(settings->audioVolume());
     setMuted(settings->audioMuted());
     setStation(settings->privateSavedCurrentStation());
+
+    if (settings->playbackResumeOnStart()
+        && settings->privateLastSavedPlayerState() != Player::STOPPED)
+    {
+        play();
+    }
 
     setInitialized(true);
 
@@ -439,6 +450,13 @@ Player::Player()
             [settings, this]
             {
                 settings->setPrivateSavedCurrentStation(m_station);
+            });
+    connect(this,
+            &Player::stateChanged,
+            settings,
+            [settings, this]
+            {
+                settings->setPrivateLastSavedPlayerState(m_state);
             });
 
     connect(m_discordActivityTimer,

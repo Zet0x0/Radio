@@ -257,3 +257,59 @@ void Settings::setPrivateSavedCurrentStation(Station *savedCurrentStation)
 
     emit privateSavedCurrentStationChanged();
 }
+
+Player::State Settings::defaultPrivateLastSavedPlayerState() const
+{
+    return Player::STOPPED;
+}
+
+Player::State Settings::privateLastSavedPlayerState() const
+{
+    const QVariant rawValue = value("private/lastSavedPlayerState");
+    Player::State result = defaultPrivateLastSavedPlayerState();
+
+    if (contains("private/lastSavedPlayerState")
+        && rawValue.canConvert<Player::State>())
+    {
+        result = rawValue.value<Player::State>();
+    }
+
+    return result;
+}
+
+void Settings::setPrivateLastSavedPlayerState(
+    const Player::State &lastSavedPlayerState)
+{
+    if (lastSavedPlayerState == privateLastSavedPlayerState())
+    {
+        return;
+    }
+
+    setValue("private/lastSavedPlayerState", lastSavedPlayerState);
+
+    emit privateLastSavedPlayerStateChanged();
+}
+
+bool Settings::defaultPlaybackResumeOnStart() const
+{
+    return false;
+}
+
+bool Settings::playbackResumeOnStart() const
+{
+    return (contains("playback/resumeOnStart"))
+             ? value("playback/resumeOnStart").toBool()
+             : defaultPlaybackResumeOnStart();
+}
+
+void Settings::setPlaybackResumeOnStart(const bool &resumeOnStart)
+{
+    if (resumeOnStart == playbackResumeOnStart())
+    {
+        return;
+    }
+
+    setValue("playback/resumeOnStart", resumeOnStart);
+
+    emit playbackResumeOnStartChanged();
+}

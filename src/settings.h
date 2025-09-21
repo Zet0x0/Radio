@@ -1,6 +1,7 @@
 #pragma once
 
 #include "discord.h"
+#include "player/player.h"
 #include "player/station.h"
 
 #include <QQmlEngine>
@@ -54,6 +55,16 @@ class Settings : public QSettings
         Station *privateSavedCurrentStation READ privateSavedCurrentStation
             WRITE setPrivateSavedCurrentStation NOTIFY
                 privateSavedCurrentStationChanged FINAL)
+    /* private/lastSavedPlayerState */ Q_PROPERTY(
+        Player::State privateLastSavedPlayerState READ
+            privateLastSavedPlayerState WRITE setPrivateLastSavedPlayerState
+                NOTIFY privateLastSavedPlayerStateChanged FINAL)
+    // ================================
+
+    // playback
+    /* playback/resumeOnStart */ Q_PROPERTY(
+        bool playbackResumeOnStart READ playbackResumeOnStart WRITE
+            setPlaybackResumeOnStart NOTIFY playbackResumeOnStartChanged FINAL)
 
 private:
     Settings();
@@ -94,6 +105,13 @@ public:
     Station *defaultPrivateSavedCurrentStation() const;
     Station *privateSavedCurrentStation() const;
     void setPrivateSavedCurrentStation(Station *);
+    Player::State defaultPrivateLastSavedPlayerState() const;
+    Player::State privateLastSavedPlayerState() const;
+    void setPrivateLastSavedPlayerState(const Player::State &);
+
+    bool defaultPlaybackResumeOnStart() const;
+    bool playbackResumeOnStart() const;
+    void setPlaybackResumeOnStart(const bool &);
 
 signals:
     void audioVolumeChanged();
@@ -108,4 +126,7 @@ signals:
     void appSystemTrayVisibleChanged();
 
     void privateSavedCurrentStationChanged();
+    void privateLastSavedPlayerStateChanged();
+
+    void playbackResumeOnStartChanged();
 };
