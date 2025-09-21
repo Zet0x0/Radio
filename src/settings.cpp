@@ -201,3 +201,27 @@ void Settings::setAppQuitOnWindowClosed(const bool &quitOnWindowClosed)
 
     emit appQuitOnWindowClosedChanged();
 }
+
+bool Settings::defaultAppSystemTrayVisible() const
+{
+    return true;
+}
+
+bool Settings::appSystemTrayVisible() const
+{
+    return (contains("app/systemTrayVisible"))
+             ? value("app/systemTrayVisible").toBool()
+             : defaultAppSystemTrayVisible();
+}
+
+void Settings::setAppSystemTrayVisible(const bool &systemTrayVisible)
+{
+    if (systemTrayVisible == appSystemTrayVisible())
+    {
+        return;
+    }
+
+    setValue("app/systemTrayVisible", systemTrayVisible);
+
+    emit appSystemTrayVisibleChanged();
+}

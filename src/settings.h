@@ -42,6 +42,9 @@ class Settings : public QSettings
     /* app/quitOnWindowClosed */ Q_PROPERTY(
         bool appQuitOnWindowClosed READ appQuitOnWindowClosed WRITE
             setAppQuitOnWindowClosed NOTIFY appQuitOnWindowClosedChanged FINAL)
+    /* app/systemTrayVisible */ Q_PROPERTY(
+        bool appSystemTrayVisible READ appSystemTrayVisible WRITE
+            setAppSystemTrayVisible NOTIFY appSystemTrayVisibleChanged FINAL)
 
 private:
     Settings();
@@ -75,6 +78,9 @@ public:
     bool defaultAppQuitOnWindowClosed() const;
     bool appQuitOnWindowClosed() const;
     void setAppQuitOnWindowClosed(const bool &);
+    bool defaultAppSystemTrayVisible() const;
+    bool appSystemTrayVisible() const;
+    void setAppSystemTrayVisible(const bool &);
 
 signals:
     void audioVolumeChanged();
@@ -86,4 +92,5 @@ signals:
     void discordPrioritizedStatusDisplayTypeChanged();
 
     void appQuitOnWindowClosedChanged();
+    void appSystemTrayVisibleChanged();
 };

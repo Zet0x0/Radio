@@ -12,7 +12,7 @@ Labs.SystemTrayIcon {
 
     icon.source: "qrc:/zet0x0.github.io/icons/application-icon-background.svg"
     tooltip: applicationWindow.title
-    visible: true
+    visible: Settings.appSystemTrayVisible
 
     onActivated: reason => {
         switch (reason) {

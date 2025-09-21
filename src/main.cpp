@@ -43,9 +43,20 @@ int main(int argc, char *argv[])
                      [&app, settings]
                      {
                          app.setQuitOnLastWindowClosed(
-                             settings->appQuitOnWindowClosed());
+                             settings->appQuitOnWindowClosed()
+                             || !settings->appSystemTrayVisible());
                      });
-    app.setQuitOnLastWindowClosed(settings->appQuitOnWindowClosed());
+    QObject::connect(settings,
+                     &Settings::appSystemTrayVisibleChanged,
+                     &app,
+                     [&app, settings]
+                     {
+                         app.setQuitOnLastWindowClosed(
+                             settings->appQuitOnWindowClosed()
+                             || !settings->appSystemTrayVisible());
+                     });
+    app.setQuitOnLastWindowClosed(settings->appQuitOnWindowClosed()
+                                  || !settings->appSystemTrayVisible());
 
     QObject::connect(
         &qmlEngine,
