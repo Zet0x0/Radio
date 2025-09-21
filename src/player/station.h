@@ -35,6 +35,9 @@ public:
 
     bool isInvalid() const;
 
+    static Station *fromJsonObject(const QJsonObject &);
+    static QJsonObject toJsonObject(Station *);
+
 signals:
     void nameChanged();
     void imageUrlChanged();

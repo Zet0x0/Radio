@@ -1,6 +1,7 @@
 #pragma once
 
 #include "discord.h"
+#include "player/station.h"
 
 #include <QQmlEngine>
 #include <QSettings>
@@ -37,6 +38,7 @@ class Settings : public QSettings
             discordPrioritizedStatusDisplayType WRITE
                 setDiscordPrioritizedStatusDisplayType NOTIFY
                     discordPrioritizedStatusDisplayTypeChanged FINAL)
+    // ================================
 
     // application
     /* app/quitOnWindowClosed */ Q_PROPERTY(
@@ -45,6 +47,13 @@ class Settings : public QSettings
     /* app/systemTrayVisible */ Q_PROPERTY(
         bool appSystemTrayVisible READ appSystemTrayVisible WRITE
             setAppSystemTrayVisible NOTIFY appSystemTrayVisibleChanged FINAL)
+    // ================================
+
+    // private, not supposed to be edited by user
+    /* private/savedCurrentStation */ Q_PROPERTY(
+        Station *privateSavedCurrentStation READ privateSavedCurrentStation
+            WRITE setPrivateSavedCurrentStation NOTIFY
+                privateSavedCurrentStationChanged FINAL)
 
 private:
     Settings();
@@ -82,6 +91,10 @@ public:
     bool appSystemTrayVisible() const;
     void setAppSystemTrayVisible(const bool &);
 
+    Station *defaultPrivateSavedCurrentStation() const;
+    Station *privateSavedCurrentStation() const;
+    void setPrivateSavedCurrentStation(Station *);
+
 signals:
     void audioVolumeChanged();
     void audioMutedChanged();
@@ -93,4 +106,6 @@ signals:
 
     void appQuitOnWindowClosedChanged();
     void appSystemTrayVisibleChanged();
+
+    void privateSavedCurrentStationChanged();
 };

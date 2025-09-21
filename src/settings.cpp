@@ -225,3 +225,35 @@ void Settings::setAppSystemTrayVisible(const bool &systemTrayVisible)
 
     emit appSystemTrayVisibleChanged();
 }
+
+Station *Settings::defaultPrivateSavedCurrentStation() const
+{
+    return new Station;
+}
+
+Station *Settings::privateSavedCurrentStation() const
+{
+    Station *result = Station::fromJsonObject(
+        value("private/savedCurrentStation").toJsonObject());
+
+    return (contains("private/savedCurrentStation") && !result->isInvalid())
+             ? result
+             : defaultPrivateSavedCurrentStation();
+}
+
+void Settings::setPrivateSavedCurrentStation(Station *savedCurrentStation)
+{
+    Station *currentSavedCurrentStation = privateSavedCurrentStation();
+
+    if (savedCurrentStation == currentSavedCurrentStation)
+    {
+        return;
+    }
+
+    setValue("private/savedCurrentStation",
+             Station::toJsonObject(savedCurrentStation));
+
+    currentSavedCurrentStation->deleteLater();
+
+    emit privateSavedCurrentStationChanged();
+}

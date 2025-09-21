@@ -3,6 +3,7 @@
 #include "../utilities.h"
 
 #include <QDebug>
+#include <QJsonObject>
 #include <QUrl>
 
 Q_LOGGING_CATEGORY(radioObjStation, "radio.obj.station")
@@ -86,6 +87,27 @@ bool Station::operator==(const Station &other) const
 bool Station::isInvalid() const
 {
     return m_invalid;
+}
+
+Station *Station::fromJsonObject(const QJsonObject &object)
+{
+    return new Station(object["name"].toString(),
+                       object["imageUrl"].toString(),
+                       object["streamUrl"].toString());
+}
+
+QJsonObject Station::toJsonObject(Station *station)
+{
+    if (!station)
+    {
+        return QJsonObject();
+    }
+
+    return QJsonObject{
+        { "name",      station->name()      },
+        { "imageUrl",  station->imageUrl()  },
+        { "streamUrl", station->streamUrl() }
+    };
 }
 
 void Station::updateSetInvalid()

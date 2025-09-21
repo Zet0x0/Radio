@@ -239,14 +239,7 @@ void Player::initialize()
 
     setVolume(settings->audioVolume());
     setMuted(settings->audioMuted());
-
-    // TODO: remove this when done testing
-    setStation(new Station(
-        "NRJ+",
-        "https://i.ytimg.com/vi/kfmstlM3tmU/"
-        "maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-"
-        "CYAC0AWKAgwIABABGH8gGih8MA8=&rs=AOn4CLCBGyBnfBCxOIKTYDYB0TKDQSYhzA",
-        "https://stream.rcs.revma.com/1a6hdnzbebuvv"));
+    setStation(settings->privateSavedCurrentStation());
 
     setInitialized(true);
 
@@ -439,6 +432,13 @@ Player::Player()
             [settings, this]
             {
                 settings->setAudioVolume(m_volume);
+            });
+    connect(this,
+            &Player::stationChanged,
+            settings,
+            [settings, this]
+            {
+                settings->setPrivateSavedCurrentStation(m_station);
             });
 
     connect(m_discordActivityTimer,
