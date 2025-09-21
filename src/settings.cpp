@@ -313,3 +313,27 @@ void Settings::setPlaybackResumeOnStart(const bool &resumeOnStart)
 
     emit playbackResumeOnStartChanged();
 }
+
+bool Settings::defaultPlaybackAutoPlayOnStart() const
+{
+    return false;
+}
+
+bool Settings::playbackAutoPlayOnStart() const
+{
+    return (contains("playback/autoPlayOnStart"))
+             ? value("playback/autoPlayOnStart").toBool()
+             : defaultPlaybackAutoPlayOnStart();
+}
+
+void Settings::setPlaybackAutoPlayOnStart(const bool &autoPlayOnStart)
+{
+    if (autoPlayOnStart == playbackAutoPlayOnStart())
+    {
+        return;
+    }
+
+    setValue("playback/autoPlayOnStart", autoPlayOnStart);
+
+    emit playbackAutoPlayOnStartChanged();
+}

@@ -246,8 +246,9 @@ void Player::initialize()
     setMuted(settings->audioMuted());
     setStation(settings->privateSavedCurrentStation());
 
-    if (settings->playbackResumeOnStart()
-        && settings->privateLastSavedPlayerState() != Player::STOPPED)
+    if (settings->playbackAutoPlayOnStart()
+        || (settings->playbackResumeOnStart()
+            && settings->privateLastSavedPlayerState() != Player::STOPPED))
     {
         play();
     }
