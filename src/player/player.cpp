@@ -264,116 +264,122 @@ bool Player::initialized() const
 
 void Player::updateDiscordActivity()
 {
+    m_discordActivityTimer->stop();
+
     if (m_state != PLAYING)
     {
         Discord::clearActivity();
-
-        return;
-    }
-
-    QJsonObject activity;
-
-    QString details = m_station->name();
-    QString state = m_nowPlaying;
-    QString largeImage = m_station->imageUrl();
-    const QString button0Url = m_station->streamUrl();
-
-    activity["type"] = Discord::LISTENING;
-    activity["timestamps"] = QJsonObject{
-        { "start", m_startedListeningAt }
-    };
-
-    switch (Settings::instance()->discordPrioritizedStatusDisplayType())
-    {
-        case Discord::STATE:
-        {
-            activity["status_display_type"]
-                = (!state.isEmpty())
-                    ? Discord::STATE
-                    : ((!details.isEmpty()) ? Discord::DETAILS : Discord::NAME);
-
-            break;
-        }
-
-        case Discord::DETAILS:
-        {
-            activity["status_display_type"]
-                = (!details.isEmpty()) ? Discord::DETAILS : Discord::NAME;
-
-            break;
-        }
-
-        case Discord::NAME:
-        default:
-        {
-            activity["status_display_type"] = Discord::NAME;
-
-            break;
-        }
-    }
-
-    if (details.isEmpty())
-    {
-        details = tr("Unnamed Station");
     }
     else
     {
-        if (details.size() == 1)
+        QJsonObject activity;
+
+        QString details = m_station->name();
+        QString state = m_nowPlaying;
+        QString largeImage = m_station->imageUrl();
+        const QString button0Url = m_station->streamUrl();
+
+        activity["type"] = Discord::LISTENING;
+        activity["timestamps"] = QJsonObject{
+            { "start", m_startedListeningAt }
+        };
+
+        switch (Settings::instance()->discordPrioritizedStatusDisplayType())
         {
-            details += "​";
+            case Discord::STATE:
+            {
+                activity["status_display_type"]
+                    = (!state.isEmpty())
+                        ? Discord::STATE
+                        : ((!details.isEmpty()) ? Discord::DETAILS
+                                                : Discord::NAME);
+
+                break;
+            }
+
+            case Discord::DETAILS:
+            {
+                activity["status_display_type"]
+                    = (!details.isEmpty()) ? Discord::DETAILS : Discord::NAME;
+
+                break;
+            }
+
+            case Discord::NAME:
+            default:
+            {
+                activity["status_display_type"] = Discord::NAME;
+
+                break;
+            }
         }
-        else if (details.size() > 128)
+
+        if (details.isEmpty())
         {
-            details = details.first(64) + "…" + details.last(63);
+            details = tr("Unnamed Station");
         }
+        else
+        {
+            if (details.size() == 1)
+            {
+                details += "​";
+            }
+            else if (details.size() > 128)
+            {
+                details = details.first(64) + "…" + details.last(63);
+            }
+        }
+
+        activity["details"] = details;
+
+        if (!state.isEmpty())
+        {
+            const QString stateUrl = Utilities::getShazamLinkFor(state);
+
+            if (state.size() == 1)
+            {
+                state += "​";
+            }
+            else if (state.size() > 128)
+            {
+                state = state.first(64) + "…" + state.last(63);
+            }
+
+            activity["state"] = state;
+
+            if (stateUrl.size() <= 256)
+            {
+                activity["state_url"] = stateUrl;
+            }
+        }
+
+        if (largeImage.isEmpty() || largeImage.size() > 300)
+        {
+            largeImage = "https://raw.githubusercontent.com/Zet0x0/Radio/refs/"
+                         "heads/master/src/icons/discord/large-image.png";
+        }
+
+        activity["assets"] = QJsonObject{
+            { "large_image", largeImage                        },
+            { "small_image",
+             "https://raw.githubusercontent.com/Zet0x0/Radio/refs/heads/"
+              "master/"
+              "src/icons/discord/small-image.gif"              },
+            { "small_text",  tr("Radio")                       },
+            { "small_url",   "https://github.com/Zet0x0/Radio" },
+        };
+
+        if (QUrl(button0Url).isValid() && button0Url.size() <= 512)
+        {
+            activity["buttons"] = QJsonArray{ { QJsonObject{
+                { "label", tr("Tune In (Browser)") },
+                { "url", button0Url } } } };
+        }
+
+        Discord::setActivity(activity);
     }
 
-    activity["details"] = details;
-
-    if (!state.isEmpty())
-    {
-        const QString stateUrl = Utilities::getShazamLinkFor(state);
-
-        if (state.size() == 1)
-        {
-            state += "​";
-        }
-        else if (state.size() > 128)
-        {
-            state = state.first(64) + "…" + state.last(63);
-        }
-
-        activity["state"] = state;
-
-        if (stateUrl.size() <= 256)
-        {
-            activity["state_url"] = stateUrl;
-        }
-    }
-
-    if (largeImage.isEmpty() || largeImage.size() > 300)
-    {
-        largeImage = "https://raw.githubusercontent.com/Zet0x0/Radio/refs/"
-                     "heads/master/src/icons/discord/large-image.png";
-    }
-
-    activity["assets"] = QJsonObject{
-        { "large_image", largeImage                        },
-        { "small_image",
-         "https://raw.githubusercontent.com/Zet0x0/Radio/refs/heads/master/"
-          "src/icons/discord/small-image.gif"              },
-        { "small_text",  tr("Radio")                       },
-        { "small_url",   "https://github.com/Zet0x0/Radio" },
-    };
-
-    if (QUrl(button0Url).isValid() && button0Url.size() <= 512)
-    {
-        activity["buttons"]
-            = QJsonArray{ { QJsonObject{ { "label", tr("Tune In (Browser)") },
-                                         { "url", button0Url } } } };
-    }
-
-    Discord::setActivity(activity);
+    m_discordActivityTimer->start();
 }
 
 Player::Player()
@@ -395,7 +401,6 @@ Player::Player()
                         if (settings->discordEnabled())
                         {
                             updateDiscordActivity();
-                            m_discordActivityTimer->start();
                         }
 
                         break;
@@ -414,12 +419,7 @@ Player::Player()
     connect(this,
             &Player::nowPlayingChanged,
             this,
-            [this]
-            {
-                m_discordActivityTimer->stop();
-                updateDiscordActivity();
-                m_discordActivityTimer->start();
-            });
+            &Player::updateDiscordActivity);
     connect(this,
             &Player::nowPlayingChanged,
             this,
@@ -435,16 +435,10 @@ Player::Player()
             &QTimer::timeout,
             this,
             &Player::updateDiscordActivity);
-
     connect(settings,
             &Settings::discordPrioritizedStatusDisplayTypeChanged,
             this,
-            [this]
-            {
-                m_discordActivityTimer->stop();
-                updateDiscordActivity();
-                m_discordActivityTimer->start();
-            });
+            &Player::updateDiscordActivity);
     connect(settings,
             &Settings::discordActivityUpdateIntervalChanged,
             m_discordActivityTimer,
@@ -455,6 +449,7 @@ Player::Player()
             });
     m_discordActivityTimer->setInterval(
         settings->discordActivityUpdateInterval());
+    m_discordActivityTimer->setSingleShot(true);
 }
 
 void Player::setElapsed(const qint64 &newElapsed)
