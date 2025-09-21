@@ -111,8 +111,6 @@ void Player::setVolume(const quint16 &newVolume)
     if (m_mpv->setVolume(newVolume))
     {
         m_volume = newVolume;
-
-        Settings::instance()->setAudioVolume(newVolume);
     }
 
     emit volumeChanged();
@@ -131,8 +129,6 @@ void Player::setMuted(const bool &newMuted)
     }
 
     m_muted = newMuted;
-
-    Settings::instance()->setAudioMuted(newMuted);
 
     emit mutedChanged();
 }
@@ -429,6 +425,20 @@ Player::Player()
                                    (m_nowPlaying.isEmpty())
                                        ? tr("Radio")
                                        : tr("%0 - Radio").arg(m_nowPlaying));
+            });
+    connect(this,
+            &Player::mutedChanged,
+            settings,
+            [settings, this]
+            {
+                settings->setAudioMuted(m_muted);
+            });
+    connect(this,
+            &Player::volumeChanged,
+            settings,
+            [settings, this]
+            {
+                settings->setAudioVolume(m_volume);
             });
 
     connect(m_discordActivityTimer,
