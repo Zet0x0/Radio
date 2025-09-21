@@ -244,7 +244,7 @@ void Player::initialize()
 
     setVolume(settings->audioVolume());
     setMuted(settings->audioMuted());
-    setStation(settings->privateSavedCurrentStation());
+    setStation(settings->privateLastSavedStation());
 
     if (settings->playbackAutoPlayOnStart()
         || (settings->playbackResumeOnStart()
@@ -450,7 +450,7 @@ Player::Player()
             settings,
             [settings, this]
             {
-                settings->setPrivateSavedCurrentStation(m_station);
+                settings->setPrivateLastSavedStation(m_station);
             });
     connect(this,
             &Player::stateChanged,

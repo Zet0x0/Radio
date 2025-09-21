@@ -51,10 +51,10 @@ class Settings : public QSettings
     // ================================
 
     // private, not supposed to be edited by user
-    /* private/savedCurrentStation */ Q_PROPERTY(
-        Station *privateSavedCurrentStation READ privateSavedCurrentStation
-            WRITE setPrivateSavedCurrentStation NOTIFY
-                privateSavedCurrentStationChanged FINAL)
+    /* private/lastSavedStation */ Q_PROPERTY(
+        Station *privateLastSavedStation READ privateLastSavedStation WRITE
+            setPrivateLastSavedStation NOTIFY privateLastSavedStationChanged
+                FINAL)
     /* private/lastSavedPlayerState */ Q_PROPERTY(
         Player::State privateLastSavedPlayerState READ
             privateLastSavedPlayerState WRITE setPrivateLastSavedPlayerState
@@ -106,9 +106,9 @@ public:
     bool appSystemTrayVisible() const;
     void setAppSystemTrayVisible(const bool &);
 
-    Station *defaultPrivateSavedCurrentStation() const;
-    Station *privateSavedCurrentStation() const;
-    void setPrivateSavedCurrentStation(Station *);
+    Station *defaultPrivateLastSavedStation() const;
+    Station *privateLastSavedStation() const;
+    void setPrivateLastSavedStation(Station *);
     Player::State defaultPrivateLastSavedPlayerState() const;
     Player::State privateLastSavedPlayerState() const;
     void setPrivateLastSavedPlayerState(const Player::State &);
@@ -132,7 +132,7 @@ signals:
     void appQuitOnWindowClosedChanged();
     void appSystemTrayVisibleChanged();
 
-    void privateSavedCurrentStationChanged();
+    void privateLastSavedStationChanged();
     void privateLastSavedPlayerStateChanged();
 
     void playbackResumeOnStartChanged();

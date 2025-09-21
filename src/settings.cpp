@@ -226,36 +226,36 @@ void Settings::setAppSystemTrayVisible(const bool &systemTrayVisible)
     emit appSystemTrayVisibleChanged();
 }
 
-Station *Settings::defaultPrivateSavedCurrentStation() const
+Station *Settings::defaultPrivateLastSavedStation() const
 {
     return new Station;
 }
 
-Station *Settings::privateSavedCurrentStation() const
+Station *Settings::privateLastSavedStation() const
 {
     Station *result = Station::fromJsonObject(
-        value("private/savedCurrentStation").toJsonObject());
+        value("private/lastSavedStation").toJsonObject());
 
-    return (contains("private/savedCurrentStation") && !result->isInvalid())
+    return (contains("private/lastSavedStation") && !result->isInvalid())
              ? result
-             : defaultPrivateSavedCurrentStation();
+             : defaultPrivateLastSavedStation();
 }
 
-void Settings::setPrivateSavedCurrentStation(Station *savedCurrentStation)
+void Settings::setPrivateLastSavedStation(Station *lastSavedStation)
 {
-    Station *currentSavedCurrentStation = privateSavedCurrentStation();
+    Station *currentLastSavedStation = privateLastSavedStation();
 
-    if (savedCurrentStation == currentSavedCurrentStation)
+    if (lastSavedStation == currentLastSavedStation)
     {
         return;
     }
 
-    setValue("private/savedCurrentStation",
-             Station::toJsonObject(savedCurrentStation));
+    setValue("private/lastSavedStation",
+             Station::toJsonObject(lastSavedStation));
 
-    currentSavedCurrentStation->deleteLater();
+    currentLastSavedStation->deleteLater();
 
-    emit privateSavedCurrentStationChanged();
+    emit privateLastSavedStationChanged();
 }
 
 Player::State Settings::defaultPrivateLastSavedPlayerState() const
