@@ -25,9 +25,9 @@ quint16 Settings::defaultAudioVolume() const
 quint16 Settings::audioVolume() const
 {
     bool ok;
-    quint16 result = value("audio/volume").toUInt(&ok);
+    const quint16 volume = value("audio/volume").toUInt(&ok);
 
-    return (contains("audio/volume") && ok) ? result : defaultAudioVolume();
+    return (contains("audio/volume") && ok) ? volume : defaultAudioVolume();
 }
 
 void Settings::setAudioVolume(const quint16 &volume)
@@ -73,10 +73,10 @@ int Settings::defaultDiscordReconnectInterval() const
 int Settings::discordReconnectInterval() const
 {
     bool ok;
-    int result = value("discord/reconnectInterval").toInt(&ok);
+    const int reconnectInterval = value("discord/reconnectInterval").toInt(&ok);
 
     return (contains("discord/reconnectInterval") && ok)
-             ? result
+             ? reconnectInterval
              : defaultDiscordReconnectInterval();
 }
 
@@ -100,10 +100,11 @@ int Settings::defaultDiscordActivityUpdateInterval() const
 int Settings::discordActivityUpdateInterval() const
 {
     bool ok;
-    int result = value("discord/activityUpdateInterval").toInt(&ok);
+    const int activityUpdateInterval
+        = value("discord/activityUpdateInterval").toInt(&ok);
 
     return (contains("discord/activityUpdateInterval") && ok)
-             ? result
+             ? activityUpdateInterval
              : defaultDiscordActivityUpdateInterval();
 }
 
@@ -152,13 +153,16 @@ Discord::StatusDisplayType
 Discord::StatusDisplayType Settings::discordPrioritizedStatusDisplayType() const
 {
     bool ok;
-    int result = value("discord/prioritizedStatusDisplayType").toInt(&ok);
+    const int prioritizedStatusDisplayType
+        = value("discord/prioritizedStatusDisplayType").toInt(&ok);
 
-    QMetaEnum metaEnum = QMetaEnum::fromType<Discord::StatusDisplayType>();
+    const QMetaEnum metaEnum
+        = QMetaEnum::fromType<Discord::StatusDisplayType>();
 
     return (contains("discord/prioritizedStatusDisplayType") && ok
-            && metaEnum.valueToKey(result))
-             ? static_cast<Discord::StatusDisplayType>(result)
+            && metaEnum.valueToKey(prioritizedStatusDisplayType))
+             ? static_cast<Discord::StatusDisplayType>(
+                   prioritizedStatusDisplayType)
              : defaultDiscordPrioritizedStatusDisplayType();
 }
 
@@ -231,11 +235,12 @@ Station *Settings::defaultPrivateLastSavedStation() const
 
 Station *Settings::privateLastSavedStation() const
 {
-    Station *result = Station::fromJsonObject(
+    Station *lastSavedStation = Station::fromJsonObject(
         value("private/lastSavedStation").toJsonObject());
 
-    return (contains("private/lastSavedStation") && !result->isInvalid())
-             ? result
+    return (contains("private/lastSavedStation")
+            && !lastSavedStation->isInvalid())
+             ? lastSavedStation
              : defaultPrivateLastSavedStation();
 }
 
@@ -264,13 +269,14 @@ Player::State Settings::defaultPrivateLastSavedPlayerState() const
 Player::State Settings::privateLastSavedPlayerState() const
 {
     bool ok;
-    int result = value("private/lastSavedPlayerState").toInt(&ok);
+    const int lastSavedPlayerState
+        = value("private/lastSavedPlayerState").toInt(&ok);
 
-    QMetaEnum metaEnum = QMetaEnum::fromType<Player::State>();
+    const QMetaEnum metaEnum = QMetaEnum::fromType<Player::State>();
 
     return (contains("private/lastSavedPlayerState") && ok
-            && metaEnum.valueToKey(result))
-             ? static_cast<Player::State>(result)
+            && metaEnum.valueToKey(lastSavedPlayerState))
+             ? static_cast<Player::State>(lastSavedPlayerState)
              : defaultPrivateLastSavedPlayerState();
 }
 
