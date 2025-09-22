@@ -73,6 +73,7 @@ public:
         STATE = 1,
         DETAILS = 2
     };
+    Q_ENUM(StatusDisplayType)
 
     static void setActivity(const QJsonValue &activity);
     static void clearActivity();

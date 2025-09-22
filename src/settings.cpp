@@ -151,17 +151,15 @@ Discord::StatusDisplayType
 
 Discord::StatusDisplayType Settings::discordPrioritizedStatusDisplayType() const
 {
-    const QVariant rawValue = value("discord/prioritizedStatusDisplayType");
-    Discord::StatusDisplayType result
-        = defaultDiscordPrioritizedStatusDisplayType();
+    bool ok;
+    int result = value("discord/prioritizedStatusDisplayType").toInt(&ok);
 
-    if (contains("discord/prioritizedStatusDisplayType")
-        && rawValue.canConvert<Discord::StatusDisplayType>())
-    {
-        result = rawValue.value<Discord::StatusDisplayType>();
-    }
+    QMetaEnum metaEnum = QMetaEnum::fromType<Discord::StatusDisplayType>();
 
-    return result;
+    return (contains("discord/prioritizedStatusDisplayType") && ok
+            && metaEnum.valueToKey(result))
+             ? static_cast<Discord::StatusDisplayType>(result)
+             : defaultDiscordPrioritizedStatusDisplayType();
 }
 
 void Settings::setDiscordPrioritizedStatusDisplayType(
@@ -265,16 +263,15 @@ Player::State Settings::defaultPrivateLastSavedPlayerState() const
 
 Player::State Settings::privateLastSavedPlayerState() const
 {
-    const QVariant rawValue = value("private/lastSavedPlayerState");
-    Player::State result = defaultPrivateLastSavedPlayerState();
+    bool ok;
+    int result = value("private/lastSavedPlayerState").toInt(&ok);
 
-    if (contains("private/lastSavedPlayerState")
-        && rawValue.canConvert<Player::State>())
-    {
-        result = rawValue.value<Player::State>();
-    }
+    QMetaEnum metaEnum = QMetaEnum::fromType<Player::State>();
 
-    return result;
+    return (contains("private/lastSavedPlayerState") && ok
+            && metaEnum.valueToKey(result))
+             ? static_cast<Player::State>(result)
+             : defaultPrivateLastSavedPlayerState();
 }
 
 void Settings::setPrivateLastSavedPlayerState(
