@@ -228,6 +228,30 @@ void Settings::setAppSystemTrayVisible(const bool &systemTrayVisible)
     emit appSystemTrayVisibleChanged();
 }
 
+bool Settings::defaultAppStartMinimizedToTray() const
+{
+    return false;
+}
+
+bool Settings::appStartMinimizedToTray() const
+{
+    return (contains("app/startMinimizedToTray"))
+             ? value("app/startMinimizedToTray").toBool()
+             : defaultAppStartMinimizedToTray();
+}
+
+void Settings::setAppStartMinimizedToTray(const bool &startMinimizedToTray)
+{
+    if (startMinimizedToTray == appStartMinimizedToTray())
+    {
+        return;
+    }
+
+    setValue("app/startMinimizedToTray", startMinimizedToTray);
+
+    emit appStartMinimizedToTrayChanged();
+}
+
 Station *Settings::defaultPrivateLastSavedStation() const
 {
     return new Station;

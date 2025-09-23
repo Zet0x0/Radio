@@ -13,7 +13,6 @@ ApplicationWindow {
     minimumHeight: 560
     minimumWidth: 640
     title: (Player.state === Player.PLAYING && !!Player.nowPlaying) ? qsTr("%0 - Radio").arg(Player.nowPlaying) : qsTr("Radio")
-    visible: true
 
     footer: ApplicationFooter {
     }
@@ -22,6 +21,8 @@ ApplicationWindow {
     }
 
     Component.onCompleted: {
+        visible = !Settings.appStartMinimizedToTray || !Settings.appSystemTrayVisible;
+
         Player.initialize();
     }
 

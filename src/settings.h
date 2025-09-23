@@ -48,6 +48,10 @@ class Settings : public QSettings
     /* app/systemTrayVisible */ Q_PROPERTY(
         bool appSystemTrayVisible READ appSystemTrayVisible WRITE
             setAppSystemTrayVisible NOTIFY appSystemTrayVisibleChanged FINAL)
+    /* app/startMinimizedToTray */ Q_PROPERTY(
+        bool appStartMinimizedToTray READ appStartMinimizedToTray WRITE
+            setAppStartMinimizedToTray NOTIFY appStartMinimizedToTrayChanged
+                FINAL)
     // ================================
 
     // private, not supposed to be edited by user
@@ -105,6 +109,9 @@ public:
     bool defaultAppSystemTrayVisible() const;
     bool appSystemTrayVisible() const;
     void setAppSystemTrayVisible(const bool &);
+    bool defaultAppStartMinimizedToTray() const;
+    bool appStartMinimizedToTray() const;
+    void setAppStartMinimizedToTray(const bool &);
 
     Station *defaultPrivateLastSavedStation() const;
     Station *privateLastSavedStation() const;
@@ -131,6 +138,7 @@ signals:
 
     void appQuitOnWindowClosedChanged();
     void appSystemTrayVisibleChanged();
+    void appStartMinimizedToTrayChanged();
 
     void privateLastSavedStationChanged();
     void privateLastSavedPlayerStateChanged();
