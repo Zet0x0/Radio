@@ -202,13 +202,21 @@ void Player::initialize()
     }
 
     MpvEventManager *mpvEventManager = MpvEventManager::instance();
+    NetworkInformation *networkInformation = NetworkInformation::instance();
 
     connect(mpvEventManager,
             &MpvEventManager::playbackErrorOccurred,
             this,
-            [this](const int &errorCode)
+            [this, networkInformation](const int &errorCode)
             {
-                emit playbackErrorOccurred(errorCode, QPrivateSignal());
+                if (networkInformation->online())
+                {
+                    emit playbackErrorOccurred(errorCode, QPrivateSignal());
+                }
+                else
+                {
+                    m_shouldRestartPlayback = true;
+                }
             });
     connect(this,
             &Player::playbackErrorOccurred,
@@ -241,6 +249,19 @@ void Player::initialize()
             this,
             &Player::setState);
 
+    connect(networkInformation,
+            &NetworkInformation::onlineChanged,
+            this,
+            [this, networkInformation]
+            {
+                if (networkInformation->online() && m_shouldRestartPlayback)
+                {
+                    m_shouldRestartPlayback = false;
+
+                    play();
+                }
+            });
+
     Settings *settings = Settings::instance();
 
     setVolume(settings->audioVolume());
@@ -250,7 +271,7 @@ void Player::initialize()
     if ((settings->playbackAutoPlayOnStart()
          || (settings->playbackResumeOnStart()
              && settings->privateLastSavedPlayerState() != Player::STOPPED))
-        && NetworkInformation::instance()->online())
+        && networkInformation->online())
     {
         play();
     }

@@ -73,6 +73,10 @@ class Settings : public QSettings
         bool playbackAutoPlayOnStart READ playbackAutoPlayOnStart WRITE
             setPlaybackAutoPlayOnStart NOTIFY playbackAutoPlayOnStartChanged
                 FINAL)
+    /* playback/resumeOnBackOnline */ Q_PROPERTY(
+        bool playbackResumeOnBackOnline READ playbackResumeOnBackOnline WRITE
+            setPlaybackResumeOnBackOnline NOTIFY
+                playbackResumeOnBackOnlineChanged FINAL)
 
 private:
     Settings();
@@ -126,6 +130,9 @@ public:
     bool defaultPlaybackAutoPlayOnStart() const;
     bool playbackAutoPlayOnStart() const;
     void setPlaybackAutoPlayOnStart(const bool &);
+    bool defaultPlaybackResumeOnBackOnline() const;
+    bool playbackResumeOnBackOnline() const;
+    void setPlaybackResumeOnBackOnline(const bool &);
 
 signals:
     void audioVolumeChanged();
@@ -145,4 +152,5 @@ signals:
 
     void playbackResumeOnStartChanged();
     void playbackAutoPlayOnStartChanged();
+    void playbackResumeOnBackOnlineChanged();
 };

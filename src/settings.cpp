@@ -364,3 +364,27 @@ void Settings::setPlaybackAutoPlayOnStart(const bool &autoPlayOnStart)
 
     emit playbackAutoPlayOnStartChanged();
 }
+
+bool Settings::defaultPlaybackResumeOnBackOnline() const
+{
+    return true;
+}
+
+bool Settings::playbackResumeOnBackOnline() const
+{
+    return (contains("playback/resumeOnBackOnline"))
+             ? value("playback/resumeOnBackOnline").toBool()
+             : defaultPlaybackResumeOnBackOnline();
+}
+
+void Settings::setPlaybackResumeOnBackOnline(const bool &resumeOnBackOnline)
+{
+    if (resumeOnBackOnline == playbackResumeOnBackOnline())
+    {
+        return;
+    }
+
+    setValue("playback/resumeOnBackOnline", resumeOnBackOnline);
+
+    emit playbackResumeOnBackOnlineChanged();
+}

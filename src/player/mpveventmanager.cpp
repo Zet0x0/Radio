@@ -47,9 +47,26 @@ void MpvEventManager::handleEvent(mpv_event *event)
             mpv_event_end_file *endFile
                 = static_cast<mpv_event_end_file *>(eventData);
 
-            if (endFile->reason == MPV_END_FILE_REASON_ERROR)
+            switch (endFile->reason)
             {
-                emit playbackErrorOccurred(endFile->error);
+                case MPV_END_FILE_REASON_ERROR:
+                {
+                    emit playbackErrorOccurred(endFile->error);
+
+                    break;
+                }
+
+                case MPV_END_FILE_REASON_EOF:
+                {
+                    emit playbackErrorOccurred(MPV_ERROR_LOADING_FAILED);
+
+                    break;
+                }
+
+                default:
+                {
+                    break;
+                }
             }
 
             break;
@@ -101,8 +118,8 @@ void MpvEventManager::handleEvent(mpv_event *event)
         }
 
         /*
-         * events that don't require much handling other than a simple log
-         * message
+         * events that don't require much handling other than a simple
+         * log message
          */
         case MPV_EVENT_IDLE:
         {
