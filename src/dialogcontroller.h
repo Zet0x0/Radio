@@ -14,7 +14,8 @@ public:
 
     Q_INVOKABLE static void requestMessageDialog(const QString &title,
                                                  const QString &message,
-                                                 const bool &quitOnClose);
+                                                 const bool &quitOnClose
+                                                 = false);
 
     Q_INVOKABLE static void requestAboutDialog();
     Q_INVOKABLE static void requestMessagesDialog();
