@@ -147,6 +147,8 @@ void Player::play()
     {
         emit playbackErrorOccurred(result, QPrivateSignal());
     }
+
+    m_canRestartPlaybackOnBackOnline = true;
 }
 
 void Player::playFromUrl(const QString &url)
@@ -170,8 +172,7 @@ void Player::stop()
     DialogController::requestMessageDialog(
         tr("Command Failed"),
         tr("The stop command (somehow) failed:\n\n%0 (code %1)")
-            .arg(mpv_error_string(result), QString::number(result)),
-        false);
+            .arg(mpv_error_string(result), QString::number(result)));
 }
 
 void Player::initialize()
@@ -201,6 +202,7 @@ void Player::initialize()
         return;
     }
 
+    Settings *settings = Settings::instance();
     MpvEventManager *mpvEventManager = MpvEventManager::instance();
     NetworkInformation *networkInformation = NetworkInformation::instance();
 
@@ -212,10 +214,19 @@ void Player::initialize()
                 if (networkInformation->online())
                 {
                     emit playbackErrorOccurred(errorCode, QPrivateSignal());
+
+                    return;
+                }
+
+                if (m_canRestartPlaybackOnBackOnline)
+                {
+                    DialogController::requestMessageDialog(
+                        tr("Playback Error"),
+                        tr("Unable to play, you are offline."));
                 }
                 else
                 {
-                    m_shouldRestartPlayback = true;
+                    m_canRestartPlaybackOnBackOnline = true;
                 }
             });
     connect(this,
@@ -231,8 +242,7 @@ void Player::initialize()
                     tr("An error has occurred trying to play the "
                        "station:\n\n%0 (code %1)")
                         .arg(mpv_error_string(errorCode),
-                             QString::number(errorCode)),
-                    false);
+                             QString::number(errorCode)));
             });
 
     connect(mpvEventManager,
@@ -252,17 +262,15 @@ void Player::initialize()
     connect(networkInformation,
             &NetworkInformation::onlineChanged,
             this,
-            [this, networkInformation]
+            [this, networkInformation, settings]
             {
-                if (networkInformation->online() && m_shouldRestartPlayback)
+                if (networkInformation->online()
+                    && m_canRestartPlaybackOnBackOnline
+                    && settings->playbackResumeOnBackOnline())
                 {
-                    m_shouldRestartPlayback = false;
-
                     play();
                 }
             });
-
-    Settings *settings = Settings::instance();
 
     setVolume(settings->audioVolume());
     setMuted(settings->audioMuted());
@@ -524,6 +532,11 @@ void Player::setState(const Player::State &newState)
     }
 
     m_state = newState;
+
+    if (m_state == PLAYING)
+    {
+        m_canRestartPlaybackOnBackOnline = false;
+    }
 
     qCInfo(radioPlayer) << "new state:" << m_state;
 

@@ -96,7 +96,7 @@ private:
     QTimer *m_discordActivityTimer = new QTimer(this);
     int m_startedListeningAt = -1;
 
-    bool m_shouldRestartPlayback = false;
+    bool m_canRestartPlaybackOnBackOnline = false;
 
     Player();
 
