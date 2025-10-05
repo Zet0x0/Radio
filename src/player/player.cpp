@@ -2,6 +2,7 @@
 
 #include "../dialogcontroller.h"
 #include "../discord.h"
+#include "../networkinformation.h"
 #include "../settings.h"
 #include "../utilities.h"
 #include "mpveventmanager.h"
@@ -246,9 +247,10 @@ void Player::initialize()
     setMuted(settings->audioMuted());
     setStation(settings->privateLastSavedStation());
 
-    if (settings->playbackAutoPlayOnStart()
-        || (settings->playbackResumeOnStart()
-            && settings->privateLastSavedPlayerState() != Player::STOPPED))
+    if ((settings->playbackAutoPlayOnStart()
+         || (settings->playbackResumeOnStart()
+             && settings->privateLastSavedPlayerState() != Player::STOPPED))
+        && NetworkInformation::instance()->online())
     {
         play();
     }
