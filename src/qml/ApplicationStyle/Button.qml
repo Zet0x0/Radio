@@ -20,7 +20,7 @@ T.Button {
         }
     }
     contentItem: IconLabel {
-        color: (control.enabled) ? ((control.checked || control.highlighted || control.down) ? StyleProperties.palette_text_active : ((control.visualFocus || control.hovered) ? StyleProperties.palette_text_lighter : StyleProperties.palette_text)) : ((control.highlighted) ? StyleProperties.palette_text : StyleProperties.palette_text_darker)
+        color: (control.enabled) ? ((control.checked || control.highlighted || control.down) ? StyleProperties.palette_text_active : ((control.visualFocus || control.hovered) ? StyleProperties.palette_text_lighter : StyleProperties.palette_text)) : ((control.highlighted || control.flat) ? StyleProperties.palette_text : StyleProperties.palette_text_darker)
         display: control.display
         font: control.font
         icon: control.icon
@@ -30,7 +30,7 @@ T.Button {
     }
 
     icon {
-        color: (control.enabled) ? ((control.checked || control.highlighted || control.down) ? StyleProperties.palette_accent_active : ((control.visualFocus || control.hovered) ? StyleProperties.palette_accent_lighter : StyleProperties.palette_accent)) : ((control.highlighted) ? StyleProperties.palette_accent : StyleProperties.palette_accent_darker)
+        color: (control.enabled) ? ((control.checked || control.highlighted || control.down) ? StyleProperties.palette_accent_active : ((control.visualFocus || control.hovered) ? StyleProperties.palette_accent_lighter : StyleProperties.palette_accent)) : ((control.highlighted || control.flat) ? StyleProperties.palette_accent : StyleProperties.palette_accent_darker)
         height: control.height
         width: control.height
     }
