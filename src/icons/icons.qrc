@@ -13,5 +13,6 @@
         <file>brand-shazam.svg</file>
         <file>chevron-down.svg</file>
         <file>chevron-up.svg</file>
+        <file>network-off.svg</file>
     </qresource>
 </RCC>

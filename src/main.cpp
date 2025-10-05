@@ -1,4 +1,5 @@
 #include "dialogcontroller.h"
+#include "networkinformation.h"
 #include "player/player.h"
 #include "settings.h"
 #include "utilities.h"
@@ -87,6 +88,11 @@ int main(int argc, char *argv[])
                                  0,
                                  "Settings",
                                  Settings::instance());
+    qmlRegisterSingletonInstance("Radio.Cpp",
+                                 1,
+                                 0,
+                                 "NetworkInformation",
+                                 NetworkInformation::instance());
     qmlRegisterSingletonInstance("Radio.Cpp.Player",
                                  1,
                                  0,

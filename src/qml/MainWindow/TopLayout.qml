@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Radio
+import Radio.Cpp
 import Radio.Cpp.Player
 import Radio.ApplicationStyle
 import Radio.Shared
@@ -77,6 +78,16 @@ Control {
 
                     PlayButton {
                         Layout.fillHeight: true
+                    }
+
+                    IconButton {
+                        Layout.fillHeight: true
+                        ToolTip.text: qsTr("You are offline")
+                        ToolTip.visible: hovered || visualFocus
+                        enabled: false
+                        flat: true
+                        icon.source: "/zet0x0.github.io/icons/network-off.svg"
+                        visible: !NetworkInformation.online
                     }
 
                     Item {
