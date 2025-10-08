@@ -83,11 +83,7 @@ int main(int argc, char *argv[])
                                  0,
                                  "DialogController",
                                  DialogController::instance());
-    qmlRegisterSingletonInstance("Radio.Cpp",
-                                 1,
-                                 0,
-                                 "Settings",
-                                 Settings::instance());
+    qmlRegisterSingletonInstance("Radio.Cpp", 1, 0, "Settings", settings);
     qmlRegisterSingletonInstance("Radio.Cpp",
                                  1,
                                  0,
