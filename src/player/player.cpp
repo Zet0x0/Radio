@@ -501,14 +501,9 @@ Player::Player()
             &Player::updateDiscordActivity);
     connect(settings,
             &Settings::discordActivityUpdateIntervalChanged,
-            m_discordActivityTimer,
-            [this, settings]
-            {
-                m_discordActivityTimer->setInterval(
-                    settings->discordActivityUpdateInterval());
-            });
-    m_discordActivityTimer->setInterval(
-        settings->discordActivityUpdateInterval());
+            this,
+            &Player::updateDiscordActivityUpdateInterval);
+    updateDiscordActivityUpdateInterval();
     m_discordActivityTimer->setSingleShot(true);
 }
 
@@ -553,5 +548,11 @@ void Player::setInitialized(const bool &newInitialized)
     m_initialized = newInitialized;
 
     emit initializedChanged();
+}
+
+void Player::updateDiscordActivityUpdateInterval()
+{
+    m_discordActivityTimer->setInterval(
+        Settings::instance()->discordActivityUpdateInterval());
 }
 

@@ -80,11 +80,7 @@ Discord::Discord()
                      {
                          if (settings->discordEnabled())
                          {
-                             if (m_socket->state()
-                                 == QLocalSocket::UnconnectedState)
-                             {
-                                 connect();
-                             }
+                             connect();
                          }
                          else
                          {
@@ -93,13 +89,9 @@ Discord::Discord()
                      });
     QObject::connect(settings,
                      &Settings::discordReconnectIntervalChanged,
-                     m_reconnectTimer,
-                     [this, settings]
-                     {
-                         m_reconnectTimer->setInterval(
-                             settings->discordReconnectInterval());
-                     });
-    m_reconnectTimer->setInterval(settings->discordReconnectInterval());
+                     this,
+                     &Discord::updateReconnectInterval);
+    updateReconnectInterval();
 }
 
 Discord *Discord::instance()
@@ -308,6 +300,12 @@ void Discord::setActivity(const QJsonValue &activity, const bool &force)
          QJsonObject{ { "pid", QGuiApplication::applicationPid() },
                        { "activity", activity } } }
     });
+}
+
+void Discord::updateReconnectInterval()
+{
+    m_reconnectTimer->setInterval(
+        Settings::instance()->discordReconnectInterval());
 }
 
 void Discord::setActivity(const QJsonValue &activity)

@@ -105,6 +105,8 @@ private:
 
     void setInitialized(const bool &newInitialized);
 
+    void updateDiscordActivityUpdateInterval();
+
 signals:
     void playbackErrorOccurred(const int &errorCode, QPrivateSignal);
 

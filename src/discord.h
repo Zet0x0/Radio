@@ -54,6 +54,8 @@ private:
 
     void setActivity(const QJsonValue &activity, const bool &force);
 
+    void updateReconnectInterval();
+
 public:
     // https://discord.com/developers/docs/events/gateway-events#activity-object-activity-types
     enum ActivityType
