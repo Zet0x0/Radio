@@ -54,6 +54,9 @@ QtObject {
             pointSize: 10,
             weight: Font.DemiBold
         })
+    readonly property font fonts_comboBox_delegate_highlighted: ({
+            bold: true
+        })
     readonly property font fonts_dialog_titleLabel: ({
             bold: true
         })

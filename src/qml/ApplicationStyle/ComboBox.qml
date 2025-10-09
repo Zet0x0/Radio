@@ -58,7 +58,7 @@ T.ComboBox {
         required property int index
         required property var model
 
-        font.weight: (highlighted) ? Font.Bold : Font.Normal
+        font: (highlighted) ? StyleProperties.fonts_comboBox_delegate_highlighted : control.font
         highlighted: control.currentIndex === index
         text: model[control.textRole]
     }
