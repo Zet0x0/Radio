@@ -51,7 +51,8 @@ QtObject {
     /* Fonts */
     readonly property font fonts_application: ({
             family: "Segoe UI Variable",
-            pointSize: 10
+            pointSize: 10,
+            weight: Font.DemiBold
         })
     readonly property font fonts_dialog_titleLabel: ({
             bold: true
