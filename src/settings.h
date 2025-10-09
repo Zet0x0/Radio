@@ -79,58 +79,47 @@ class Settings : public QSettings
                 playbackResumeOnBackOnlineChanged FINAL)
 
 private:
+    static const QHash<QString, QVariant> m_defaults;
+
     Settings();
+
+    QVariant getDefault(const QString &path) const;
 
 public:
     static Settings *instance();
     static Settings *create(QQmlEngine *, QJSEngine *);
 
-    quint16 defaultAudioVolume() const;
     quint16 audioVolume() const;
     void setAudioVolume(const quint16 &);
-    bool defaultAudioMuted() const;
     bool audioMuted() const;
     void setAudioMuted(const bool &);
 
-    int defaultDiscordReconnectInterval() const;
     int discordReconnectInterval() const;
     void setDiscordReconnectInterval(const int &);
-    int defaultDiscordActivityUpdateInterval() const;
     int discordActivityUpdateInterval() const;
     void setDiscordActivityUpdateInterval(const int &);
-    bool defaultDiscordEnabled() const;
     bool discordEnabled() const;
     void setDiscordEnabled(const bool &);
-    Discord::StatusDisplayType
-        defaultDiscordPrioritizedStatusDisplayType() const;
     Discord::StatusDisplayType discordPrioritizedStatusDisplayType() const;
     void setDiscordPrioritizedStatusDisplayType(
         const Discord::StatusDisplayType &);
 
-    bool defaultAppQuitOnWindowClosed() const;
     bool appQuitOnWindowClosed() const;
     void setAppQuitOnWindowClosed(const bool &);
-    bool defaultAppSystemTrayVisible() const;
     bool appSystemTrayVisible() const;
     void setAppSystemTrayVisible(const bool &);
-    bool defaultAppStartMinimizedToTray() const;
     bool appStartMinimizedToTray() const;
     void setAppStartMinimizedToTray(const bool &);
 
-    Station *defaultPrivateLastSavedStation() const;
     Station *privateLastSavedStation() const;
     void setPrivateLastSavedStation(Station *);
-    Player::State defaultPrivateLastSavedPlayerState() const;
     Player::State privateLastSavedPlayerState() const;
     void setPrivateLastSavedPlayerState(const Player::State &);
 
-    bool defaultPlaybackResumeOnStart() const;
     bool playbackResumeOnStart() const;
     void setPlaybackResumeOnStart(const bool &);
-    bool defaultPlaybackAutoPlayOnStart() const;
     bool playbackAutoPlayOnStart() const;
     void setPlaybackAutoPlayOnStart(const bool &);
-    bool defaultPlaybackResumeOnBackOnline() const;
     bool playbackResumeOnBackOnline() const;
     void setPlaybackResumeOnBackOnline(const bool &);
 

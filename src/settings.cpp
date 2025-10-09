@@ -1,8 +1,30 @@
 #include "settings.h"
 
+const QHash<QString, QVariant> Settings::m_defaults = {
+    { "audio/volume",                         100              },
+    { "audio/muted",                          false            },
+    { "discord/reconnectInterval",            5000             },
+    { "discord/activityUpdateInterval",       30000            },
+    { "discord/enabled",                      true             },
+    { "discord/prioritizedStatusDisplayType", Discord::DETAILS },
+    { "app/quitOnWindowClosed",               false            },
+    { "app/systemTrayVisible",                true             },
+    { "app/startMinimizedToTray",             false            },
+    // { "private/lastSavedStation",             new Station      },
+    { "private/lastSavedPlayerState",         Player::STOPPED  },
+    { "playback/resumeOnStart",               false            },
+    { "playback/autoPlayOnStart",             false            },
+    { "playback/resumeOnBackOnline",          true             }
+};
+
 Settings::Settings()
     : QSettings("settings.ini", QSettings::IniFormat)
 {
+}
+
+QVariant Settings::getDefault(const QString &path) const
+{
+    return m_defaults[path];
 }
 
 Settings *Settings::instance()
@@ -17,17 +39,14 @@ Settings *Settings::create(QQmlEngine *, QJSEngine *)
     return instance();
 }
 
-quint16 Settings::defaultAudioVolume() const
-{
-    return 100;
-}
-
 quint16 Settings::audioVolume() const
 {
     bool ok;
     const quint16 volume = value("audio/volume").toUInt(&ok);
 
-    return (contains("audio/volume") && ok) ? volume : defaultAudioVolume();
+    return (contains("audio/volume") && ok)
+             ? volume
+             : getDefault("audio/volume").toInt();
 }
 
 void Settings::setAudioVolume(const quint16 &volume)
@@ -42,15 +61,10 @@ void Settings::setAudioVolume(const quint16 &volume)
     emit audioVolumeChanged();
 }
 
-bool Settings::defaultAudioMuted() const
-{
-    return false;
-}
-
 bool Settings::audioMuted() const
 {
     return (contains("audio/muted")) ? value("audio/muted").toBool()
-                                     : defaultAudioMuted();
+                                     : getDefault("audio/muted").toBool();
 }
 
 void Settings::setAudioMuted(const bool &muted)
@@ -65,11 +79,6 @@ void Settings::setAudioMuted(const bool &muted)
     emit audioMutedChanged();
 }
 
-int Settings::defaultDiscordReconnectInterval() const
-{
-    return 5000;
-}
-
 int Settings::discordReconnectInterval() const
 {
     bool ok;
@@ -77,7 +86,7 @@ int Settings::discordReconnectInterval() const
 
     return (contains("discord/reconnectInterval") && ok)
              ? reconnectInterval
-             : defaultDiscordReconnectInterval();
+             : getDefault("discord/reconnectInterval").toInt();
 }
 
 void Settings::setDiscordReconnectInterval(const int &reconnectInterval)
@@ -92,11 +101,6 @@ void Settings::setDiscordReconnectInterval(const int &reconnectInterval)
     emit discordReconnectIntervalChanged();
 }
 
-int Settings::defaultDiscordActivityUpdateInterval() const
-{
-    return 30000;
-}
-
 int Settings::discordActivityUpdateInterval() const
 {
     bool ok;
@@ -105,7 +109,7 @@ int Settings::discordActivityUpdateInterval() const
 
     return (contains("discord/activityUpdateInterval") && ok)
              ? activityUpdateInterval
-             : defaultDiscordActivityUpdateInterval();
+             : getDefault("discord/activityUpdateInterval").toInt();
 }
 
 void Settings::setDiscordActivityUpdateInterval(
@@ -121,15 +125,11 @@ void Settings::setDiscordActivityUpdateInterval(
     emit discordActivityUpdateIntervalChanged();
 }
 
-bool Settings::defaultDiscordEnabled() const
-{
-    return true;
-}
-
 bool Settings::discordEnabled() const
 {
-    return (contains("discord/enabled")) ? value("discord/enabled").toBool()
-                                         : defaultDiscordEnabled();
+    return (contains("discord/enabled"))
+             ? value("discord/enabled").toBool()
+             : getDefault("discord/enabled").toBool();
 }
 
 void Settings::setDiscordEnabled(const bool &enabled)
@@ -142,12 +142,6 @@ void Settings::setDiscordEnabled(const bool &enabled)
     setValue("discord/enabled", enabled);
 
     emit discordEnabledChanged();
-}
-
-Discord::StatusDisplayType
-    Settings::defaultDiscordPrioritizedStatusDisplayType() const
-{
-    return Discord::DETAILS;
 }
 
 Discord::StatusDisplayType Settings::discordPrioritizedStatusDisplayType() const
@@ -163,7 +157,8 @@ Discord::StatusDisplayType Settings::discordPrioritizedStatusDisplayType() const
             && metaEnum.valueToKey(prioritizedStatusDisplayType))
              ? static_cast<Discord::StatusDisplayType>(
                    prioritizedStatusDisplayType)
-             : defaultDiscordPrioritizedStatusDisplayType();
+             : static_cast<Discord::StatusDisplayType>(
+                   getDefault("discord/prioritizedStatusDisplayType").toInt());
 }
 
 void Settings::setDiscordPrioritizedStatusDisplayType(
@@ -180,16 +175,11 @@ void Settings::setDiscordPrioritizedStatusDisplayType(
     emit discordPrioritizedStatusDisplayTypeChanged();
 }
 
-bool Settings::defaultAppQuitOnWindowClosed() const
-{
-    return false;
-}
-
 bool Settings::appQuitOnWindowClosed() const
 {
     return (contains("app/quitOnWindowClosed"))
              ? value("app/quitOnWindowClosed").toBool()
-             : defaultAppQuitOnWindowClosed();
+             : getDefault("app/quitOnWindowClosed").toBool();
 }
 
 void Settings::setAppQuitOnWindowClosed(const bool &quitOnWindowClosed)
@@ -204,16 +194,11 @@ void Settings::setAppQuitOnWindowClosed(const bool &quitOnWindowClosed)
     emit appQuitOnWindowClosedChanged();
 }
 
-bool Settings::defaultAppSystemTrayVisible() const
-{
-    return true;
-}
-
 bool Settings::appSystemTrayVisible() const
 {
     return (contains("app/systemTrayVisible"))
              ? value("app/systemTrayVisible").toBool()
-             : defaultAppSystemTrayVisible();
+             : getDefault("app/systemTrayVisible").toBool();
 }
 
 void Settings::setAppSystemTrayVisible(const bool &systemTrayVisible)
@@ -228,16 +213,11 @@ void Settings::setAppSystemTrayVisible(const bool &systemTrayVisible)
     emit appSystemTrayVisibleChanged();
 }
 
-bool Settings::defaultAppStartMinimizedToTray() const
-{
-    return false;
-}
-
 bool Settings::appStartMinimizedToTray() const
 {
     return (contains("app/startMinimizedToTray"))
              ? value("app/startMinimizedToTray").toBool()
-             : defaultAppStartMinimizedToTray();
+             : getDefault("app/startMinimizedToTray").toBool();
 }
 
 void Settings::setAppStartMinimizedToTray(const bool &startMinimizedToTray)
@@ -252,11 +232,6 @@ void Settings::setAppStartMinimizedToTray(const bool &startMinimizedToTray)
     emit appStartMinimizedToTrayChanged();
 }
 
-Station *Settings::defaultPrivateLastSavedStation() const
-{
-    return new Station;
-}
-
 Station *Settings::privateLastSavedStation() const
 {
     Station *lastSavedStation = Station::fromJsonObject(
@@ -265,7 +240,7 @@ Station *Settings::privateLastSavedStation() const
     return (contains("private/lastSavedStation")
             && !lastSavedStation->isInvalid())
              ? lastSavedStation
-             : defaultPrivateLastSavedStation();
+             : new Station;
 }
 
 void Settings::setPrivateLastSavedStation(Station *lastSavedStation)
@@ -285,11 +260,6 @@ void Settings::setPrivateLastSavedStation(Station *lastSavedStation)
     emit privateLastSavedStationChanged();
 }
 
-Player::State Settings::defaultPrivateLastSavedPlayerState() const
-{
-    return Player::STOPPED;
-}
-
 Player::State Settings::privateLastSavedPlayerState() const
 {
     bool ok;
@@ -301,7 +271,8 @@ Player::State Settings::privateLastSavedPlayerState() const
     return (contains("private/lastSavedPlayerState") && ok
             && metaEnum.valueToKey(lastSavedPlayerState))
              ? static_cast<Player::State>(lastSavedPlayerState)
-             : defaultPrivateLastSavedPlayerState();
+             : static_cast<Player::State>(
+                   getDefault("private/lastSavedPlayerState").toInt());
 }
 
 void Settings::setPrivateLastSavedPlayerState(
@@ -317,16 +288,11 @@ void Settings::setPrivateLastSavedPlayerState(
     emit privateLastSavedPlayerStateChanged();
 }
 
-bool Settings::defaultPlaybackResumeOnStart() const
-{
-    return false;
-}
-
 bool Settings::playbackResumeOnStart() const
 {
     return (contains("playback/resumeOnStart"))
              ? value("playback/resumeOnStart").toBool()
-             : defaultPlaybackResumeOnStart();
+             : getDefault("playback/resumeOnStart").toBool();
 }
 
 void Settings::setPlaybackResumeOnStart(const bool &resumeOnStart)
@@ -341,16 +307,11 @@ void Settings::setPlaybackResumeOnStart(const bool &resumeOnStart)
     emit playbackResumeOnStartChanged();
 }
 
-bool Settings::defaultPlaybackAutoPlayOnStart() const
-{
-    return false;
-}
-
 bool Settings::playbackAutoPlayOnStart() const
 {
     return (contains("playback/autoPlayOnStart"))
              ? value("playback/autoPlayOnStart").toBool()
-             : defaultPlaybackAutoPlayOnStart();
+             : getDefault("playback/autoPlayOnStart").toBool();
 }
 
 void Settings::setPlaybackAutoPlayOnStart(const bool &autoPlayOnStart)
@@ -365,16 +326,11 @@ void Settings::setPlaybackAutoPlayOnStart(const bool &autoPlayOnStart)
     emit playbackAutoPlayOnStartChanged();
 }
 
-bool Settings::defaultPlaybackResumeOnBackOnline() const
-{
-    return true;
-}
-
 bool Settings::playbackResumeOnBackOnline() const
 {
     return (contains("playback/resumeOnBackOnline"))
              ? value("playback/resumeOnBackOnline").toBool()
-             : defaultPlaybackResumeOnBackOnline();
+             : getDefault("playback/resumeOnBackOnline").toBool();
 }
 
 void Settings::setPlaybackResumeOnBackOnline(const bool &resumeOnBackOnline)
