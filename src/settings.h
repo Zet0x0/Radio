@@ -85,6 +85,15 @@ private:
 
     QVariant getDefault(const QString &path) const;
 
+    bool readBool(const QString &path) const;
+    void writeBool(const QString &path, const bool &newValue);
+
+    int readInt(const QString &path) const;
+    void writeInt(const QString &path, const int &newValue);
+
+    template<typename T> T readEnum(const QString &path) const;
+    void writeEnum(const QString &path, const int &newValue);
+
 public:
     static Settings *instance();
     static Settings *create(QQmlEngine *, QJSEngine *);

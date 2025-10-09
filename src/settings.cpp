@@ -27,6 +27,56 @@ QVariant Settings::getDefault(const QString &path) const
     return m_defaults[path];
 }
 
+bool Settings::readBool(const QString &path) const
+{
+    return (contains(path)) ? value(path).toBool() : getDefault(path).toBool();
+}
+
+void Settings::writeBool(const QString &path, const bool &newValue)
+{
+    if (newValue == readBool(path))
+    {
+        return;
+    }
+
+    setValue(path, newValue);
+}
+
+int Settings::readInt(const QString &path) const
+{
+    bool ok;
+    const int value = Settings::value(path).toInt(&ok);
+
+    return (contains(path) && ok) ? value : getDefault(path).toInt();
+}
+
+void Settings::writeInt(const QString &path, const int &newValue)
+{
+    if (newValue == readInt(path))
+    {
+        return;
+    }
+
+    setValue(path, newValue);
+}
+
+template<typename T> T Settings::readEnum(const QString &path) const
+{
+    const QMetaEnum metaEnum = QMetaEnum::fromType<T>();
+
+    bool ok;
+    const int value = Settings::value(path).toInt(&ok);
+
+    return (contains(path) && ok && metaEnum.valueToKey(value))
+             ? static_cast<T>(value)
+             : static_cast<T>(getDefault(path).toInt());
+}
+
+void Settings::writeEnum(const QString &path, const int &newValue)
+{
+    writeInt(path, newValue);
+}
+
 Settings *Settings::instance()
 {
     static Settings *instance = new Settings;
@@ -41,193 +91,110 @@ Settings *Settings::create(QQmlEngine *, QJSEngine *)
 
 quint16 Settings::audioVolume() const
 {
-    bool ok;
-    const quint16 volume = value("audio/volume").toUInt(&ok);
-
-    return (contains("audio/volume") && ok)
-             ? volume
-             : getDefault("audio/volume").toInt();
+    return readInt("audio/volume");
 }
 
-void Settings::setAudioVolume(const quint16 &volume)
+void Settings::setAudioVolume(const quint16 &newValue)
 {
-    if (volume == audioVolume())
-    {
-        return;
-    }
-
-    setValue("audio/volume", volume);
+    writeInt("audio/volume", newValue);
 
     emit audioVolumeChanged();
 }
 
 bool Settings::audioMuted() const
 {
-    return (contains("audio/muted")) ? value("audio/muted").toBool()
-                                     : getDefault("audio/muted").toBool();
+    return readBool("audio/muted");
 }
 
-void Settings::setAudioMuted(const bool &muted)
+void Settings::setAudioMuted(const bool &newValue)
 {
-    if (muted == audioMuted())
-    {
-        return;
-    }
-
-    setValue("audio/muted", muted);
+    writeBool("audio/muted", newValue);
 
     emit audioMutedChanged();
 }
 
 int Settings::discordReconnectInterval() const
 {
-    bool ok;
-    const int reconnectInterval = value("discord/reconnectInterval").toInt(&ok);
-
-    return (contains("discord/reconnectInterval") && ok)
-             ? reconnectInterval
-             : getDefault("discord/reconnectInterval").toInt();
+    return readInt("discord/reconnectInterval");
 }
 
-void Settings::setDiscordReconnectInterval(const int &reconnectInterval)
+void Settings::setDiscordReconnectInterval(const int &newValue)
 {
-    if (reconnectInterval == discordReconnectInterval())
-    {
-        return;
-    }
-
-    setValue("discord/reconnectInterval", reconnectInterval);
+    writeInt("discord/reconnectInterval", newValue);
 
     emit discordReconnectIntervalChanged();
 }
 
 int Settings::discordActivityUpdateInterval() const
 {
-    bool ok;
-    const int activityUpdateInterval
-        = value("discord/activityUpdateInterval").toInt(&ok);
-
-    return (contains("discord/activityUpdateInterval") && ok)
-             ? activityUpdateInterval
-             : getDefault("discord/activityUpdateInterval").toInt();
+    return readInt("discord/activityUpdateInterval");
 }
 
-void Settings::setDiscordActivityUpdateInterval(
-    const int &activityUpdateInterval)
+void Settings::setDiscordActivityUpdateInterval(const int &newValue)
 {
-    if (activityUpdateInterval == discordActivityUpdateInterval())
-    {
-        return;
-    }
-
-    setValue("discord/activityUpdateInterval", activityUpdateInterval);
+    writeInt("discord/activityUpdateInterval", newValue);
 
     emit discordActivityUpdateIntervalChanged();
 }
 
 bool Settings::discordEnabled() const
 {
-    return (contains("discord/enabled"))
-             ? value("discord/enabled").toBool()
-             : getDefault("discord/enabled").toBool();
+    return readBool("discord/enabled");
 }
 
-void Settings::setDiscordEnabled(const bool &enabled)
+void Settings::setDiscordEnabled(const bool &newValue)
 {
-    if (enabled == discordEnabled())
-    {
-        return;
-    }
-
-    setValue("discord/enabled", enabled);
+    writeBool("discord/enabled", newValue);
 
     emit discordEnabledChanged();
 }
 
 Discord::StatusDisplayType Settings::discordPrioritizedStatusDisplayType() const
 {
-    bool ok;
-    const int prioritizedStatusDisplayType
-        = value("discord/prioritizedStatusDisplayType").toInt(&ok);
-
-    const QMetaEnum metaEnum
-        = QMetaEnum::fromType<Discord::StatusDisplayType>();
-
-    return (contains("discord/prioritizedStatusDisplayType") && ok
-            && metaEnum.valueToKey(prioritizedStatusDisplayType))
-             ? static_cast<Discord::StatusDisplayType>(
-                   prioritizedStatusDisplayType)
-             : static_cast<Discord::StatusDisplayType>(
-                   getDefault("discord/prioritizedStatusDisplayType").toInt());
+    return readEnum<Discord::StatusDisplayType>(
+        "discord/prioritizedStatusDisplayType");
 }
 
 void Settings::setDiscordPrioritizedStatusDisplayType(
-    const Discord::StatusDisplayType &prioritizedStatusDisplayType)
+    const Discord::StatusDisplayType &newValue)
 {
-    if (prioritizedStatusDisplayType == discordPrioritizedStatusDisplayType())
-    {
-        return;
-    }
-
-    setValue("discord/prioritizedStatusDisplayType",
-             prioritizedStatusDisplayType);
+    writeEnum("discord/prioritizedStatusDisplayType", newValue);
 
     emit discordPrioritizedStatusDisplayTypeChanged();
 }
 
 bool Settings::appQuitOnWindowClosed() const
 {
-    return (contains("app/quitOnWindowClosed"))
-             ? value("app/quitOnWindowClosed").toBool()
-             : getDefault("app/quitOnWindowClosed").toBool();
+    return readBool("app/quitOnWindowClosed");
 }
 
-void Settings::setAppQuitOnWindowClosed(const bool &quitOnWindowClosed)
+void Settings::setAppQuitOnWindowClosed(const bool &newValue)
 {
-    if (quitOnWindowClosed == appQuitOnWindowClosed())
-    {
-        return;
-    }
-
-    setValue("app/quitOnWindowClosed", quitOnWindowClosed);
+    writeBool("app/quitOnWindowClosed", newValue);
 
     emit appQuitOnWindowClosedChanged();
 }
 
 bool Settings::appSystemTrayVisible() const
 {
-    return (contains("app/systemTrayVisible"))
-             ? value("app/systemTrayVisible").toBool()
-             : getDefault("app/systemTrayVisible").toBool();
+    return readBool("app/systemTrayVisible");
 }
 
-void Settings::setAppSystemTrayVisible(const bool &systemTrayVisible)
+void Settings::setAppSystemTrayVisible(const bool &newValue)
 {
-    if (systemTrayVisible == appSystemTrayVisible())
-    {
-        return;
-    }
-
-    setValue("app/systemTrayVisible", systemTrayVisible);
+    writeBool("app/systemTrayVisible", newValue);
 
     emit appSystemTrayVisibleChanged();
 }
 
 bool Settings::appStartMinimizedToTray() const
 {
-    return (contains("app/startMinimizedToTray"))
-             ? value("app/startMinimizedToTray").toBool()
-             : getDefault("app/startMinimizedToTray").toBool();
+    return readBool("app/startMinimizedToTray");
 }
 
-void Settings::setAppStartMinimizedToTray(const bool &startMinimizedToTray)
+void Settings::setAppStartMinimizedToTray(const bool &newValue)
 {
-    if (startMinimizedToTray == appStartMinimizedToTray())
-    {
-        return;
-    }
-
-    setValue("app/startMinimizedToTray", startMinimizedToTray);
+    writeBool("app/startMinimizedToTray", newValue);
 
     emit appStartMinimizedToTrayChanged();
 }
@@ -243,17 +210,16 @@ Station *Settings::privateLastSavedStation() const
              : new Station;
 }
 
-void Settings::setPrivateLastSavedStation(Station *lastSavedStation)
+void Settings::setPrivateLastSavedStation(Station *newValue)
 {
     Station *currentLastSavedStation = privateLastSavedStation();
 
-    if (lastSavedStation == currentLastSavedStation)
+    if (newValue == currentLastSavedStation)
     {
         return;
     }
 
-    setValue("private/lastSavedStation",
-             Station::toJsonObject(lastSavedStation));
+    setValue("private/lastSavedStation", Station::toJsonObject(newValue));
 
     currentLastSavedStation->deleteLater();
 
@@ -262,85 +228,48 @@ void Settings::setPrivateLastSavedStation(Station *lastSavedStation)
 
 Player::State Settings::privateLastSavedPlayerState() const
 {
-    bool ok;
-    const int lastSavedPlayerState
-        = value("private/lastSavedPlayerState").toInt(&ok);
-
-    const QMetaEnum metaEnum = QMetaEnum::fromType<Player::State>();
-
-    return (contains("private/lastSavedPlayerState") && ok
-            && metaEnum.valueToKey(lastSavedPlayerState))
-             ? static_cast<Player::State>(lastSavedPlayerState)
-             : static_cast<Player::State>(
-                   getDefault("private/lastSavedPlayerState").toInt());
+    return readEnum<Player::State>("private/lastSavedPlayerState");
 }
 
-void Settings::setPrivateLastSavedPlayerState(
-    const Player::State &lastSavedPlayerState)
+void Settings::setPrivateLastSavedPlayerState(const Player::State &newValue)
 {
-    if (lastSavedPlayerState == privateLastSavedPlayerState())
-    {
-        return;
-    }
-
-    setValue("private/lastSavedPlayerState", lastSavedPlayerState);
+    writeEnum("private/lastSavedPlayerState", newValue);
 
     emit privateLastSavedPlayerStateChanged();
 }
 
 bool Settings::playbackResumeOnStart() const
 {
-    return (contains("playback/resumeOnStart"))
-             ? value("playback/resumeOnStart").toBool()
-             : getDefault("playback/resumeOnStart").toBool();
+    return readBool("playback/resumeOnStart");
 }
 
-void Settings::setPlaybackResumeOnStart(const bool &resumeOnStart)
+void Settings::setPlaybackResumeOnStart(const bool &newValue)
 {
-    if (resumeOnStart == playbackResumeOnStart())
-    {
-        return;
-    }
-
-    setValue("playback/resumeOnStart", resumeOnStart);
+    writeBool("playback/resumeOnStart", newValue);
 
     emit playbackResumeOnStartChanged();
 }
 
 bool Settings::playbackAutoPlayOnStart() const
 {
-    return (contains("playback/autoPlayOnStart"))
-             ? value("playback/autoPlayOnStart").toBool()
-             : getDefault("playback/autoPlayOnStart").toBool();
+    return readBool("playback/autoPlayOnStart");
 }
 
-void Settings::setPlaybackAutoPlayOnStart(const bool &autoPlayOnStart)
+void Settings::setPlaybackAutoPlayOnStart(const bool &newValue)
 {
-    if (autoPlayOnStart == playbackAutoPlayOnStart())
-    {
-        return;
-    }
-
-    setValue("playback/autoPlayOnStart", autoPlayOnStart);
+    writeBool("playback/autoPlayOnStart", newValue);
 
     emit playbackAutoPlayOnStartChanged();
 }
 
 bool Settings::playbackResumeOnBackOnline() const
 {
-    return (contains("playback/resumeOnBackOnline"))
-             ? value("playback/resumeOnBackOnline").toBool()
-             : getDefault("playback/resumeOnBackOnline").toBool();
+    return readBool("playback/resumeOnBackOnline");
 }
 
-void Settings::setPlaybackResumeOnBackOnline(const bool &resumeOnBackOnline)
+void Settings::setPlaybackResumeOnBackOnline(const bool &newValue)
 {
-    if (resumeOnBackOnline == playbackResumeOnBackOnline())
-    {
-        return;
-    }
-
-    setValue("playback/resumeOnBackOnline", resumeOnBackOnline);
+    writeBool("playback/resumeOnBackOnline", newValue);
 
     emit playbackResumeOnBackOnlineChanged();
 }
