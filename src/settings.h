@@ -3,11 +3,9 @@
 #include "discord.h"
 #include "player/player.h"
 #include "player/station.h"
+#include "settingsbase.h"
 
-#include <QQmlEngine>
-#include <QSettings>
-
-class Settings : public QSettings
+class Settings : public SettingsBase
 {
     Q_OBJECT
     QML_SINGLETON
@@ -83,16 +81,7 @@ private:
 
     Settings();
 
-    QVariant getDefault(const QString &path) const;
-
-    bool readBool(const QString &path) const;
-    void writeBool(const QString &path, const bool &newValue);
-
-    int readInt(const QString &path) const;
-    void writeInt(const QString &path, const int &newValue);
-
-    template<typename T> T readEnum(const QString &path) const;
-    void writeEnum(const QString &path, const int &newValue);
+    QVariant getDefault(const QString &path) const override;
 
 public:
     static Settings *instance();

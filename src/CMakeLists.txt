@@ -3,6 +3,8 @@ qt_add_executable(
     main.cpp
     discord.h
     discord.cpp
+    settingsbase.h
+    settingsbase.cpp
     icons/icons.qrc
     qml/qml.qrc
     Radio.rc
@@ -19,6 +21,8 @@ qt_add_qml_module(
         dialogcontroller.cpp
         settings.h
         settings.cpp
+        stylesettings.h
+        stylesettings.cpp
         networkinformation.h
         networkinformation.cpp
     RESOURCE_PREFIX /zet0x0.github.io/qml/imports
