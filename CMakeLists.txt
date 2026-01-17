@@ -20,7 +20,7 @@ find_package(
         Qml
 )
 
-qt_standard_project_setup(REQUIRES 6.8)
+qt_standard_project_setup(REQUIRES 6.10)
 
 link_directories(${CMAKE_SOURCE_DIR}/libmpv)
 include_directories(${CMAKE_SOURCE_DIR}/libmpv/include)
